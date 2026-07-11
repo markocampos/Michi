@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432">
+  <defs>
+    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D5016"/>
+      <stop offset="100%" style="stop-color:#4A7C28"/>
+    </linearGradient>
+  </defs>
+  <!-- Full background for adaptive icon -->
+  <rect width="432" height="432" fill="url(#fg)"/>
+  <!-- Enso circle -->
+  <path d="M216 70
+    C310 70, 390 150, 390 216
+    C390 310, 310 390, 216 390
+    C122 390, 50 310, 50 216
+    C50 148, 100 92, 175 70"
+    fill="none"
+    stroke="#FAFAF8"
+    stroke-width="16"
+    stroke-linecap="round"
+    opacity="0.95"/>
+  <!-- Central path line -->
+  <line x1="216" y1="150" x2="216" y2="282" stroke="#FAFAF8" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Path dots -->
+  <circle cx="216" cy="175" r="4.5" fill="#FAFAF8" opacity="0.75"/>
+  <circle cx="216" cy="200" r="4.5" fill="#FAFAF8" opacity="0.75"/>
+  <circle cx="216" cy="225" r="4.5" fill="#FAFAF8" opacity="0.75"/>
+  <circle cx="216" cy="250" r="4.5" fill="#FAFAF8" opacity="0.75"/>
+  <circle cx="216" cy="275" r="4.5" fill="#FAFAF8" opacity="0.75"/>
+  <!-- Kanji watermark -->
+  <text x="216" y="232" text-anchor="middle" font-family="serif" font-size="44" fill="#FAFAF8" opacity="0.12">道</text>
+</svg>

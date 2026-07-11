@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-white: #FAFAF8;
+  --color-charcoal: #2D2D2D;
+  --color-forest: #5B7B5E;
+  --color-forest-dark: #3D5A3F;
+  --color-earth: #C4A882;
+  --color-earth-dark: #8B7355;
+  --color-torii: #B34233;
+  --color-muted: #6B6B6B;
+  --color-dark-bg: #1A1A1A;
+}
+
+body {
+  font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
+  background-color: #FAFAF8;
+  color: #2D2D2D;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark body,
+body.dark {
+  background-color: #1A1A1A;
+  color: #E8E8E8;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+/* Glassmorphism & UI improvements */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: rgba(26, 26, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth active states for buttons */
+button:active {
+  transform: scale(0.97);
+  transition: transform 0.1s;
+}
