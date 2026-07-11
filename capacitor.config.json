@@ -1,0 +1,13 @@
+{
+  "appId": "com.michi.app",
+  "appName": "Michi",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "CapacitorSQLite": {
+      "androidDatabaseLocation": "Default"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D5016"/>
+      <stop offset="100%" style="stop-color:#4A7C28"/>
+    </linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="24" fill="url(#bg)"/>
+  <!-- Simplified enso stroke -->
+  <path d="M24 7 C33 7, 41 15, 41 24 C41 33, 33 41, 24 41 C15 41, 7 33, 7 24 C7 17, 11 11, 17 8.5"
+    fill="none" stroke="#FAFAF8" stroke-width="3.5" stroke-linecap="round" opacity="0.9"/>
+  <!-- Central path dot -->
+  <circle cx="24" cy="24" r="3" fill="#FAFAF8" opacity="0.85"/>
+</svg>
