@@ -2,11 +2,11 @@
 
 A Japanese philosophy-based daily practice app that helps you transform your life slowly through seven timeless concepts.
 
-[![Build APK](https://github.com/YOUR_USERNAME/michi/actions/workflows/build-apk.yml/badge.svg)](https://github.com/YOUR_USERNAME/michi/actions/workflows/build-apk.yml)
+[![Build APK](https://github.com/markocampos/michi/actions/workflows/build-apk.yml/badge.svg)](https://github.com/markocampos/michi/actions/workflows/build-apk.yml)
 
 ## Download
 
-Get the latest APK from [Releases](https://github.com/YOUR_USERNAME/michi/releases/latest)
+Get the latest APK from [Releases](https://github.com/markocampos/michi/releases/latest)
 
 ## The Seven Practices
 
