@@ -38,6 +38,9 @@ jobs:
       - name: Sync web assets to Android
         run: npx cap sync android
 
+      - name: Generate Capacitor assets
+        run: npx @capacitor/assets generate --assetPath public
+
       - name: Build debug APK
         run: cd android && ./gradlew assembleDebug
         env:
