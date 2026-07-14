@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center mb-8">
-      <span class="text-4xl mb-3 block">🎯</span>
+      <Icon icon="lucide:target" class="w-10 h-10 text-forest mx-auto mb-3" />
       <h1 class="text-2xl font-bold text-charcoal">Ikigai</h1>
       <p class="text-sm text-muted mt-1">生きがい - Your reason for being</p>
     </div>
@@ -23,7 +23,9 @@
         <p class="text-xs text-forest font-medium mb-2">{{ prompts[currentStep].jp }}</p>
         <h2 class="text-xl font-semibold text-charcoal mb-2">{{ prompts[currentStep].title }}</h2>
         <p class="text-sm text-muted mb-4">{{ prompts[currentStep].subtitle }}</p>
+        <label :for="`ikigai-step-${currentStep}`" class="sr-only">{{ prompts[currentStep].title }}</label>
         <textarea
+          :id="`ikigai-step-${currentStep}`"
           v-model="answers[currentStep]"
           :placeholder="prompts[currentStep].placeholder"
           class="w-full h-32 p-4 border border-gray-200/50 bg-white/50 rounded-xl text-charcoal resize-none focus:outline-none focus:border-forest transition-colors"
@@ -34,12 +36,14 @@
         <button
           v-if="currentStep > 0"
           @click="currentStep--"
+          aria-label="Go to previous step"
           class="flex-1 py-3 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
         >
           Previous
         </button>
         <button
           @click="nextStep"
+          :aria-label="currentStep === prompts.length - 1 ? 'Complete reflection' : 'Go to next step'"
           class="flex-1 py-3 rounded-xl bg-forest text-white font-medium hover:bg-forest-dark transition-colors"
         >
           {{ currentStep === prompts.length - 1 ? 'Complete' : 'Next' }}
@@ -70,6 +74,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import { Icon } from '@iconify/vue';
 import { ikigaiPrompts } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
 

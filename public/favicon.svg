@@ -1,14 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2D5016"/>
-      <stop offset="100%" style="stop-color:#4A7C28"/>
-    </linearGradient>
-  </defs>
-  <circle cx="24" cy="24" r="24" fill="url(#bg)"/>
-  <!-- Simplified enso stroke -->
-  <path d="M24 7 C33 7, 41 15, 41 24 C41 33, 33 41, 24 41 C15 41, 7 33, 7 24 C7 17, 11 11, 17 8.5"
-    fill="none" stroke="#FAFAF8" stroke-width="3.5" stroke-linecap="round" opacity="0.9"/>
-  <!-- Central path dot -->
-  <circle cx="24" cy="24" r="3" fill="#FAFAF8" opacity="0.85"/>
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="24" fill="#5B7B5E"/>
+  
+  <!-- Enso brush stroke - simplified open circle -->
+  <path d="M24 7
+    C33 7, 41 15, 41 24
+    C41 33, 33 41, 24 41
+    C15 41, 7 33, 7 24
+    C7 18, 10 13, 15 9"
+    fill="none"
+    stroke="#FAFAF8"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    opacity="0.95"/>
+  
+  <!-- Brush stroke gap -->
+  <path d="M15 9
+    C17 8, 20 7, 24 7"
+    fill="none"
+    stroke="#5B7B5E"
+    stroke-width="3"
+    stroke-linecap="round"/>
+  
+  <!-- Ginkgo leaf - simplified -->
+  <path d="M24 14
+    C21 10, 17 9, 15 11
+    C13 13, 15 16, 18 15
+    C20 14, 22 13, 24 14
+    C26 13, 28 14, 30 15
+    C33 16, 35 13, 33 11
+    C31 9, 27 10, 24 14Z"
+    fill="#FAFAF8" opacity="0.9"/>
+  
+  <!-- Ginkgo stem -->
+  <line x1="24" y1="14" x2="24" y2="10" stroke="#FAFAF8" stroke-width="1" stroke-linecap="round" opacity="0.9"/>
 </svg>

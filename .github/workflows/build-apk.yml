@@ -2,11 +2,12 @@ name: Build APK
 
 on:
   push:
-    branches: [main]
+    tags: ['v*']
   workflow_dispatch:
 
 jobs:
   build:
+    name: Build Android APK
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -19,57 +20,75 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build
+
+      - name: Read app version
+        id: version
+        run: echo "version=$(node --input-type=module -e "import { APP_VERSION_NUMBER } from './src/version.js'; console.log(APP_VERSION_NUMBER)")" >> $GITHUB_OUTPUT
+
+      - name: Generate PWA icons
+        run: npm run icons
+
+      - name: Build web app
+        run: npm run build
 
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
 
-      - name: Verify Java version
-        run: java -version
-
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Capacitor Android
-        run: npx cap add android
+      - name: Add Android platform
+        run: npx cap add android || true
 
       - name: Sync web assets to Android
         run: npx cap sync android
+
+      - name: Generate Capacitor assets
+        run: npx --yes @capacitor/assets generate --assetPath public
+
+      - name: Build release APK
+        run: cd android && ./gradlew assembleRelease
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME }}
 
       - name: Build debug APK
         run: cd android && ./gradlew assembleDebug
         env:
           JAVA_HOME: ${{ env.JAVA_HOME }}
 
-      - name: Rename APK
-        run: mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/michi.apk
+      - name: Rename APKs
+        run: |
+          mv android/app/build/outputs/apk/release/app-release-unsigned.apk android/app/build/outputs/apk/release/michi-v${{ steps.version.outputs.version }}-release.apk 2>/dev/null || true
+          mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/michi-v${{ steps.version.outputs.version }}-debug.apk
 
-      - name: Upload APK artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: michi-apk
-          path: android/app/build/outputs/apk/debug/michi.apk
+          path: |
+            android/app/build/outputs/apk/release/michi-v*.apk
+            android/app/build/outputs/apk/debug/michi-v*.apk
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: build-${{ github.run_number }}
-          name: "Michi Build #${{ github.run_number }}"
-          files: android/app/build/outputs/apk/debug/michi.apk
+          tag_name: v${{ steps.version.outputs.version }}
+          name: "Michi v${{ steps.version.outputs.version }}"
+          files: |
+            android/app/build/outputs/apk/debug/michi-v*.apk
           generate_release_notes: true
           body: |
-            ## Michi 道 - Japanese Philosophy Daily Practice App
+            ## Michi 道 v${{ steps.version.outputs.version }}
 
-            Download the APK below to install on your Android device.
+            ### Download
+            Install the APK on your Android device.
 
-            ### What's included
-            - Ikigai purpose-finding reflections
-            - Wabi-sabi imperfection journal
-            - Ma breathing timer
-            - Kaizen micro-habit tracker
-            - Shinrin-yoku forest walk timer
-            - Gaman endurance challenges
-            - Mono no aware gratitude journal
-        if: github.ref == 'refs/heads/main'
+            ### What's New
+            See [CHANGELOG.md](CHANGELOG.md) for full details.
+
+            ### Installation
+            1. Download the APK below
+            2. Open it on your Android device
+            3. Allow installation from unknown sources if prompted

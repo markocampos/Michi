@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center mb-8">
-      <span class="text-4xl mb-3 block">🌸</span>
+      <Icon icon="lucide:flower-2" class="w-10 h-10 text-forest mx-auto mb-3" />
       <h1 class="text-2xl font-bold text-charcoal">Mono no aware</h1>
       <p class="text-sm text-muted mt-1">物の哀れ - Awareness of impermanence</p>
       <div class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium" :style="{ backgroundColor: season.color + '30', color: season.color }">
@@ -21,12 +21,16 @@
     <div v-else class="mb-6">
       <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50">
         <p class="text-sm text-forest mb-3">{{ currentPrompt }}</p>
+        <label for="gratitude-input" class="sr-only">Gratitude reflection</label>
         <textarea
+          id="gratitude-input"
           v-model="gratitude"
           placeholder="What are you grateful for..."
           class="w-full h-24 p-4 border border-gray-200/50 bg-white/50 rounded-xl text-charcoal resize-none focus:outline-none focus:border-forest transition-colors mb-3"
         />
+        <label for="impermanence-input" class="sr-only">Impermanence reflection</label>
         <textarea
+          id="impermanence-input"
           v-model="impermanence"
           placeholder="What impermanence taught you today..."
           class="w-full h-24 p-4 border border-gray-200/50 bg-white/50 rounded-xl text-charcoal resize-none focus:outline-none focus:border-forest transition-colors"
@@ -63,6 +67,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { Icon } from '@iconify/vue';
 import { mononoawarePrompts, getSeason } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
 

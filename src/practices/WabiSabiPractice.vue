@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center mb-8">
-      <span class="text-4xl mb-3 block">🍂</span>
+      <Icon icon="lucide:leaf" class="w-10 h-10 text-forest mx-auto mb-3" />
       <h1 class="text-2xl font-bold text-charcoal">Wabi-sabi</h1>
       <p class="text-sm text-muted mt-1">侘寂 - Beauty in imperfection</p>
     </div>
@@ -19,7 +19,9 @@
       <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50">
         <p class="text-sm text-muted italic mb-4">"Once saved, this entry cannot be edited — embrace the imperfection."</p>
         <p class="text-sm text-forest mb-3">{{ currentPrompt }}</p>
+        <label for="wabisabi-entry" class="sr-only">Write about an imperfection you embrace today</label>
         <textarea
+          id="wabisabi-entry"
           v-model="newText"
           placeholder="Write about an imperfection you embrace today..."
           class="w-full h-32 p-4 border border-gray-200/50 bg-white/50 rounded-xl text-charcoal resize-none focus:outline-none focus:border-forest transition-colors"
@@ -50,7 +52,10 @@
       >
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs text-muted">{{ entry.date }}</span>
-          <span class="text-xs text-earth">🔒 immutable</span>
+          <span class="text-xs text-earth flex items-center gap-1">
+            <Icon icon="lucide:lock" class="w-3 h-3" />
+            immutable
+          </span>
         </div>
         <p class="text-charcoal leading-relaxed">{{ entry.text }}</p>
         <p v-if="entry.mood" class="text-xs text-muted mt-2">Mood: {{ entry.mood }}</p>
@@ -65,6 +70,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { Icon } from '@iconify/vue';
 import { wabisabiPrompts } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
 

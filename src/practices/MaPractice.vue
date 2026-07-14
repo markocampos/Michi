@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center justify-center min-h-[60vh]">
     <div class="text-center mb-8">
-      <span class="text-4xl mb-3 block">🫧</span>
+      <Icon icon="lucide:wind" class="w-10 h-10 text-forest mx-auto mb-3" />
       <h1 class="text-2xl font-bold text-charcoal">Ma</h1>
       <p class="text-sm text-muted mt-1">間 - The space between</p>
     </div>
@@ -40,23 +40,26 @@
       <button
         v-if="!isRunning"
         @click="start"
-        class="w-16 h-16 rounded-full bg-forest text-white text-2xl flex items-center justify-center hover:bg-forest-dark transition-colors shadow-lg hover:shadow-xl"
+        aria-label="Start meditation timer"
+        class="w-16 h-16 rounded-full bg-forest text-white flex items-center justify-center hover:bg-forest-dark transition-colors shadow-lg hover:shadow-xl"
       >
-        ▶
+        <Icon icon="lucide:play" class="w-6 h-6" />
       </button>
       <button
         v-else
         @click="stop"
-        class="w-16 h-16 rounded-full bg-torii text-white text-2xl flex items-center justify-center hover:opacity-90 transition-colors shadow-lg"
+        aria-label="Pause meditation timer"
+        class="w-16 h-16 rounded-full bg-torii text-white flex items-center justify-center hover:opacity-90 transition-colors shadow-lg"
       >
-        ⏸
+        <Icon icon="lucide:pause" class="w-6 h-6" />
       </button>
       <button
         v-if="elapsed > 0"
         @click="reset"
-        class="w-16 h-16 rounded-full bg-white border border-gray-200 text-muted text-2xl flex items-center justify-center hover:bg-gray-50 transition-colors"
+        aria-label="Reset timer"
+        class="w-16 h-16 rounded-full bg-white border border-gray-200 text-muted flex items-center justify-center hover:bg-gray-50 transition-colors"
       >
-        ↺
+        <Icon icon="lucide:rotate-ccw" class="w-5 h-5" />
       </button>
     </div>
 
@@ -68,6 +71,7 @@
 
 <script setup>
 import { watch } from 'vue';
+import { Icon } from '@iconify/vue';
 import { useTimer } from '../composables/useTimer.js';
 import { useStorage } from '../composables/useStorage.js';
 

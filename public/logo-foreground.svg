@@ -1,31 +1,77 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432">
-  <defs>
-    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2D5016"/>
-      <stop offset="100%" style="stop-color:#4A7C28"/>
-    </linearGradient>
-  </defs>
-  <!-- Full background for adaptive icon -->
-  <rect width="432" height="432" fill="url(#fg)"/>
-  <!-- Enso circle -->
-  <path d="M216 70
-    C310 70, 390 150, 390 216
-    C390 310, 310 390, 216 390
-    C122 390, 50 310, 50 216
-    C50 148, 100 92, 175 70"
+  <!-- Background - forest green -->
+  <rect width="432" height="432" fill="#5B7B5E"/>
+  
+  <!-- Enso brush stroke - open circle representing the path -->
+  <path d="M216 68
+    C299 68, 364 133, 364 216
+    C364 299, 299 364, 216 364
+    C133 364, 68 299, 68 216
+    C68 152, 110 98, 169 78"
     fill="none"
     stroke="#FAFAF8"
-    stroke-width="16"
+    stroke-width="15"
     stroke-linecap="round"
     opacity="0.95"/>
-  <!-- Central path line -->
-  <line x1="216" y1="150" x2="216" y2="282" stroke="#FAFAF8" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
-  <!-- Path dots -->
-  <circle cx="216" cy="175" r="4.5" fill="#FAFAF8" opacity="0.75"/>
-  <circle cx="216" cy="200" r="4.5" fill="#FAFAF8" opacity="0.75"/>
-  <circle cx="216" cy="225" r="4.5" fill="#FAFAF8" opacity="0.75"/>
-  <circle cx="216" cy="250" r="4.5" fill="#FAFAF8" opacity="0.75"/>
-  <circle cx="216" cy="275" r="4.5" fill="#FAFAF8" opacity="0.75"/>
-  <!-- Kanji watermark -->
-  <text x="216" y="232" text-anchor="middle" font-family="serif" font-size="44" fill="#FAFAF8" opacity="0.12">道</text>
+  
+  <!-- Brush stroke gap texture - the opening at the top -->
+  <path d="M169 78
+    C184 73, 200 70, 216 68"
+    fill="none"
+    stroke="#5B7B5E"
+    stroke-width="18"
+    stroke-linecap="round"/>
+  
+  <!-- Zen stones stack -->
+  <ellipse cx="216" cy="290" rx="46" ry="15" fill="#FAFAF8" opacity="0.9"/>
+  <ellipse cx="216" cy="264" rx="35" ry="12" fill="#FAFAF8" opacity="0.9"/>
+  <ellipse cx="216" cy="243" rx="25" ry="9" fill="#FAFAF8" opacity="0.9"/>
+  
+  <!-- Shiba Inu silhouette -->
+  <path d="M216 298
+    C194 298, 177 285, 177 268
+    C177 251, 189 234, 202 226
+    L197 205
+    C197 205, 206 188, 216 184
+    C226 188, 235 205, 235 205
+    L230 226
+    C243 234, 255 251, 255 268
+    C255 285, 238 298, 216 298Z"
+    fill="#FAFAF8" opacity="0.95"/>
+  
+  <!-- Shiba ears -->
+  <path d="M202 226 L193 205 L207 214Z" fill="#FAFAF8" opacity="0.95"/>
+  <path d="M230 226 L240 205 L225 214Z" fill="#FAFAF8" opacity="0.95"/>
+  
+  <!-- Shiba tail (curled) -->
+  <path d="M255 268
+    C270 264, 282 251, 278 234
+    C274 221, 262 217, 253 225
+    C248 231, 251 242, 255 268"
+    fill="#FAFAF8" opacity="0.95"/>
+  
+  <!-- Ginkgo leaf -->
+  <path d="M216 102
+    C202 85, 185 81, 177 89
+    C169 97, 177 110, 190 108
+    C198 106, 207 99, 216 102
+    C225 99, 234 106, 242 108
+    C255 110, 263 97, 255 89
+    C247 81, 230 85, 216 102Z"
+    fill="#FAFAF8" opacity="0.9"/>
+  
+  <!-- Ginkgo stem -->
+  <path d="M216 102 L216 76" stroke="#FAFAF8" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  
+  <!-- Path / road line through the center -->
+  <line x1="216" y1="144" x2="216" y2="290" stroke="#FAFAF8" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Path dots representing steps -->
+  <circle cx="216" cy="161" r="3" fill="#FAFAF8" opacity="0.8"/>
+  <circle cx="216" cy="178" r="3" fill="#FAFAF8" opacity="0.8"/>
+  <circle cx="216" cy="195" r="3" fill="#FAFAF8" opacity="0.8"/>
+  <circle cx="216" cy="212" r="3" fill="#FAFAF8" opacity="0.8"/>
+  
+  <!-- Kanji watermarks -->
+  <text x="216" y="405" text-anchor="middle" font-family="serif" font-size="27" fill="#FAFAF8" opacity="0.12">道</text>
 </svg>

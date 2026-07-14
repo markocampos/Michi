@@ -1,19 +1,22 @@
 {
   "name": "michi",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "start:server": "node server.js"
+    "start:server": "node server.js",
+    "icons": "node scripts/generate-pwa-icons.js",
+    "icons:android": "node scripts/generate-android-icons.js"
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^8.1.0",
     "@capacitor/android": "^8.4.1",
     "@capacitor/cli": "^7.6.7",
     "@capacitor/core": "^8.4.1",
+    "@iconify/vue": "^5.0.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "jeep-sqlite": "^2.8.0",
@@ -25,8 +28,11 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.2",
     "@vitejs/plugin-vue": "^6.0.7",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.3.2",
+    "terser": "^5.49.0",
     "typescript": "^7.0.2",
-    "vite": "^8.1.1"
+    "vite": "^8.1.1",
+    "vite-plugin-static-copy": "^4.1.1"
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center mb-8">
-      <span class="text-4xl mb-3 block">🌲</span>
+      <Icon icon="lucide:trees" class="w-10 h-10 text-forest mx-auto mb-3" />
       <h1 class="text-2xl font-bold text-charcoal">Shinrin-yoku</h1>
       <p class="text-sm text-muted mt-1">森林浴 - Forest bathing</p>
     </div>
@@ -9,9 +9,10 @@
     <div v-if="!walkActive && !showNotes">
       <button
         @click="startWalk"
-        class="w-full py-6 bg-forest rounded-2xl text-white text-lg font-medium hover:bg-forest-dark transition-colors shadow-lg mb-4"
+        class="w-full py-6 bg-forest rounded-2xl text-white text-lg font-medium hover:bg-forest-dark transition-colors shadow-lg mb-4 flex items-center justify-center gap-2"
       >
-        🌿 Start Forest Walk
+        <Icon icon="lucide:tree-pine" class="w-5 h-5" />
+        Start Forest Walk
       </button>
       <p class="text-center text-sm text-muted">Engage your senses. Be present in nature.</p>
     </div>
@@ -24,7 +25,10 @@
 
         <div class="grid grid-cols-2 gap-3 text-left">
           <div v-for="sense in senses" :key="sense.id" class="bg-white/30 rounded-xl p-3">
-            <p class="text-xs font-medium text-charcoal mb-1">{{ sense.icon }} {{ sense.name }}</p>
+            <div class="flex items-center gap-2 mb-1">
+              <Icon :icon="sense.icon" class="w-4 h-4 text-forest" />
+              <p class="text-xs font-medium text-charcoal">{{ sense.name }}</p>
+            </div>
             <p class="text-[10px] text-muted">{{ sense.prompt }}</p>
           </div>
         </div>
@@ -32,9 +36,10 @@
 
       <button
         @click="endWalk"
-        class="w-16 h-16 rounded-full bg-torii text-white text-2xl flex items-center justify-center mx-auto shadow-lg hover:shadow-xl transition-shadow"
+        aria-label="End forest walk"
+        class="w-16 h-16 rounded-full bg-torii text-white flex items-center justify-center mx-auto shadow-lg hover:shadow-xl transition-shadow"
       >
-        ⏹
+        <Icon icon="lucide:square" class="w-5 h-5" />
       </button>
     </div>
 
@@ -43,8 +48,13 @@
         <h2 class="text-lg font-semibold text-charcoal mb-4">Sensory Notes</h2>
         <div class="space-y-3">
           <div v-for="sense in senses" :key="sense.id">
-            <label class="text-sm text-muted block mb-1">{{ sense.icon }} {{ sense.name }}</label>
+            <label class="text-sm text-muted block mb-1 flex items-center gap-2">
+              <Icon :icon="sense.icon" class="w-4 h-4" />
+              {{ sense.name }}
+            </label>
+            <label :for="`sense-${sense.id}`" class="sr-only">{{ sense.name }} notes</label>
             <input
+              :id="`sense-${sense.id}`"
               v-model="notes[sense.id]"
               :placeholder="sense.prompt"
               class="w-full p-3 border border-gray-200/50 bg-white/50 rounded-xl text-sm focus:outline-none focus:border-forest transition-colors"
@@ -79,6 +89,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import { Icon } from '@iconify/vue';
 import { useTimer } from '../composables/useTimer.js';
 import { useStorage } from '../composables/useStorage.js';
 
@@ -90,10 +101,10 @@ const showNotes = ref(false);
 const notes = reactive({ sight: '', sound: '', smell: '', touch: '' });
 
 const senses = [
-  { id: 'sight', name: 'Sight', icon: '👁', prompt: 'What do you see?' },
-  { id: 'sound', name: 'Sound', icon: '👂', prompt: 'What do you hear?' },
-  { id: 'smell', name: 'Smell', icon: '👃', prompt: 'What do you smell?' },
-  { id: 'touch', name: 'Touch', icon: '✋', prompt: 'What do you feel?' },
+  { id: 'sight', name: 'Sight', icon: 'lucide:eye', prompt: 'What do you see?' },
+  { id: 'sound', name: 'Sound', icon: 'lucide:ear', prompt: 'What do you hear?' },
+  { id: 'smell', name: 'Smell', icon: 'lucide:nose', prompt: 'What do you smell?' },
+  { id: 'touch', name: 'Touch', icon: 'lucide:hand', prompt: 'What do you feel?' },
 ];
 
 function startWalk() {

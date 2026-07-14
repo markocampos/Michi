@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center mb-8">
-      <span class="text-4xl mb-3 block">🏔</span>
+      <Icon icon="lucide:mountain" class="w-10 h-10 text-forest mx-auto mb-3" />
       <h1 class="text-2xl font-bold text-charcoal">Gaman</h1>
       <p class="text-sm text-muted mt-1">我慢 - Endurance and patience</p>
     </div>
@@ -21,6 +21,7 @@
           <p class="text-sm text-muted mb-3">{{ c.description }}</p>
           <button
             @click="joinChallenge(c)"
+            :aria-label="`Commit to ${c.name} for ${c.days} days`"
             class="w-full py-2 bg-forest text-white rounded-lg text-sm font-medium hover:bg-forest-dark transition-colors"
           >
             Commit to {{ c.days }} Days
@@ -57,10 +58,13 @@
           <div class="flex items-center gap-3">
             <button
               @click="toggleDay(c)"
-              class="flex-1 py-3 rounded-xl font-medium transition-all"
+              :aria-label="isCompletedToday(c) ? 'Mark today as incomplete' : 'Mark today as complete'"
+              :aria-pressed="isCompletedToday(c)"
+              class="flex-1 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
               :class="isCompletedToday(c) ? 'bg-forest text-white shadow-md' : 'bg-gray-100 text-charcoal hover:bg-gray-200'"
             >
-              {{ isCompletedToday(c) ? '✓ Done Today' : 'Mark Today Complete' }}
+              <Icon v-if="isCompletedToday(c)" icon="lucide:check" class="w-4 h-4" />
+              {{ isCompletedToday(c) ? 'Done Today' : 'Mark Today Complete' }}
             </button>
           </div>
 
@@ -110,6 +114,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { Icon } from '@iconify/vue';
 import { gamanChallenges } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
 

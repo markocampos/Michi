@@ -1,7 +1,9 @@
-import { reactive, watch, computed } from 'vue';
+import { reactive, watch, computed, onUnmounted } from 'vue';
 import { Capacitor } from '@capacitor/core';
-import { CapacitorSQLite, SQLiteConnection } from '@capacitor-community/sqlite';
 
+/**
+ * Global reactive store shared across all useStorage instances
+ */
 export const globalStore = reactive({});
 let isInitialized = false;
 let db = null;
@@ -9,11 +11,10 @@ let db = null;
 const isNative = Capacitor.isNativePlatform();
 
 async function initDatabase() {
-  const sqlite = new SQLiteConnection(CapacitorSQLite);
+  if (!isNative) return;
 
-  if (!isNative) {
-    await sqlite.initWebStore();
-  }
+  const { CapacitorSQLite, SQLiteConnection } = await import('@capacitor-community/sqlite');
+  const sqlite = new SQLiteConnection(CapacitorSQLite);
 
   db = await sqlite.createConnection('michi', false, 'no-encryption', 1, false);
   await db.open();
@@ -26,17 +27,22 @@ async function initDatabase() {
   `);
 }
 
+/**
+ * Initialize the storage system. Must be called before using useStorage.
+ */
 export async function initStore() {
   if (isInitialized) return;
   try {
     await initDatabase();
-    const result = await db.query('SELECT key, value FROM store');
-    const rows = result.values || [];
-    for (const row of rows) {
-      try {
-        globalStore[row.key] = JSON.parse(row.value);
-      } catch {
-        // skip malformed entries
+    if (db) {
+      const result = await db.query('SELECT key, value FROM store');
+      const rows = result.values || [];
+      for (const row of rows) {
+        try {
+          globalStore[row.key] = JSON.parse(row.value);
+        } catch {
+          // skip malformed entries
+        }
       }
     }
   } catch (e) {
@@ -47,10 +53,10 @@ export async function initStore() {
 
 let timeoutIds = {};
 function saveToBackend(key, value) {
+  if (!db) return;
   if (timeoutIds[key]) clearTimeout(timeoutIds[key]);
   timeoutIds[key] = setTimeout(async () => {
     try {
-      if (!db) return;
       await db.run(
         'INSERT INTO store (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value',
         [key, JSON.stringify(value)]
@@ -61,6 +67,15 @@ function saveToBackend(key, value) {
   }, 500);
 }
 
+// Track active watchers for cleanup
+const activeWatchers = new Map();
+
+/**
+ * Reactive storage composable with automatic localStorage and SQLite sync.
+ * @param {string} key - Storage key
+ * @param {*} defaultValue - Default value if key doesn't exist
+ * @returns {ComputedRef} Reactive computed ref for the stored value
+ */
 export function useStorage(key, defaultValue) {
   if (!(key in globalStore)) {
     try {
@@ -72,10 +87,25 @@ export function useStorage(key, defaultValue) {
     saveToBackend(key, globalStore[key]);
   }
 
-  watch(() => globalStore[key], (newValue) => {
+  // Clean up existing watcher for this key if any
+  if (activeWatchers.has(key)) {
+    activeWatchers.get(key)();
+    activeWatchers.delete(key);
+  }
+
+  const stopWatcher = watch(() => globalStore[key], (newValue) => {
     localStorage.setItem(key, JSON.stringify(newValue));
     saveToBackend(key, newValue);
   }, { deep: true });
+
+  activeWatchers.set(key, stopWatcher);
+
+  onUnmounted(() => {
+    if (activeWatchers.has(key)) {
+      activeWatchers.get(key)();
+      activeWatchers.delete(key);
+    }
+  });
 
   return computed({
     get: () => globalStore[key],
@@ -83,6 +113,12 @@ export function useStorage(key, defaultValue) {
   });
 }
 
+/**
+ * Read a JSON value from storage without creating a reactive watcher.
+ * @param {string} key - Storage key
+ * @param {*} fallback - Fallback value if key doesn't exist
+ * @returns {*} The stored value or fallback
+ */
 export function readJson(key, fallback) {
   if (key in globalStore) return globalStore[key];
   try {
@@ -93,7 +129,26 @@ export function readJson(key, fallback) {
   }
 }
 
+/**
+ * Read an array property from a stored JSON object.
+ * @param {string} key - Storage key
+ * @param {string} arrayProp - Property name of the array
+ * @returns {Array} The array or empty array
+ */
 export function safeReadArray(key, arrayProp) {
   const data = readJson(key, {});
   return data[arrayProp] || [];
+}
+
+/**
+ * Remove a key from storage.
+ * @param {string} key - Storage key to remove
+ */
+export function removeStorage(key) {
+  delete globalStore[key];
+  localStorage.removeItem(key);
+  if (activeWatchers.has(key)) {
+    activeWatchers.get(key)();
+    activeWatchers.delete(key);
+  }
 }
