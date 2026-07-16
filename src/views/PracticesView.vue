@@ -5,13 +5,12 @@
 
     <!-- Search -->
     <div class="relative mb-6">
-      <Icon icon="lucide:search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
       <input
         v-model="searchQuery"
-        type="search"
+        type="text"
         placeholder="Search practices..."
         aria-label="Search practices"
-        class="w-full pl-10 pr-4 py-3 glass rounded-xl border border-gray-100/50 text-charcoal placeholder-muted focus:outline-none focus:border-forest transition-colors"
+        class="w-full px-4 py-3 glass rounded-xl border border-gray-100/50 text-charcoal placeholder-muted focus:outline-none focus:border-forest transition-colors"
       />
       <button
         v-if="searchQuery"

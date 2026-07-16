@@ -6,11 +6,11 @@
       <p class="text-sm text-muted mt-1">間 - The space between</p>
     </div>
 
-    <div class="relative mb-8">
+    <div class="relative mb-8 flex items-center justify-center">
       <div
-        class="w-48 h-48 rounded-full border-4 transition-all duration-1000 flex items-center justify-center"
+        class="w-40 h-40 sm:w-48 sm:h-48 rounded-full border-4 transition-all duration-1000 flex items-center justify-center"
         :class="isRunning ? 'border-forest scale-110' : 'border-gray-200'"
-        :style="{ transform: `scale(${isRunning ? 1 + progress * 0.3 : 1})` }"
+        :style="{ transform: `scale(${isRunning ? Math.min(1 + progress * 0.2, 1.2) : 1})` }"
       >
         <div class="text-center">
           <p class="text-3xl font-light text-charcoal">{{ isRunning ? remaining : formattedTime }}</p>

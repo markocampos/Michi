@@ -42,26 +42,7 @@
       </div>
     </div>
 
-    <div class="space-y-3">
-      <div v-for="entry in data.entries" :key="entry.id" class="glass rounded-xl p-4 shadow-sm border border-gray-100/50">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs text-muted">{{ entry.date }}</span>
-          <span class="text-xs px-2 py-0.5 rounded-full" :style="{ backgroundColor: entry.season?.color + '30', color: entry.season?.color }">
-            {{ entry.season?.jp }}
-          </span>
-        </div>
-        <p v-if="entry.gratitude" class="text-charcoal text-sm mb-2">
-          <span class="text-forest font-medium">Grateful:</span> {{ entry.gratitude }}
-        </p>
-        <p v-if="entry.impermanence" class="text-charcoal text-sm">
-          <span class="text-earth font-medium">Impermanence:</span> {{ entry.impermanence }}
-        </p>
-      </div>
-    </div>
 
-    <p v-if="data.entries.length === 0 && !editing" class="text-center text-muted mt-8">
-      Begin your practice of noticing impermanence.
-    </p>
   </div>
 </template>
 

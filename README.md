@@ -4,13 +4,13 @@
   <p><em>Your Path to Mindfulness</em></p>
   
   <p>
-    <a href="https://github.com/markocampos/michi/actions/workflows/build-apk.yml">
-      <img src="https://github.com/markocampos/michi/actions/workflows/build-apk.yml/badge.svg" alt="Build APK" />
+    <a href="https://github.com/markocampos/Michi/actions/workflows/build-apk.yml">
+      <img src="https://github.com/markocampos/Michi/actions/workflows/build-apk.yml/badge.svg" alt="Build APK" />
     </a>
-    <a href="https://github.com/markocampos/michi/releases/latest">
+    <a href="https://github.com/markocampos/Michi/releases/latest">
       <img src="https://img.shields.io/github/v/release/markocampos/michi?color=5B7B5E" alt="Release" />
     </a>
-    <a href="https://github.com/markocampos/michi/blob/main/LICENSE">
+    <a href="https://github.com/markocampos/Michi/blob/main/LICENSE">
       <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
     </a>
   </p>
@@ -223,7 +223,7 @@ src/
 
 **Get the latest APK**
 
-[<img src="https://img.shields.io/badge/Download-5B7B5E?style=for-the-badge&logo=android&logoColor=white" />](https://github.com/markocampos/michi/releases/latest)
+[<img src="https://img.shields.io/badge/Download-5B7B5E?style=for-the-badge&logo=android&logoColor=white" />](https://github.com/markocampos/Michi/releases/latest)
 
 </div>
 
@@ -241,7 +241,7 @@ src/
 
 ```bash
 # Clone the repository
-git clone https://github.com/markocampos/michi.git
+git clone https://github.com/markocampos/Michi.git
 cd michi
 
 # Install dependencies
@@ -350,6 +350,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with 🧘 for mindful living**
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/markocampos/michi)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/markocampos/Michi)
 
 </div>

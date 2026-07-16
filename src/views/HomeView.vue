@@ -120,7 +120,7 @@
 </template>
 
 <script setup>
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import ProgressRing from '../components/ProgressRing.vue';
 import QuoteCard from '../components/QuoteCard.vue';
@@ -135,6 +135,22 @@ import { useNotifications } from '../composables/useNotifications.js';
 import { APP_VERSION } from '../version.js';
 
 const { sendStreakMilestone } = useNotifications();
+
+// Update checker
+const updateAvailable = ref(false);
+const latestVersion = ref('');
+
+async function checkForUpdate() {
+  try {
+    const res = await fetch('https://api.github.com/repos/markocampos/michi/releases/latest');
+    const data = await res.json();
+    latestVersion.value = data.tag_name;
+    updateAvailable.value = data.tag_name !== APP_VERSION;
+  } catch {
+    // Ignore errors — just don't show the banner
+  }
+}
+checkForUpdate();
 
 async function refreshData() {
   // Re-read from localStorage — forces reactivity update

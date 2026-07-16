@@ -51,16 +51,16 @@
             @click="toggleHabit(habit)"
             :aria-label="isCompletedToday(habit) ? `Mark ${habit.name} as incomplete` : `Mark ${habit.name} as complete`"
             :aria-pressed="isCompletedToday(habit)"
-            class="w-12 h-12 rounded-xl flex items-center justify-center transition-all"
+            class="w-11 h-11 flex-shrink-0 rounded-xl flex items-center justify-center transition-all"
             :class="isCompletedToday(habit) ? 'bg-forest text-white shadow-md' : 'bg-gray-100 text-muted hover:bg-gray-200'"
           >
             <Icon :icon="isCompletedToday(habit) ? 'lucide:check' : 'lucide:circle'" class="w-5 h-5" />
           </button>
-          <div class="flex-1 flex gap-1">
+          <div class="flex-1 min-w-0 flex gap-1 overflow-hidden">
             <div
               v-for="day in last7Days"
               :key="day.date"
-              class="flex-1 h-8 rounded-lg flex items-center justify-center text-[10px] transition-colors"
+              class="flex-1 h-8 min-w-0 rounded-lg flex items-center justify-center text-[9px] transition-colors"
               :class="habit.completedDates.includes(day.date) ? 'bg-forest/20 text-forest' : 'bg-gray-50 text-gray-300'"
             >
               {{ day.label }}

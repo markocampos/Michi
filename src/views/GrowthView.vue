@@ -14,64 +14,127 @@
       </div>
     </div>
 
-    <h1 class="text-2xl font-bold text-charcoal mb-2 md:text-3xl lg:text-4xl">Growth</h1>
-    <p class="text-sm text-muted mb-8">Your journey of continuous improvement</p>
-
-    <!-- Summary Stats -->
-    <div class="grid grid-cols-2 gap-4 mb-8 md:grid-cols-4 md:gap-5 lg:gap-6">
-      <div class="glass rounded-2xl p-4 shadow-sm border border-gray-100/50 text-center">
-        <div class="w-8 h-8 rounded-lg bg-forest/10 flex items-center justify-center mx-auto mb-2">
-          <Icon icon="lucide:wind" class="w-4 h-4 text-forest" />
-        </div>
-        <p class="text-2xl font-bold text-forest">{{ totalMeditationMin }}</p>
-        <p class="text-[10px] text-muted">total minutes meditated</p>
-      </div>
-      <div class="glass rounded-2xl p-4 shadow-sm border border-gray-100/50 text-center">
-        <div class="w-8 h-8 rounded-lg bg-forest/10 flex items-center justify-center mx-auto mb-2">
-          <Icon icon="lucide:trees" class="w-4 h-4 text-forest" />
-        </div>
-        <p class="text-2xl font-bold text-forest">{{ totalWalks }}</p>
-        <p class="text-[10px] text-muted">forest walks completed</p>
-      </div>
-      <div class="glass rounded-2xl p-4 shadow-sm border border-gray-100/50 text-center">
-        <div class="w-8 h-8 rounded-lg bg-forest/10 flex items-center justify-center mx-auto mb-2">
-          <Icon icon="lucide:book-open" class="w-4 h-4 text-forest" />
-        </div>
-        <p class="text-2xl font-bold text-forest">{{ totalEntries }}</p>
-        <p class="text-[10px] text-muted">journal entries written</p>
-      </div>
-      <div class="glass rounded-2xl p-4 shadow-sm border border-gray-100/50 text-center">
-        <div class="w-8 h-8 rounded-lg bg-forest/10 flex items-center justify-center mx-auto mb-2">
-          <Icon icon="lucide:flame" class="w-4 h-4 text-forest" />
-        </div>
-        <p class="text-2xl font-bold text-forest">{{ currentStreak }}</p>
-        <p class="text-[10px] text-muted">day streak (consecutive)</p>
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-charcoal md:text-3xl lg:text-4xl">Growth</h1>
+        <p class="text-sm text-muted mt-1">Your journey of continuous improvement</p>
       </div>
     </div>
 
-    <!-- Activity Heatmap -->
-    <div class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50 mb-6">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-charcoal">Activity Heatmap</h3>
-        <span class="text-[10px] text-muted">Last 28 days</span>
+    <!-- Zen Journey Banner -->
+    <div class="relative overflow-hidden glass rounded-3xl p-6 shadow-sm border border-gray-100/50 mb-8 flex flex-col md:flex-row items-center gap-6 text-center md:text-left bg-gradient-to-b from-white to-gray-50">
+      <div class="relative flex-shrink-0 mt-2 md:mt-0">
+        <Icon :icon="growthStage.icon" class="w-16 h-16" :class="growthStage.color" />
+        <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center">
+          <Icon icon="lucide:star" class="w-4 h-4 text-earth-dark" />
+        </div>
       </div>
-      <p class="text-[10px] text-muted mb-3">Each square = 1 day. Darker green = more practices done that day.</p>
-      <div class="grid grid-cols-7 gap-1">
+      <div class="flex-1 w-full">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-2 gap-2">
+          <div>
+            <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+              <h2 class="text-2xl font-bold text-charcoal">{{ growthStage.name }}</h2>
+              <span class="text-xs font-bold uppercase tracking-widest text-muted border border-gray-200 px-2 py-0.5 rounded-full">{{ growthStage.kanji }}</span>
+            </div>
+            <p class="text-sm text-charcoal/70">{{ growthStage.desc }}</p>
+          </div>
+          <div class="flex items-center justify-end gap-1.5 md:justify-end">
+            <p class="text-[11px] font-bold tracking-wider uppercase text-muted text-right">
+              {{ totalXP }} / {{ growthStage.nextThreshold }} XP
+            </p>
+            <button @click="showXpModal = true" class="text-muted hover:text-charcoal transition-colors p-1 -mr-1" aria-label="What is XP?">
+              <Icon icon="lucide:help-circle" class="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+        <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden shadow-inner">
+          <div class="h-full rounded-full transition-all duration-1000 ease-out" :class="growthStage.barColor" :style="{ width: `${growthStage.progress}%` }" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="grid grid-cols-2 gap-3 mb-8 md:grid-cols-4 md:gap-5">
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100/50 flex flex-col items-center justify-center relative overflow-hidden group hover:border-forest/30 transition-colors">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-forest/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Icon icon="lucide:wind" class="w-5 h-5 text-forest mb-2" />
+        <p class="text-2xl font-black text-charcoal mb-0.5">{{ totalMeditationMin }}<span class="text-xs font-medium text-muted ml-1">min</span></p>
+        <p class="text-[10px] text-muted font-medium uppercase tracking-wider">Meditated</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100/50 flex flex-col items-center justify-center relative overflow-hidden group hover:border-summer/30 transition-colors">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-summer/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Icon icon="lucide:trees" class="w-5 h-5 text-summer-dark mb-2" />
+        <p class="text-2xl font-black text-charcoal mb-0.5">{{ totalWalks }}<span class="text-xs font-medium text-muted ml-1">walks</span></p>
+        <p class="text-[10px] text-muted font-medium uppercase tracking-wider">Nature</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100/50 flex flex-col items-center justify-center relative overflow-hidden group hover:border-torii/30 transition-colors">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-torii/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Icon icon="lucide:book-open" class="w-5 h-5 text-torii mb-2" />
+        <p class="text-2xl font-black text-charcoal mb-0.5">{{ totalEntries }}<span class="text-xs font-medium text-muted ml-1">entries</span></p>
+        <p class="text-[10px] text-muted font-medium uppercase tracking-wider">Journaled</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100/50 flex flex-col items-center justify-center relative overflow-hidden group hover:border-earth/30 transition-colors">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-earth/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Icon icon="lucide:flame" class="w-5 h-5 text-earth-dark mb-2" />
+        <p class="text-2xl font-black text-charcoal mb-0.5">{{ currentStreak }}<span class="text-xs font-medium text-muted ml-1">days</span></p>
+        <p class="text-[10px] text-muted font-medium uppercase tracking-wider">Streak</p>
+      </div>
+    </div>
+
+    <!-- Activity Heatmap (Calendar Style) -->
+    <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100/50 mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h3 class="font-bold text-charcoal text-lg">Activity Calendar</h3>
+          <p class="text-xs text-muted mt-0.5">Your rhythm over the last 4 weeks</p>
+        </div>
+        <div class="text-right">
+          <p class="text-sm font-bold" :class="weeklyTrend >= 0 ? 'text-forest' : 'text-torii'">
+            {{ weeklyTrend >= 0 ? '+' : '' }}{{ weeklyTrend }}
+          </p>
+          <p class="text-[10px] text-muted">vs last week</p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-2">
+        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sun</div>
+        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Mon</div>
+        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Tue</div>
+        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Wed</div>
+        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Thu</div>
+        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Fri</div>
+        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sat</div>
+      </div>
+      
+      <div class="grid grid-cols-7 gap-1 sm:gap-2">
         <div
-          v-for="day in heatmap"
+          v-for="day in calendarDays"
           :key="day.date"
-          class="aspect-square rounded-sm flex items-center justify-center text-[7px] text-muted"
-          :class="day.count === 0 ? 'bg-gray-50' : day.count <= 2 ? 'bg-forest/20' : day.count <= 4 ? 'bg-forest/50' : 'bg-forest text-white'"
-          :title="`${day.date}: ${day.count} practice${day.count !== 1 ? 's' : ''}`"
-        />
+          class="aspect-square rounded-lg transition-all duration-300 flex items-center justify-center relative group"
+          :class="
+            day.isFuture ? 'bg-transparent border border-dashed border-gray-200' :
+            day.count === 0 ? 'bg-gray-50 border border-gray-100 hover:bg-gray-100' : 
+            day.count <= 1 ? 'bg-forest/20 border border-forest/10 hover:bg-forest/30' : 
+            day.count <= 2 ? 'bg-forest/40 border border-forest/20 hover:bg-forest/50' : 
+            day.count <= 3 ? 'bg-forest/70 border border-forest/30 hover:bg-forest/80 text-white' : 
+            'bg-forest border border-forest-dark text-white shadow-sm hover:bg-forest-dark'
+          "
+          :title="day.isFuture ? 'Future' : `${day.date}: ${day.count} practice${day.count !== 1 ? 's' : ''}`"
+        >
+          <span v-if="!day.isFuture" class="text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity" :class="day.count > 2 ? 'text-white' : 'text-charcoal/60'">
+            {{ day.dayOfMonth }}
+          </span>
+        </div>
       </div>
-      <div class="flex items-center justify-end gap-1 mt-2">
-        <span class="text-[9px] text-muted">Less</span>
-        <div class="w-3 h-3 rounded-sm bg-gray-50" />
-        <div class="w-3 h-3 rounded-sm bg-forest/20" />
-        <div class="w-3 h-3 rounded-sm bg-forest/50" />
-        <div class="w-3 h-3 rounded-sm bg-forest" />
-        <span class="text-[9px] text-muted">More</span>
+      
+      <div class="flex items-center justify-center sm:justify-end gap-1.5 mt-6">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-muted mr-2">Less</span>
+        <div class="w-4 h-4 rounded-md bg-gray-50 border border-gray-100" />
+        <div class="w-4 h-4 rounded-md bg-forest/20 border border-forest/10" />
+        <div class="w-4 h-4 rounded-md bg-forest/40 border border-forest/20" />
+        <div class="w-4 h-4 rounded-md bg-forest/70 border border-forest/30" />
+        <div class="w-4 h-4 rounded-md bg-forest border border-forest-dark" />
+        <span class="text-[10px] font-bold uppercase tracking-wider text-muted ml-2">More</span>
       </div>
     </div>
 
@@ -257,17 +320,23 @@
         Start a practice
       </router-link>
     </div>
+
+    <!-- XP Info Modal -->
+    <XpInfoModal v-if="showXpModal" @close="showXpModal = false" />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
+import XpInfoModal from '../components/XpInfoModal.vue';
 import { readJson } from '../composables/useStorage.js';
 import { calculateStreak, getHabitStreak } from '../utils/streaks.js';
 import { getLastNDays } from '../utils/dates.js';
 import { STORAGE_KEYS } from '../utils/storage-keys.js';
 import { usePullToRefresh } from '../composables/usePullToRefresh.js';
+
+const showXpModal = ref(false);
 
 async function refreshData() {
   await new Promise(r => setTimeout(r, 500));
@@ -306,14 +375,72 @@ const shinrinTotalMin = computed(() => {
   return walks.reduce((sum, w) => sum + Math.max(1, Math.round((w.duration || 0) / 60)), 0);
 });
 
-// --- Heatmap (last 28 days) ---
-const heatmap = computed(() => {
+// --- Growth XP & Stage ---
+const totalXP = computed(() => {
+  return totalMeditationMin.value + (totalWalks.value * 10) + (totalEntries.value * 5) + (currentStreak.value * 20);
+});
+
+const growthStage = computed(() => {
+  const xp = totalXP.value;
+  if (xp < 50) return { name: 'Seed', kanji: '種', desc: 'Just planted in the soil.', icon: 'lucide:seedling', color: 'text-earth-dark', barColor: 'bg-earth-dark', progress: (xp / 50) * 100, nextThreshold: 50 };
+  if (xp < 150) return { name: 'Sprout', kanji: '芽', desc: 'Reaching for the sun.', icon: 'lucide:sprout', color: 'text-spring-dark', barColor: 'bg-spring-dark', progress: ((xp - 50) / 100) * 100, nextThreshold: 150 };
+  if (xp < 350) return { name: 'Sapling', kanji: '若木', desc: 'Growing roots deep.', icon: 'lucide:tree-deciduous', color: 'text-forest', barColor: 'bg-forest', progress: ((xp - 150) / 200) * 100, nextThreshold: 350 };
+  if (xp < 700) return { name: 'Bamboo', kanji: '竹', desc: 'Strong, flexible, and resilient.', icon: 'lucide:trees', color: 'text-forest-dark', barColor: 'bg-forest-dark', progress: ((xp - 350) / 350) * 100, nextThreshold: 700 };
+  
+  const excess = xp - 700;
+  const level = Math.floor(excess / 500) + 1;
+  const progress = (excess % 500) / 500 * 100;
+  return { name: `Zen Garden (Lv ${level})`, kanji: '庭園', desc: 'A cultivated sanctuary of peace.', icon: 'lucide:mountain', color: 'text-charcoal', barColor: 'bg-charcoal', progress: progress, nextThreshold: 700 + (level * 500) };
+});
+
+// --- Heatmap (Aligned to Sunday-Saturday Calendar view) ---
+const calendarDays = computed(() => {
   const days = [];
+  
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  
+  // Find the upcoming Saturday to ensure grid aligns correctly ending on a Saturday
+  const upcomingSaturday = new Date(today);
+  upcomingSaturday.setDate(upcomingSaturday.getDate() + (6 - upcomingSaturday.getDay()));
+
+  // 28 days ending on upcoming Saturday (4 full weeks, Sun-Sat)
   for (let i = 27; i >= 0; i--) {
-    const d = new Date();
+    const d = new Date(upcomingSaturday);
     d.setDate(d.getDate() - i);
     const dateStr = d.toISOString().split('T')[0];
+    const dayOfMonth = d.getDate();
+    
+    const isFuture = dateStr > todayStr;
     let count = 0;
+    
+    if (!isFuture) {
+      if ((maData.sessions || []).some(s => s.date === dateStr)) count++;
+      if ((shinrinData.walks || []).some(w => w.date === dateStr)) count++;
+      if ((wabisabiData.entries || []).some(e => e.date === dateStr)) count++;
+      if ((mononoawareData.entries || []).some(e => e.date === dateStr)) count++;
+      if ((ikigaiData.reflections || []).some(r => r.date === dateStr)) count++;
+      if ((hanseiData.reflections || []).some(r => r.date === dateStr)) count++;
+      if ((kaizenData.habits || []).some(h => h.completedDates?.includes(dateStr))) count++;
+      if ((gamanData.challenges || []).some(c => c.completedDates?.includes(dateStr))) count++;
+    }
+    
+    days.push({ date: dateStr, count, isFuture, dayOfMonth });
+  }
+  return days;
+});
+
+// --- Weekly Trend ---
+const weeklyTrend = computed(() => {
+  let thisWeek = 0;
+  let lastWeek = 0;
+  
+  const d = new Date();
+  
+  for (let i = 0; i < 14; i++) {
+    const dateStr = d.toISOString().split('T')[0];
+    let count = 0;
+    
     if ((maData.sessions || []).some(s => s.date === dateStr)) count++;
     if ((shinrinData.walks || []).some(w => w.date === dateStr)) count++;
     if ((wabisabiData.entries || []).some(e => e.date === dateStr)) count++;
@@ -322,8 +449,13 @@ const heatmap = computed(() => {
     if ((hanseiData.reflections || []).some(r => r.date === dateStr)) count++;
     if ((kaizenData.habits || []).some(h => h.completedDates?.includes(dateStr))) count++;
     if ((gamanData.challenges || []).some(c => c.completedDates?.includes(dateStr))) count++;
-    days.push({ date: dateStr, count });
+    
+    if (i < 7) thisWeek += count;
+    else lastWeek += count;
+    
+    d.setDate(d.getDate() - 1);
   }
-  return days;
+  
+  return thisWeek - lastWeek;
 });
 </script>

@@ -8,26 +8,91 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --forest: #5B7B5E;
+      --forest-light: #7E9C81;
       --forest-dark: #3D5A3F;
       --charcoal: #2D2D2D;
       --muted: #6B6B6B;
       --earth: #C4A882;
-      --earth-dark: #8B7355;
+      --earth-light: #D9C2A3;
       --torii: #B34233;
       --cream: #FAFAF8;
       --white: #FFFFFF;
+      --glass-bg: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.6);
     }
 
-    body {
+    html, body {
       font-family: 'Outfit', sans-serif;
-      background: var(--cream);
       color: var(--charcoal);
       line-height: 1.6;
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      background-size: cover;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
+    /* Animated soft background elements */
+    .bg-animation {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1;
+      background: radial-gradient(circle at 15% 50%, rgba(91, 123, 94, 0.06), transparent 25%),
+                  radial-gradient(circle at 85% 30%, rgba(196, 168, 130, 0.06), transparent 25%);
+      animation: floatBg 20s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatBg {
+      0% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.1) translateY(-20px); }
+      100% { transform: scale(1) translateY(0); }
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 100;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links a {
+      color: var(--charcoal);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+      margin-left: 1.5rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--forest);
     }
 
     /* Hero */
@@ -39,23 +104,29 @@
       justify-content: center;
       text-align: center;
       padding: 2rem;
-      background: var(--cream);
       position: relative;
-      overflow: hidden;
+      margin-top: 40px;
     }
 
-    .hero::before {
-      content: '';
+    .hero-bg-logo {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: url('../public/michi.png') center/contain no-repeat;
-      opacity: 0.04;
+      width: 150vw;
+      max-width: 650px;
+      height: 150vw;
+      background: url('https://github.com/markocampos/Michi/blob/main/public/michi.png?raw=true') center/contain no-repeat;
+      opacity: 0.15;
       pointer-events: none;
       z-index: 0;
+      animation: pulseLogo 8s ease-in-out infinite alternate;
+      mix-blend-mode: multiply;
+    }
+
+    @keyframes pulseLogo {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.12; }
+      100% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.18; }
     }
 
     .hero-content {
@@ -64,97 +135,167 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(30px);
     }
 
-    .hero-logo {
-      width: 320px;
-      height: auto;
-      margin-bottom: 2.5rem;
-      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.06));
+    @keyframes slideUpFade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title .jp {
+      color: var(--forest);
+      font-weight: 400;
+    }
+
+    .hero-description {
+      font-size: 1.35rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      font-weight: 300;
     }
 
     .download-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      background: var(--forest);
+      background: linear-gradient(135deg, var(--forest), var(--forest-dark));
       color: var(--white);
-      padding: 1rem 2rem;
-      border-radius: 1rem;
+      padding: 1.1rem 2.5rem;
+      border-radius: 2rem;
       text-decoration: none;
       font-weight: 600;
       font-size: 1.1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(91, 123, 94, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(91, 123, 94, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-25deg);
+      transition: all 0.7s ease;
     }
 
     .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(91, 123, 94, 0.4);
-      background: var(--forest-dark);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(91, 123, 94, 0.4);
+    }
+
+    .download-btn:hover::after {
+      left: 200%;
     }
 
     .download-btn svg { width: 24px; height: 24px; }
 
     /* Section styles */
-    section { padding: 5rem 2rem; max-width: 1000px; margin: 0 auto; }
+    section { 
+      padding: 7rem 2rem; 
+      max-width: 1100px; 
+      margin: 0 auto; 
+    }
 
     .section-title {
-      font-size: 2.25rem;
+      font-size: 2.75rem;
       font-weight: 700;
       text-align: center;
       margin-bottom: 1rem;
-      color: var(--charcoal);
+      background: linear-gradient(135deg, var(--charcoal), var(--forest-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
     }
 
     .section-subtitle {
       text-align: center;
       color: var(--muted);
-      font-size: 1.1rem;
-      margin-bottom: 3rem;
+      font-size: 1.15rem;
+      margin-bottom: 4rem;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+      font-weight: 300;
     }
 
     /* Practices grid */
     .practices-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.75rem;
     }
 
     .practice-card {
-      background: var(--white);
-      border-radius: 1.25rem;
-      padding: 2rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      border: 1px solid rgba(0,0,0,0.04);
-      transition: all 0.3s ease;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 1.5rem;
+      padding: 2.25rem 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.03);
+      border: 1px solid var(--glass-border);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .practice-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--earth-light), var(--forest-light));
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
     .practice-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .practice-card:hover::before {
+      opacity: 1;
     }
 
     .practice-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 2.75rem;
+      margin-bottom: 1.25rem;
+      display: inline-block;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .practice-card:hover .practice-icon {
+      transform: scale(1.1) rotate(5deg);
+      color: var(--forest);
     }
 
     .practice-card h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.35rem;
+      font-weight: 700;
       margin-bottom: 0.25rem;
       color: var(--charcoal);
+      letter-spacing: -0.01em;
     }
 
     .practice-card .jp {
       color: var(--forest);
-      font-size: 0.9rem;
-      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
       font-weight: 500;
+      letter-spacing: 0.05em;
     }
 
     .practice-card p {
@@ -166,121 +307,198 @@
     /* Features */
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2rem;
       text-align: center;
     }
 
     .feature {
-      padding: 2rem;
+      padding: 2.5rem 1.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 1.5rem;
+      border: 1px solid var(--glass-border);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .feature:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .feature-icon {
-      width: 64px;
-      height: 64px;
-      background: rgba(91, 123, 94, 0.1);
-      border-radius: 1rem;
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, rgba(91, 123, 94, 0.1), rgba(91, 123, 94, 0.05));
+      border-radius: 1.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-size: 1.75rem;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      color: var(--forest);
+      box-shadow: inset 0 2px 10px rgba(255,255,255,0.5);
+      transition: transform 0.4s ease;
+    }
+    
+    .feature:hover .feature-icon {
+      transform: scale(1.1);
     }
 
     .feature h3 {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       color: var(--charcoal);
     }
 
     .feature p {
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     /* How it works */
     .steps {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      max-width: 600px;
+      gap: 1.5rem;
+      max-width: 700px;
       margin: 0 auto;
     }
 
     .step {
       display: flex;
-      gap: 1.5rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      gap: 1.75rem;
+      padding: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 1.5rem;
+      border: 1px solid var(--glass-border);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      align-items: center;
     }
 
-    .step:last-child { border-bottom: none; }
+    .step:hover {
+      transform: translateX(10px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+      background: rgba(255, 255, 255, 0.95);
+    }
 
     .step-number {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
-      background: var(--forest);
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      background: linear-gradient(135deg, var(--forest), var(--forest-dark));
       color: var(--white);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.35rem;
+      box-shadow: 0 4px 15px rgba(91, 123, 94, 0.3);
+      transition: transform 0.4s ease;
+    }
+    
+    .step:hover .step-number {
+      transform: scale(1.1) rotate(5deg);
     }
 
     .step-content h3 {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
       color: var(--charcoal);
     }
 
     .step-content p {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
 
     /* Footer */
     footer {
       text-align: center;
-      padding: 3rem 2rem;
+      padding: 5rem 2rem 4rem;
       color: var(--muted);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.95rem;
+      position: relative;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 20%; right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
     }
 
     footer .quote {
       font-style: italic;
-      font-size: 1.1rem;
+      font-size: 1.35rem;
       color: var(--charcoal);
-      margin-bottom: 1rem;
+      margin-bottom: 1.75rem;
       font-weight: 300;
+      letter-spacing: 0.02em;
     }
 
     footer a {
       color: var(--forest);
       text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
     }
 
-    footer a:hover { text-decoration: underline; }
+    footer a:hover { color: var(--forest-dark); text-decoration: underline; }
 
-    @media (max-width: 640px) {
-      .hero-logo { width: 240px; }
-      section { padding: 3rem 1.25rem; }
-      .section-title { font-size: 1.75rem; }
+    /* Animations for Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 3rem; }
+      .hero-description { font-size: 1.15rem; margin-bottom: 2rem; }
+      section { padding: 4rem 1.5rem; }
+      .section-title { font-size: 2.25rem; }
+      .step { flex-direction: column; text-align: center; align-items: center; gap: 1.25rem; padding: 2rem 1.5rem;}
+      .step:hover { transform: translateY(-5px); }
+      nav { padding: 1rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
+  <div class="bg-animation"></div>
+
+  <nav>
+    <a href="#" class="nav-brand">Michi 道</a>
+    <div class="nav-links">
+      <a href="https://github.com/markocampos/Michi" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
+
   <!-- Hero -->
   <div class="hero">
+    <div class="hero-bg-logo"></div>
     <div class="hero-content">
-      <img src="../public/michi.png" alt="Michi 道 - Your Path to Mindfulness" class="hero-logo">
-      <a href="https://github.com/markocampos/michi/releases/latest" class="download-btn">
+      <h1 class="hero-title">Michi <span class="jp">道</span></h1>
+      <p class="hero-description">Your path to mindfulness. A Japanese philosophy-based daily practice app that helps you transform your life through eight timeless concepts.</p>
+      <a href="https://github.com/markocampos/Michi/releases/latest" class="download-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download APK
       </a>
@@ -288,62 +506,62 @@
   </div>
 
   <!-- Eight Practices -->
-  <section>
-    <h2 class="section-title">The Eight Practices</h2>
-    <p class="section-subtitle">Each practice is rooted in Japanese philosophy and designed for small, consistent daily action.</p>
+  <section id="practices">
+    <h2 class="section-title reveal">The Eight Practices</h2>
+    <p class="section-subtitle reveal stagger-1">Each practice is rooted in Japanese philosophy and designed for small, consistent daily action.</p>
 
     <div class="practices-grid">
-      <div class="practice-card">
-        <div class="practice-icon">🎯</div>
+      <div class="practice-card reveal stagger-1">
+        <div class="practice-icon"><iconify-icon icon="lucide:target"></iconify-icon></div>
         <h3>Ikigai</h3>
         <div class="jp">生きがい</div>
         <p>Find your reason for being through guided reflections on what you love, what you're good at, what the world needs, and what you can be paid for.</p>
       </div>
 
-      <div class="practice-card">
-        <div class="practice-icon">🍂</div>
+      <div class="practice-card reveal stagger-2">
+        <div class="practice-icon"><iconify-icon icon="lucide:leaf"></iconify-icon></div>
         <h3>Wabi-sabi</h3>
         <div class="jp">侘寂</div>
         <p>Embrace imperfection with immutable journal entries. Once saved, entries cannot be edited — a reminder to accept things as they are.</p>
       </div>
 
-      <div class="practice-card">
-        <div class="practice-icon">⏳</div>
+      <div class="practice-card reveal stagger-3">
+        <div class="practice-icon"><iconify-icon icon="lucide:hourglass"></iconify-icon></div>
         <h3>Ma</h3>
         <div class="jp">間</div>
         <p>Practice breathing and meditation with guided timers. Find power in the space between — the pauses that give life meaning.</p>
       </div>
 
-      <div class="practice-card">
-        <div class="practice-icon">📈</div>
+      <div class="practice-card reveal stagger-4">
+        <div class="practice-icon"><iconify-icon icon="lucide:trending-up"></iconify-icon></div>
         <h3>Kaizen</h3>
         <div class="jp">改善</div>
         <p>Build micro-habits with 1% daily improvements. Track streaks and watch small consistent actions compound into lasting change.</p>
       </div>
 
-      <div class="practice-card">
-        <div class="practice-icon">🌿</div>
+      <div class="practice-card reveal stagger-1">
+        <div class="practice-icon"><iconify-icon icon="lucide:tree-pine"></iconify-icon></div>
         <h3>Shinrin-yoku</h3>
         <div class="jp">森林浴</div>
         <p>Forest bathing with sensory awareness prompts. Reconnect with nature through mindful observation of sight, sound, smell, touch, and taste.</p>
       </div>
 
-      <div class="practice-card">
-        <div class="practice-icon">💪</div>
+      <div class="practice-card reveal stagger-2">
+        <div class="practice-icon"><iconify-icon icon="lucide:mountain"></iconify-icon></div>
         <h3>Gaman</h3>
         <div class="jp">我慢</div>
         <p>Endure through 30, 60, or 90-day challenges. Build resilience and mental strength by committing to sustained effort.</p>
       </div>
 
-      <div class="practice-card">
-        <div class="practice-icon">🪞</div>
+      <div class="practice-card reveal stagger-3">
+        <div class="practice-icon"><iconify-icon icon="lucide:book-open"></iconify-icon></div>
         <h3>Hansei</h3>
         <div class="jp">反省</div>
         <p>Structured self-reflection at day's end. Review what went well, what to improve, and what you learned to grow continuously.</p>
       </div>
 
-      <div class="practice-card">
-        <div class="practice-icon">🌸</div>
+      <div class="practice-card reveal stagger-4">
+        <div class="practice-icon"><iconify-icon icon="lucide:flower"></iconify-icon></div>
         <h3>Mono no aware</h3>
         <div class="jp">物の哀れ</div>
         <p>Awareness of impermanence through gratitude journaling. Notice the beauty in fleeting moments and cultivate deep appreciation.</p>
@@ -352,57 +570,55 @@
   </section>
 
   <!-- Features -->
-  <section style="background: var(--white); max-width: 100%; padding-left: 2rem; padding-right: 2rem;">
-    <div style="max-width: 1000px; margin: 0 auto;">
-      <h2 class="section-title">Why Michi?</h2>
-      <p class="section-subtitle">Built for consistency, not intensity.</p>
+  <section id="features">
+    <h2 class="section-title reveal">Why Michi?</h2>
+    <p class="section-subtitle reveal stagger-1">Built for consistency, not intensity.</p>
 
-      <div class="features">
-        <div class="feature">
-          <div class="feature-icon">📱</div>
-          <h3>Works Offline</h3>
-          <p>All data stored locally on your device. No account needed, no internet required.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🔒</div>
-          <h3>Private by Default</h3>
-          <p>Your reflections stay on your phone. No tracking, no analytics, no data collection.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">✨</div>
-          <h3>Minimal Design</h3>
-          <p>Clean, calm interface inspired by Japanese aesthetics. No distractions, just practice.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🔄</div>
-          <h3>Daily Streaks</h3>
-          <p>Track your consistency across all seven practices with visual progress rings.</p>
-        </div>
+    <div class="features">
+      <div class="feature reveal stagger-1">
+        <div class="feature-icon"><iconify-icon icon="lucide:smartphone"></iconify-icon></div>
+        <h3>Works Offline</h3>
+        <p>All data stored locally on your device. No account needed, no internet required.</p>
+      </div>
+      <div class="feature reveal stagger-2">
+        <div class="feature-icon"><iconify-icon icon="lucide:lock"></iconify-icon></div>
+        <h3>Private by Default</h3>
+        <p>Your reflections stay on your phone. No tracking, no analytics, no data collection.</p>
+      </div>
+      <div class="feature reveal stagger-3">
+        <div class="feature-icon"><iconify-icon icon="lucide:sparkles"></iconify-icon></div>
+        <h3>Minimal Design</h3>
+        <p>Clean, calm interface inspired by Japanese aesthetics. No distractions, just practice.</p>
+      </div>
+      <div class="feature reveal stagger-4">
+        <div class="feature-icon"><iconify-icon icon="lucide:flame"></iconify-icon></div>
+        <h3>Daily Streaks</h3>
+        <p>Track your consistency across all seven practices with visual progress rings.</p>
       </div>
     </div>
   </section>
 
   <!-- How it works -->
-  <section>
-    <h2 class="section-title">How It Works</h2>
-    <p class="section-subtitle">Start your journey in three simple steps.</p>
+  <section id="how-it-works">
+    <h2 class="section-title reveal">How It Works</h2>
+    <p class="section-subtitle reveal stagger-1">Start your journey in three simple steps.</p>
 
     <div class="steps">
-      <div class="step">
+      <div class="step reveal stagger-1">
         <div class="step-number">1</div>
         <div class="step-content">
           <h3>Download & Open</h3>
           <p>Grab the APK from GitHub Releases and install it on your Android device. No account or sign-up required.</p>
         </div>
       </div>
-      <div class="step">
+      <div class="step reveal stagger-2">
         <div class="step-number">2</div>
         <div class="step-content">
           <h3>Pick a Practice</h3>
           <p>Choose from seven Japanese philosophy practices. Start with one that resonates, or try a different one each day.</p>
         </div>
       </div>
-      <div class="step">
+      <div class="step reveal stagger-3">
         <div class="step-number">3</div>
         <div class="step-content">
           <h3>Build Your Path</h3>
@@ -413,10 +629,10 @@
   </section>
 
   <!-- CTA -->
-  <section style="text-align: center; padding-bottom: 6rem;">
-    <h2 class="section-title">Begin Your Journey</h2>
-    <p class="section-subtitle">The path is the path. Start walking.</p>
-    <a href="https://github.com/markocampos/michi/releases/latest" class="download-btn">
+  <section style="text-align: center; padding-bottom: 7rem;">
+    <h2 class="section-title reveal">Begin Your Journey</h2>
+    <p class="section-subtitle reveal stagger-1">The path is the path. Start walking.</p>
+    <a href="https://github.com/markocampos/Michi/releases/latest" class="download-btn reveal stagger-2">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Michi APK
     </a>
@@ -424,9 +640,28 @@
 
   <!-- Footer -->
   <footer>
-    <p class="quote">道は道なり — The path is the path.</p>
-    <p>Open source on <a href="https://github.com/markocampos/michi">GitHub</a>. Built with Vue 3, Capacitor, and a lot of mindfulness.</p>
+    <p class="quote reveal">道は道なり — The path is the path.</p>
+    <p class="reveal stagger-1">Open source on <a href="https://github.com/markocampos/Michi">GitHub</a>. Built with Vue 3, Capacitor, and a lot of mindfulness.</p>
   </footer>
 
+  <script>
+    // Scroll Reveal Animation
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 80;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+
+    window.addEventListener("scroll", reveal);
+    // Trigger once on load
+    reveal();
+  </script>
 </body>
 </html>

@@ -25,9 +25,6 @@ jobs:
         id: version
         run: echo "version=$(node --input-type=module -e "import { APP_VERSION_NUMBER } from './src/version.js'; console.log(APP_VERSION_NUMBER)")" >> $GITHUB_OUTPUT
 
-      - name: Generate PWA icons
-        run: npm run icons
-
       - name: Build web app
         run: npm run build
 

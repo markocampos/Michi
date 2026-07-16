@@ -62,13 +62,7 @@
       <p class="text-sm text-muted italic">"Your ikigai is the intersection of what you love, what you're good at, what the world needs, and what you can be paid for."</p>
     </div>
 
-    <div v-if="data.reflections.length > 0" class="mt-8">
-      <h3 class="font-semibold text-charcoal mb-3">Past Reflections</h3>
-      <div v-for="r in data.reflections" :key="r.id" class="glass rounded-xl p-4 shadow-sm border border-gray-100/50 mb-3">
-        <p class="text-xs text-muted mb-2">{{ r.date }}</p>
-        <p v-if="r.insight" class="text-sm text-charcoal">{{ r.insight }}</p>
-      </div>
-    </div>
+
   </div>
 </template>
 

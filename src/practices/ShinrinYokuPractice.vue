@@ -70,20 +70,7 @@
       </div>
     </div>
 
-    <div v-if="data.walks.length > 0" class="mt-8">
-      <h3 class="font-semibold text-charcoal mb-3">Past Walks</h3>
-      <div v-for="walk in data.walks" :key="walk.id" class="glass rounded-xl p-4 shadow-sm border border-gray-100/50 mb-3">
-        <div class="flex justify-between items-center mb-2">
-          <span class="text-xs text-muted">{{ walk.date }}</span>
-          <span class="text-xs text-forest">{{ Math.max(1, Math.round(walk.duration / 60)) }} min</span>
-        </div>
-        <div v-if="walk.sensoryNotes" class="grid grid-cols-2 gap-2">
-          <p v-for="(val, key) in walk.sensoryNotes" :key="key" class="text-xs text-charcoal">
-            <span class="text-muted">{{ key }}:</span> {{ val || '-' }}
-          </p>
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -103,7 +90,7 @@ const notes = reactive({ sight: '', sound: '', smell: '', touch: '' });
 const senses = [
   { id: 'sight', name: 'Sight', icon: 'lucide:eye', prompt: 'What do you see?' },
   { id: 'sound', name: 'Sound', icon: 'lucide:ear', prompt: 'What do you hear?' },
-  { id: 'smell', name: 'Smell', icon: 'lucide:nose', prompt: 'What do you smell?' },
+  { id: 'smell', name: 'Smell', icon: 'lucide:cloud', prompt: 'What do you smell?' },
   { id: 'touch', name: 'Touch', icon: 'lucide:hand', prompt: 'What do you feel?' },
 ];
 

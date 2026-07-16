@@ -1,21 +1,21 @@
 <template>
   <div class="min-h-screen bg-gray-100/50 flex justify-center transition-colors duration-500">
     <a v-if="route.name !== 'onboarding' && route.name !== 'pin'" href="#main-content" class="skip-nav">Skip to main content</a>
-    <div class="w-full max-w-5xl bg-gradient-to-br from-warm-white via-[#F5F5F0] to-[#EAEAE2] min-h-screen relative shadow-2xl pb-20 lg:pb-0 lg:grid lg:grid-cols-[1fr_80px] lg:pr-0">
+    <div class="w-full max-w-5xl bg-gradient-to-br from-warm-white via-[#F5F5F0] to-[#EAEAE2] min-h-screen relative shadow-2xl pb-nav lg:pb-0 lg:grid lg:grid-cols-[1fr_80px] lg:pr-0 overflow-hidden">
       <!-- Settings gear (mobile only) -->
       <router-link
-        v-if="route.name !== 'onboarding' && route.name !== 'pin' && route.name !== 'settings'"
+        v-if="route.name !== 'onboarding' && route.name !== 'pin' && route.name !== 'settings' && route.name !== 'practice'"
         to="/settings"
-        class="fixed top-4 right-4 z-50 w-10 h-10 rounded-full glass border border-gray-100/50 shadow-sm flex items-center justify-center text-muted hover:text-charcoal hover:shadow-md transition-all lg:hidden"
+        class="fixed z-50 w-11 h-11 rounded-full glass border border-gray-100/50 shadow-sm flex items-center justify-center text-muted hover:text-charcoal hover:shadow-md transition-all lg:hidden settings-btn"
         aria-label="Settings"
       >
         <Icon icon="lucide:settings" class="w-5 h-5" />
       </router-link>
       <main
+        ref="swipeContainer"
         id="main-content"
         class="min-h-screen"
         tabindex="-1"
-        v-on="route.name !== 'onboarding' ? swipeHandlers : {}"
         :style="swiping ? { transform: `translateX(${swipeOffset}px)`, transition: 'none' } : {}"
       >
         <div v-if="error" class="p-8 text-center">
@@ -32,13 +32,13 @@
           </transition>
         </router-view>
       </main>
-      <BottomNav v-if="route.name !== 'onboarding' && route.name !== 'pin'" />
+      <BottomNav v-if="route.name !== 'onboarding' && route.name !== 'pin' && route.name !== 'practice'" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onErrorCaptured } from 'vue';
+import { ref, watch, onErrorCaptured } from 'vue';
 import { useRoute } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import BottomNav from './components/BottomNav.vue';
@@ -48,7 +48,14 @@ const route = useRoute();
 const error = ref(null);
 
 // Swipe navigation
-const { isSwiping: swiping, swipeOffset, handlers: swipeHandlers } = useSwipeNavigation();
+const { isSwiping: swiping, swipeOffset, containerRef: swipeContainer } = useSwipeNavigation();
+
+// Clear PIN verification when user leaves the journal
+watch(() => route.name, (newName, oldName) => {
+  if (oldName === 'journal' && newName !== 'journal' && newName !== 'pin') {
+    localStorage.removeItem('michi_pin_verified');
+  }
+});
 
 // Tab order for determining slide direction
 const tabIndexMap = {

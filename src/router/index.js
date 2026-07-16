@@ -13,6 +13,7 @@ const routes = [
   { path: '/journal', name: 'journal', component: JournalView, meta: { tabIndex: 2 } },
   { path: '/growth', name: 'growth', component: GrowthView, meta: { tabIndex: 3 } },
   { path: '/settings', name: 'settings', component: () => import('../views/SettingsView.vue') },
+  { path: '/privacy', name: 'privacy', component: () => import('../views/PrivacyView.vue') },
 ];
 
 const router = createRouter({
@@ -25,19 +26,22 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const hasPin = localStorage.getItem('michi_pin');
-  const verified = localStorage.getItem('michi_pin_verified') === 'true';
 
-  // PIN is set but not verified → must enter PIN
-  if (hasPin && !verified && to.name !== 'pin') {
-    return { name: 'pin' };
+  // Only guard the journal page
+  if (to.name === 'journal' && hasPin) {
+    const verified = localStorage.getItem('michi_pin_verified') === 'true';
+    if (!verified) {
+      return { name: 'pin', query: { redirect: '/journal' } };
+    }
   }
 
-  // PIN is set and verified, trying to access PIN page → go home
-  if (hasPin && verified && to.name === 'pin') {
-    return { name: 'home' };
+  // Onboarding guard (skip for pin and onboarding routes themselves)
+  if (to.name !== 'onboarding' && to.name !== 'pin') {
+    const onboarded = localStorage.getItem('michi_onboarded');
+    if (!onboarded) {
+      return { name: 'onboarding' };
+    }
   }
-
-  // No PIN set and trying to access PIN page → allowed (setup mode)
 });
 
 export default router;

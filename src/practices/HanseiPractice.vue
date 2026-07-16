@@ -85,68 +85,7 @@
       </div>
     </div>
 
-    <div v-if="data.reflections.length > 0" class="space-y-3">
-      <div
-        v-for="entry in data.reflections"
-        :key="entry.id"
-        class="glass rounded-xl p-4 shadow-sm border border-gray-100/50"
-      >
-        <div class="flex items-center justify-between mb-3">
-          <span class="text-xs text-muted">{{ formatDate(entry.date) }}</span>
-          <span class="text-xs text-forest font-medium">反省</span>
-        </div>
 
-        <div v-if="entry.wentWell" class="mb-2">
-          <p class="text-xs text-forest font-medium mb-1 flex items-center gap-1">
-            <Icon icon="lucide:thumbs-up" class="w-3 h-3" />
-            Went well
-          </p>
-          <p class="text-sm text-charcoal">{{ entry.wentWell }}</p>
-        </div>
-
-        <div v-if="entry.toImprove" class="mb-2">
-          <p class="text-xs text-earth font-medium mb-1 flex items-center gap-1">
-            <Icon icon="lucide:alert-circle" class="w-3 h-3" />
-            To improve
-          </p>
-          <p class="text-sm text-charcoal">{{ entry.toImprove }}</p>
-        </div>
-
-        <div v-if="entry.learned">
-          <p class="text-xs text-torii font-medium mb-1 flex items-center gap-1">
-            <Icon icon="lucide:lightbulb" class="w-3 h-3" />
-            Learned
-          </p>
-          <p class="text-sm text-charcoal">{{ entry.learned }}</p>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="data.reflections.length === 0 && !editing" class="text-center text-muted mt-8">
-      <p class="font-medium">No reflections yet.</p>
-      <p class="text-sm mt-1">Practice hansei to grow through self-awareness.</p>
-    </div>
-
-    <div v-if="data.reflections.length > 0 && !editing" class="mt-8 glass rounded-2xl p-5 shadow-sm border border-gray-100/50">
-      <h3 class="font-semibold text-charcoal mb-3 flex items-center gap-2">
-        <Icon icon="lucide:bar-chart-3" class="w-5 h-5 text-forest" />
-        Reflection Stats
-      </h3>
-      <div class="grid grid-cols-3 gap-4 text-center">
-        <div>
-          <p class="text-2xl font-bold text-forest">{{ data.reflections.length }}</p>
-          <p class="text-xs text-muted">Total</p>
-        </div>
-        <div>
-          <p class="text-2xl font-bold text-forest">{{ thisWeekCount }}</p>
-          <p class="text-xs text-muted">This week</p>
-        </div>
-        <div>
-          <p class="text-2xl font-bold text-forest">{{ currentStreak }}</p>
-          <p class="text-xs text-muted">Day streak</p>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

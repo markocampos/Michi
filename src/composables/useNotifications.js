@@ -1,11 +1,13 @@
 import { ref, onMounted, onUnmounted } from 'vue';
+import { Capacitor } from '@capacitor/core';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 const NOTIFICATION_KEY = 'michi_notifications';
 const REMINDER_TIME_KEY = 'michi_reminder_time';
 
 /**
  * Notification composable for practice reminders and streak alerts.
- * Uses Web Notifications API for browser, with Capacitor Local Notifications for native.
+ * Uses Capacitor Local Notifications for native, Web Notifications API for browser.
  */
 export function useNotifications() {
   const isEnabled = ref(false);
@@ -32,19 +34,38 @@ export function useNotifications() {
   }
 
   async function checkPermission() {
-    if (!('Notification' in window)) return;
-    permission.value = Notification.permission;
+    if (Capacitor.isNativePlatform()) {
+      try {
+        const res = await LocalNotifications.checkPermissions();
+        permission.value = res.display === 'granted' ? 'granted' : 'default';
+      } catch (e) {
+        console.error('Failed to check permission', e);
+      }
+    } else {
+      if (!('Notification' in window)) return;
+      permission.value = Notification.permission;
+    }
   }
 
   async function requestPermission() {
-    if (!('Notification' in window)) {
-      console.warn('Notifications not supported');
-      return false;
+    if (Capacitor.isNativePlatform()) {
+      try {
+        const res = await LocalNotifications.requestPermissions();
+        permission.value = res.display === 'granted' ? 'granted' : 'denied';
+        return permission.value === 'granted';
+      } catch (e) {
+        console.error('Failed to request permission', e);
+        return false;
+      }
+    } else {
+      if (!('Notification' in window)) {
+        console.warn('Notifications not supported');
+        return false;
+      }
+      const result = await Notification.requestPermission();
+      permission.value = result;
+      return result === 'granted';
     }
-
-    const result = await Notification.requestPermission();
-    permission.value = result;
-    return result === 'granted';
   }
 
   function toggleNotifications() {
@@ -100,11 +121,24 @@ export function useNotifications() {
     }
   }
 
-  function sendNotification(title, body, icon = '/michi.png') {
+  async function sendNotification(title, body, icon = '/michi.png') {
     if (permission.value !== 'granted') return;
 
     try {
-      new Notification(title, { body, icon, badge: '/michi.png', tag: 'michi-reminder' });
+      if (Capacitor.isNativePlatform()) {
+        await LocalNotifications.schedule({
+          notifications: [
+            {
+              title,
+              body,
+              id: Math.floor(Math.random() * 2000000000), // Int32 max safe
+              schedule: { at: new Date(Date.now() + 1000) },
+            }
+          ]
+        });
+      } else {
+        new Notification(title, { body, icon, badge: '/michi.png', tag: 'michi-reminder' });
+      }
     } catch (e) {
       console.error('Notification failed:', e);
     }

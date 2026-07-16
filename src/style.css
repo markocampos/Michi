@@ -29,6 +29,17 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* Bottom nav height (h-16 = 64px) + safe area */
+.pb-nav {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Settings button - respects iOS/Android status bar */
+.settings-btn {
+  top: calc(1rem + env(safe-area-inset-top, 0px));
+  right: 1rem;
+}
+
 /* Screen reader only - visually hidden but accessible */
 .sr-only {
   position: absolute;
@@ -86,6 +97,11 @@ body {
 button:active {
   transform: scale(0.97);
   transition: transform 0.1s;
+}
+
+/* Prevent double-tap zoom on interactive elements */
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }
 
 /* Focus visible rings for keyboard navigation */

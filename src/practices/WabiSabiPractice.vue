@@ -44,27 +44,7 @@
       </div>
     </div>
 
-    <div class="space-y-3">
-      <div
-        v-for="entry in data.entries"
-        :key="entry.id"
-        class="glass rounded-xl p-4 shadow-sm border border-gray-100/50"
-      >
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs text-muted">{{ entry.date }}</span>
-          <span class="text-xs text-earth flex items-center gap-1">
-            <Icon icon="lucide:lock" class="w-3 h-3" />
-            immutable
-          </span>
-        </div>
-        <p class="text-charcoal leading-relaxed">{{ entry.text }}</p>
-        <p v-if="entry.mood" class="text-xs text-muted mt-2">Mood: {{ entry.mood }}</p>
-      </div>
-    </div>
 
-    <p v-if="data.entries.length === 0 && !editing" class="text-center text-muted mt-8">
-      No entries yet. Begin your wabi-sabi practice.
-    </p>
   </div>
 </template>
 

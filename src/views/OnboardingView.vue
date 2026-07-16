@@ -25,20 +25,20 @@
 
       <!-- Step 1: Concepts -->
       <div v-if="currentStep === 1" class="w-full max-w-sm">
-        <h2 class="text-xl font-bold text-charcoal mb-6 text-center">The Eight Paths</h2>
-        <div class="space-y-3">
+        <h2 class="text-xl font-bold text-charcoal mb-4 text-center">The Eight Paths</h2>
+        <div class="space-y-2 overflow-y-auto max-h-[55vh] pr-1 scrollbar-none">
           <div
             v-for="(practice, i) in practices"
             :key="practice.id"
-            class="glass rounded-xl p-4 flex items-center gap-4 opacity-0 animate-fade-in-up"
+            class="glass rounded-xl p-3 flex items-center gap-4 opacity-0 animate-fade-in-up"
             :style="{ animationDelay: `${i * 80}ms` }"
           >
-            <div class="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center flex-shrink-0">
-              <Icon :icon="practice.icon" class="w-5 h-5 text-forest" />
+            <div class="w-9 h-9 rounded-xl bg-forest/10 flex items-center justify-center flex-shrink-0">
+              <Icon :icon="practice.icon" class="w-4 h-4 text-forest" />
             </div>
-            <div>
+            <div class="min-w-0">
               <p class="font-medium text-charcoal text-sm">{{ practice.name }}</p>
-              <p class="text-xs text-muted">{{ practice.jp }} — {{ practice.desc }}</p>
+              <p class="text-xs text-muted truncate">{{ practice.jp }} — {{ practice.desc }}</p>
             </div>
           </div>
         </div>

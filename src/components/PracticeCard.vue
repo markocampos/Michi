@@ -5,7 +5,7 @@
     class="block group glass rounded-2xl p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
   >
     <Icon :icon="practice.icon" class="absolute -right-2 -bottom-2 w-20 h-20 text-forest/[0.07] group-hover:text-forest/[0.12] transition-colors pointer-events-none" />
-    <div class="relative z-10">
+    <div class="relative z-10 min-w-0">
       <h3 class="font-semibold text-charcoal mb-1 text-sm md:text-base">{{ practice.name }}</h3>
       <p class="text-xs md:text-sm text-muted mb-1">{{ practice.jp }}</p>
       <p class="text-xs text-muted/70 line-clamp-2">{{ practice.desc }}</p>
