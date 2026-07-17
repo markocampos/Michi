@@ -32,3 +32,9 @@ local.properties
 *.sln
 *.sw?
 .mimocode
+
+# Signing keys — NEVER commit
+*.keystore
+*.jks
+*.b64
+*.txt
