@@ -411,7 +411,7 @@ async function checkForUpdates() {
     if (res.ok) {
       const data = await res.json();
       latestVersion.value = data.tag_name;
-      updateAvailable.value = data.tag_name !== currentVersion;
+      updateAvailable.value = data.tag_name !== 'v' + currentVersion;
     }
   } catch {
     // silently fail — offline or no releases yet
@@ -425,8 +425,21 @@ function openUpdate() {
 
 const releases = [
   {
-    version: 'v1.0.2',
+    version: 'v1.0.3',
     current: true,
+    date: 'July 2026',
+    items: [
+      { type: 'fix', text: 'Hardened data deletion: fully clears internal databases on reset' },
+      { type: 'feature', text: 'Streamlined Android build with automated release signing' },
+      { type: 'feature', text: 'Strict CI checks for merge markers and clean code' },
+      { type: 'fix', text: 'Reduced package size by removing unused server dependencies' },
+      { type: 'fix', text: 'Updated manifest to properly reflect eight concepts' },
+      { type: 'feature', text: 'Security: Cryptographic hashing for PIN storage' },
+    ],
+  },
+  {
+    version: 'v1.0.2',
+    current: false,
     date: 'July 2026',
     items: [
       { type: 'feature', text: 'Complete Growth Page Overhaul with Zen XP Progression' },
