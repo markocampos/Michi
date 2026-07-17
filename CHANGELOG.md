@@ -7,7 +7,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [v1.1.3] — July 2026
+## [v1.1.4] — July 2026
 
 ### Added
 - **Desktop & Tablet Layout**: Fully redesigned responsive grid layout that gracefully expands to 1440px wide monitors.
@@ -17,6 +17,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Quote Copy**: Added a quick copy-to-clipboard button on all daily quotes.
 
 ### Fixed
+- **Level 501 Bug**: Fixed a math glitch that accidentally granted absolute enlightenment (Level 501) to users who had 0 XP.
 - **Layout Glitches**: Fixed bottom spacing, padding gaps, and sidebar cutoff glitches on the desktop layout.
 - **Journal UI**: Cleaned up the mobile view by removing the redundant Hansei filter tab.
 
@@ -128,7 +129,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-[v1.1.3]: https://github.com/markocampos/Michi/releases/tag/v1.1.3
+[v1.1.4]: https://github.com/markocampos/Michi/releases/tag/v1.1.4
 [v1.0.3]: https://github.com/markocampos/Michi/releases/tag/v1.0.3
 [v1.0.2]: https://github.com/markocampos/Michi/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/markocampos/Michi/releases/tag/v1.0.1

@@ -387,7 +387,7 @@ const totalXP = computed(() => {
 const growthStage = computed(() => {
   const xp = totalXP.value;
   
-  let currentLevelIndex = 0;
+  let currentLevelIndex = -1;
   let accumulatedXP = 0;
   
   for (let i = 0; i < levelsData.length; i++) {
@@ -400,7 +400,7 @@ const growthStage = computed(() => {
   }
   
   // Cap at max level if they somehow exceed everything
-  if (currentLevelIndex === 0 && xp >= accumulatedXP) {
+  if (currentLevelIndex === -1) {
     currentLevelIndex = levelsData.length - 1;
     accumulatedXP -= levelsData[currentLevelIndex].requiredXP;
   }
