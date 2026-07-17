@@ -6,6 +6,8 @@
       <p class="text-sm text-muted mt-1">侘寂 - Beauty in imperfection</p>
     </div>
 
+    <DailyPrompt practiceId="wabisabi" />
+
     <div v-if="!editing">
       <button
         @click="startNew"
@@ -49,6 +51,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import { wabisabiPrompts } from '../data/prompts.js';

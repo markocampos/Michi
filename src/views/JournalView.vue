@@ -139,8 +139,7 @@ const filters = [
   { value: 'all', label: 'All' },
   { value: 'wabisabi', label: 'Wabi-sabi' },
   { value: 'mononoaware', label: 'Mono no aware' },
-  { value: 'ikigai', label: 'Ikigai' },
-  { value: 'hansei', label: 'Hansei' },
+  { value: 'ikigai', label: 'Ikigai' }
 ];
 
 const typeClasses = {

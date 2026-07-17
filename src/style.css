@@ -21,6 +21,7 @@ body {
   color: var(--color-charcoal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 
@@ -30,8 +31,10 @@ body {
 }
 
 /* Bottom nav height (h-16 = 64px) + safe area */
-.pb-nav {
-  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+@media (max-width: 767px) {
+  .pb-nav {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* Settings button - respects iOS/Android status bar */

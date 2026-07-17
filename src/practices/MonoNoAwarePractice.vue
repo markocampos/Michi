@@ -47,6 +47,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import { mononoawarePrompts, getSeason } from '../data/prompts.js';

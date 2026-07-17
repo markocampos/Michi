@@ -6,6 +6,8 @@
       <p class="text-sm text-muted mt-1">森林浴 - Forest bathing</p>
     </div>
 
+    <DailyPrompt practiceId="shinrin" />
+
     <div v-if="!walkActive && !showNotes">
       <button
         @click="startWalk"
@@ -75,6 +77,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref, reactive } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useTimer } from '../composables/useTimer.js';

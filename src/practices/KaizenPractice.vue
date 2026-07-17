@@ -6,6 +6,8 @@
       <p class="text-sm text-muted mt-1">改善 - Continuous small improvement</p>
     </div>
 
+    <DailyPrompt practiceId="kaizen" />
+
     <div v-if="!adding" class="mb-6">
       <button
         @click="adding = true"
@@ -77,6 +79,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useStorage } from '../composables/useStorage.js';

@@ -6,6 +6,8 @@
       <p class="text-sm text-muted mt-1">間 - The space between</p>
     </div>
 
+    <DailyPrompt practiceId="ma" />
+
     <div class="relative mb-8 flex items-center justify-center">
       <div
         class="w-40 h-40 sm:w-48 sm:h-48 rounded-full border-4 transition-all duration-1000 flex items-center justify-center"
@@ -70,6 +72,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useTimer } from '../composables/useTimer.js';

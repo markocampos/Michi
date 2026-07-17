@@ -226,6 +226,15 @@
           </button>
         </div>
 
+        <!-- LTS version banner -->
+        <div v-else-if="isLtsVersion" class="mb-4 p-3 rounded-xl bg-torii/10 border border-torii/20">
+          <div class="flex items-center gap-2 mb-1">
+            <Icon icon="lucide:shield-check" class="w-4 h-4 text-torii" />
+            <span class="text-sm font-medium text-torii">LTS Version Active</span>
+          </div>
+          <p class="text-xs text-muted ml-6">You are running a newer LTS build (v{{ currentVersion }}). The latest stable is {{ latestVersion }}.</p>
+        </div>
+
         <div v-if="checkingUpdate" class="flex items-center gap-2 mb-4 text-xs text-muted">
           <Icon icon="lucide:loader-2" class="w-3 h-3 animate-spin" />
           Checking for updates...
@@ -366,6 +375,7 @@ const showExportPinModal = ref(false);
 const showWhatsNewModal = ref(false);
 const exportTypePending = ref('');
 const updateAvailable = ref(false);
+const isLtsVersion = ref(false);
 const checkingUpdate = ref(false);
 const latestVersion = ref('');
 const apkDownloadUrl = ref('');
@@ -392,6 +402,20 @@ function setFontSize(size) {
 
 const GITHUB_REPO = 'markocampos/michi';
 
+function compareSemver(v1, v2) {
+  const sanitize = v => (v || '').replace(/^v/, '');
+  const p1 = sanitize(v1).split('.').map(Number);
+  const p2 = sanitize(v2).split('.').map(Number);
+  
+  for (let i = 0; i < Math.max(p1.length, p2.length); i++) {
+    const num1 = p1[i] || 0;
+    const num2 = p2[i] || 0;
+    if (num1 > num2) return 1;
+    if (num1 < num2) return -1;
+  }
+  return 0;
+}
+
 async function checkForUpdates() {
   checkingUpdate.value = true;
   try {
@@ -399,7 +423,11 @@ async function checkForUpdates() {
     if (res.ok) {
       const data = await res.json();
       latestVersion.value = data.tag_name;
-      updateAvailable.value = data.tag_name !== 'v' + currentVersion;
+      
+      const comp = compareSemver(data.tag_name, currentVersion);
+      updateAvailable.value = comp > 0;
+      isLtsVersion.value = comp < 0;
+
       const apk = data.assets?.find(a => a.name.endsWith('.apk'));
       if (apk) apkDownloadUrl.value = apk.browser_download_url;
     }
@@ -419,8 +447,22 @@ function openUpdate() {
 
 const releases = [
   {
-    version: 'v1.0.3',
+    version: 'v1.1.3',
     current: true,
+    date: 'July 2026',
+    items: [
+      { type: 'feature', text: 'Desktop & Tablet Layout: Fully redesigned responsive grid layout that gracefully expands to 1440px wide monitors' },
+      { type: 'feature', text: 'Left Sidebar: Navigation transforms into a sleek, frosted-glass left sidebar on larger screens' },
+      { type: 'feature', text: 'Responsive Dashboards: Practice and Growth dashboards now use 3 and 4 column grids on large displays' },
+      { type: 'feature', text: 'Daily Reflections: Added 400 deep philosophical prompts across all 8 practices' },
+      { type: 'feature', text: 'Quote Copy: Added a quick copy-to-clipboard button on all daily quotes' },
+      { type: 'fix', text: 'Fixed bottom spacing and sidebar cutoff glitches on desktop layout' },
+      { type: 'fix', text: 'Journal UI cleanup on mobile by optimizing practice filters' },
+    ],
+  },
+  {
+    version: 'v1.0.3',
+    current: false,
     date: 'July 2026',
     items: [
       { type: 'fix', text: 'Hardened data deletion: fully clears internal databases on reset' },

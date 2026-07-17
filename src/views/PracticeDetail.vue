@@ -1,5 +1,5 @@
 <template>
-  <div class="px-5 pt-12 pb-8 pb-safe md:px-8 md:pt-14 lg:px-12 lg:pt-16 max-w-2xl lg:max-w-3xl select-none">
+  <div class="px-5 pt-12 pb-8 pb-safe md:px-8 md:pt-14 lg:px-12 lg:pt-16 max-w-2xl lg:max-w-3xl mx-auto select-none">
     <button @click="goBack" aria-label="Go back to practices" class="flex items-center gap-1 text-muted mb-6 hover:text-charcoal transition-colors">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />

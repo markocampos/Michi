@@ -1,85 +1,7 @@
-export const quotes = [
-  // Original quotes
-  { text: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu", jp: "千里の道も一歩から" },
-  { text: "In the beginner's mind there are many possibilities.", author: "Shunryu Suzuki", jp: "初心忘るべからず" },
-  { text: "Fall seven times, stand up eight.", author: "Japanese Proverb", jp: "七転び八起き" },
-  { text: "The only failure is not trying.", author: "Masaharu Taniguchi", jp: "試みぬことこそ無念なり" },
-  { text: "Do not seek to follow in the footsteps of the wise. Seek what they sought.", author: "Matsuo Basho", jp: "古池や蛙飛び込む水の音" },
-  { text: "Every moment is a fresh beginning.", author: "T.S. Eliot", jp: "一期一会" },
-  { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci", jp: "侘び寂び" },
-  { text: "The water does not resist. The water flows.", author: "Ursula K. Le Guin", jp: "水は流れる" },
-  { text: "Be like bamboo - bend but do not break.", author: "Japanese Proverb", jp: "竹は風に屈するが折れない" },
-  { text: "Peace comes from within. Do not seek it without.", author: "Buddha", jp: "和は即ち貴し" },
-  { text: "In the stillness between breaths, wisdom speaks.", author: "Zen Teaching", jp: "静寂の中に智慧あり" },
-  { text: "One moment of patience may ward off great disaster.", author: "Japanese Proverb", jp: "我慢は後の味" },
-  { text: "Nature does not hurry, yet everything is accomplished.", author: "Lao Tzu", jp: "自然は急がずして成す" },
-  { text: "The flower that blooms in adversity is the rarest and most beautiful.", author: "Ancient Proverb", jp: "逆境に咲く花は最も美しい" },
-  { text: "Life is a journey, not a destination.", author: "Ralph Waldo Emerson", jp: "道は道なり" },
+const fs = require('fs');
 
-  // Ikigai — purpose & meaning
-  { text: "He who has a why to live can bear almost any how.", author: "Friedrich Nietzsche", jp: "生きる理由があれば、いかなる苦難にも耐えられる" },
-  { text: "The purpose of life is a life of purpose.", author: "Robert Byrne", jp: "生きがいのある人生こそが人生の目的だ" },
-  { text: "Your work is to discover your world and then with all your heart give yourself to it.", author: "Buddha", jp: "自分の世界を見つけ、全力でそれに捧げよ" },
-  { text: "To know what you prefer instead of humbly saying Amen to what the world tells you — that is to have kept your soul alive.", author: "Robert Louis Stevenson", jp: "自分の好みを知ることは魂を守ることだ" },
-  { text: "The two most important days in your life are the day you are born and the day you find out why.", author: "Mark Twain", jp: "生まれた日と、その理由を知った日" },
-
-  // Wabi-sabi — imperfection & acceptance
-  { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein", jp: "困難の中に機会あり" },
-  { text: "The cracks are how the light gets in.", author: "Leonard Cohen", jp: "亀裂から光が差し込む" },
-  { text: "Nothing is permanent. Everything is subject to change.", author: "Buddha", jp: "諸行無常" },
-  { text: "What we call the beginning is often the end. And to make an end is to make a beginning.", author: "T.S. Eliot", jp: "始まりはしばしば終わりであり、終わりは新たな始まりだ" },
-  { text: "Imperfection is beauty, madness is genius.", author: "Marilyn Monroe", jp: "不完全は美しく、狂気は天才だ" },
-
-  // Ma — space, stillness & breath
-  { text: "Silence is a source of great strength.", author: "Lao Tzu", jp: "沈黙は偉大な力の源だ" },
-  { text: "Almost everything will work again if you unplug it for a few minutes — including you.", author: "Anne Lamott", jp: "しばらくの休息が全てをリセットする" },
-  { text: "Breath is the bridge which connects life to consciousness.", author: "Thich Nhat Hanh", jp: "呼吸は命と意識を繋ぐ橋だ" },
-  { text: "When you realize there is nothing lacking, the whole world belongs to you.", author: "Lao Tzu", jp: "何も欠けていないと悟ったとき、世界全体があなたのものになる" },
-  { text: "Rest and be thankful.", author: "William Wordsworth", jp: "休み、そして感謝せよ" },
-
-  // Kaizen — growth & continuous improvement
-  { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle", jp: "習慣こそが人を形作る" },
-  { text: "Small daily improvements are the key to staggering long-term results.", author: "Robin Sharma", jp: "日々の小さな改善が長期的な大きな結果を生む" },
-  { text: "Don't wish it were easier. Wish you were better.", author: "Jim Rohn", jp: "楽になることを願わず、自分がより良くなることを願え" },
-  { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar", jp: "偉大である必要はない。ただ始めよ" },
-  { text: "Progress is more important than perfection.", author: "Simon Sinek", jp: "完璧より進歩が大切だ" },
-
-  // Shinrin-yoku — nature & presence
-  { text: "In every walk with nature, one receives far more than he seeks.", author: "John Muir", jp: "自然の中の散歩は、求める以上のものを与えてくれる" },
-  { text: "Look deep into nature, and then you will understand everything better.", author: "Albert Einstein", jp: "自然を深く見つめれば、全てがよりよく理解できる" },
-  { text: "The earth has music for those who listen.", author: "George Santayana", jp: "耳を傾ける者には大地の音楽がある" },
-  { text: "Adopt the pace of nature: her secret is patience.", author: "Ralph Waldo Emerson", jp: "自然のペースを学べ。その秘密は忍耐だ" },
-  { text: "To sit in the shade on a fine day and look upon verdure is the most perfect refreshment.", author: "Jane Austen", jp: "晴れた日に緑を眺めることが最上の安らぎだ" },
-
-  // Gaman — endurance & resilience
-  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius", jp: "止まらない限り、どんなにゆっくりでも構わない" },
-  { text: "The bamboo that bends is stronger than the oak that resists.", author: "Japanese Proverb", jp: "しなやかな竹は抵抗する樫より強い" },
-  { text: "Endurance is not just the ability to bear a hard thing, but to turn it into glory.", author: "William Barclay", jp: "忍耐とは苦難に耐えるだけでなく、それを栄光に変えることだ" },
-  { text: "A gem cannot be polished without friction, nor a man perfected without trials.", author: "Seneca", jp: "摩擦なくして宝石は磨かれず、試練なくして人は完成しない" },
-  { text: "The secret of getting ahead is getting started.", author: "Mark Twain", jp: "先へ進む秘訣は、まず始めることだ" },
-
-  // Mono no aware — gratitude & impermanence
-  { text: "Gratitude is not only the greatest of virtues, but the parent of all others.", author: "Cicero", jp: "感謝は最大の徳であり、全ての徳の親だ" },
-  { text: "The present moment is the only moment available to us, and it is the door to all moments.", author: "Thich Nhat Hanh", jp: "今この瞬間だけが全ての扉だ" },
-  { text: "Joy is not in things, it is in us.", author: "Richard Wagner", jp: "喜びは物の中にあるのではなく、私たちの中にある" },
-  { text: "Life is not measured by the number of breaths we take, but by the moments that take our breath away.", author: "Maya Angelou", jp: "人生は呼吸の数でなく、息を呑む瞬間で測られる" },
-  { text: "Enjoy the little things, for one day you may look back and realize they were the big things.", author: "Robert Brault", jp: "小さなことを楽しめ。それが大きかったと後に気づくだろう" },
-
-  // Hansei — reflection & self-awareness
-  { text: "Knowing yourself is the beginning of all wisdom.", author: "Aristotle", jp: "自己を知ることが全ての智慧の始まりだ" },
-  { text: "The unexamined life is not worth living.", author: "Socrates", jp: "反省なき人生は生きるに値しない" },
-  { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi", jp: "昨日は賢かったから世界を変えようとした。今日は智慧があるから自分を変えている" },
-  { text: "We do not learn from experience. We learn from reflecting on experience.", author: "John Dewey", jp: "経験からではなく、経験を振り返ることで学ぶ" },
-  { text: "Self-reflection is the school of wisdom.", author: "Baltasar Gracián", jp: "自己反省は智慧の学校だ" },
-
-  // General mindfulness & Zen
-  { text: "Before enlightenment, chop wood, carry water. After enlightenment, chop wood, carry water.", author: "Zen Proverb", jp: "悟りの前も後も、薪を割り、水を運ぶ" },
-  { text: "The quieter you become, the more you can hear.", author: "Ram Dass", jp: "静かになるほど、より多くを聞ける" },
-  { text: "Where you are is where you need to be.", author: "Zen Teaching", jp: "あなたがいる場所が、あなたがいるべき場所だ" },
-  { text: "When you eat, eat. When you walk, walk.", author: "Zen Proverb", jp: "食べる時は食べ、歩く時は歩く" },
-  { text: "Not knowing is most intimate.", author: "Zen Teaching", jp: "知らないことが最も親密だ" },
-,
-  // Added 200 quotes
+const moreQuotes = [
+  // Stoicism & Resilience
   { text: "The obstacle is the way.", author: "Marcus Aurelius", jp: "障害こそが道である" },
   { text: "We suffer more often in imagination than in reality.", author: "Seneca", jp: "私たちは現実よりも想像の中で苦しむ" },
   { text: "He who fears death will never do anything worth of a man who is alive.", author: "Seneca", jp: "死を恐れる者は、生きている者にふさわしいことを何もできない" },
@@ -100,6 +22,8 @@ export const quotes = [
   { text: "How much more grievous are the consequences of anger than the causes of it.", author: "Marcus Aurelius", jp: "怒りの結果は、怒りの原因よりもはるかに痛ましい" },
   { text: "To be everywhere is to be nowhere.", author: "Seneca", jp: "どこにでもいるということは、どこにもいないということだ" },
   { text: "We are more often frightened than hurt; and we suffer more from imagination than from reality.", author: "Seneca", jp: "私たちは傷つくよりも恐れることの方が多い" },
+
+  // Zen & Buddhism
   { text: "Three things cannot be long hidden: the sun, the moon, and the truth.", author: "Buddha", jp: "隠し通せないものが三つある。太陽と月と真実だ" },
   { text: "You only lose what you cling to.", author: "Buddha", jp: "執着するものだけを失う" },
   { text: "Peace comes from within. Do not seek it without.", author: "Buddha", jp: "平和は内なるもの。外に求めてはならない" },
@@ -120,6 +44,8 @@ export const quotes = [
   { text: "Tension is who you think you should be. Relaxation is who you are.", author: "Chinese Proverb", jp: "緊張は理想の自分、リラックスはありのままの自分" },
   { text: "Nature does not hurry, yet everything is accomplished.", author: "Lao Tzu", jp: "自然は急がないが、全てを成し遂げる" },
   { text: "A good traveler has no fixed plans and is not intent on arriving.", author: "Lao Tzu", jp: "良き旅人は計画を持たず、到着を目的としない" },
+
+  // Growth & Wisdom
   { text: "The journey of a thousand miles begins with one step.", author: "Lao Tzu", jp: "千里の道も一歩から" },
   { text: "Care about what other people think and you will always be their prisoner.", author: "Lao Tzu", jp: "他人の目を気にすれば、永遠にその囚人となる" },
   { text: "Knowing others is intelligence; knowing yourself is true wisdom.", author: "Lao Tzu", jp: "他人を知るは智、自分を知るは明" },
@@ -140,6 +66,8 @@ export const quotes = [
   { text: "The earth has music for those who listen.", author: "George Santayana", jp: "耳を傾ける者には大地の音楽がある" },
   { text: "There is no WiFi in the forest, but I promise you will find a better connection.", author: "Unknown", jp: "森にWiFiはないが、より良い繋がりが見つかる" },
   { text: "To sit in the shade on a fine day and look upon verdure is the most perfect refreshment.", author: "Jane Austen", jp: "晴れた日に緑を眺めることが最上の安らぎだ" },
+
+  // Inspiration & Focus
   { text: "What you think, you become. What you feel, you attract. What you imagine, you create.", author: "Buddha", jp: "考えたものになり、感じたものを引き寄せ、想像したものを創造する" },
   { text: "Nothing ever goes away until it has taught us what we need to know.", author: "Pema Chödrön", jp: "学ぶべきことを教えるまで、問題は去らない" },
   { text: "The feeling that any task is a nuisance will soon disappear if it is done in mindfulness.", author: "Thich Nhat Hanh", jp: "心を込めて行えば、どんな面倒な仕事も苦ではなくなる" },
@@ -160,6 +88,8 @@ export const quotes = [
   { text: "Some changes look negative on the surface but you will soon realize that space is being created in your life.", author: "Eckhart Tolle", jp: "表面上は否定的に見える変化も、新たな空間を作っているのだ" },
   { text: "Any action is often better than no action, especially if you have been stuck in an unhappy situation for a long time.", author: "Eckhart Tolle", jp: "長く不幸な状況にいるなら、どんな行動も行動しないよりはマシだ" },
   { text: "Worry pretends to be necessary but serves no useful purpose.", author: "Eckhart Tolle", jp: "心配は必要なふりをするが、何の役にも立たない" },
+
+  // Famous Authors & Thinkers
   { text: "It is not the man who has too little, but the man who craves more, that is poor.", author: "Seneca", jp: "貧しいのは持たない者ではなく、多くを欲しがる者だ" },
   { text: "Not he who has much is rich, but he who gives much.", author: "Erich Fromm", jp: "多くを持つ者が裕福なのではない。多くを与える者が裕福なのだ" },
   { text: "A quiet mind is all you need.", author: "Ramana Maharshi", jp: "静かな心さえあればいい" },
@@ -180,6 +110,8 @@ export const quotes = [
   { text: "If you love a flower, don't pick it up.", author: "Osho", jp: "花を愛するなら、摘み取ってはいけない" },
   { text: "Experience life in all possible ways -- good-bad, bitter-sweet, dark-light.", author: "Osho", jp: "良いことも悪いことも、全ての方法で人生を経験せよ" },
   { text: "The less you open your heart to others, the more your heart suffers.", author: "Deepak Chopra", jp: "他人に心を開かないほど、心は苦しむ" },
+
+  // Eastern Philosophy
   { text: "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.", author: "Buddha", jp: "過去に囚われず、未来を夢見ず、今に集中せよ" },
   { text: "The foot feels the foot when it feels the ground.", author: "Buddha", jp: "足は地面を感じた時に足を感じる" },
   { text: "Every morning we are born again. What we do today is what matters most.", author: "Buddha", jp: "毎朝私たちは生まれ変わる。今日何をするかが最も重要だ" },
@@ -195,6 +127,8 @@ export const quotes = [
   { text: "Better than a thousand hollow words, is one word that brings peace.", author: "Buddha", jp: "千の空虚な言葉よりも、平和をもたらす一言が勝る" },
   { text: "You cannot travel the path until you have become the path itself.", author: "Buddha", jp: "自らが道となるまで、その道を歩むことはできない" },
   { text: "Nothing can harm you as much as your own thoughts unguarded.", author: "Buddha", jp: "無防備な自分の思考ほど、あなたを傷つけるものはない" },
+
+  // Western Philosophy & Classics
   { text: "The unexamined life is not worth living.", author: "Socrates", jp: "反省なき人生は生きるに値しない" },
   { text: "I know that I am intelligent, because I know that I know nothing.", author: "Socrates", jp: "私は何も知らないことを知っているから、賢いのだ" },
   { text: "Wonder is the beginning of wisdom.", author: "Socrates", jp: "驚きは智慧の始まりだ" },
@@ -208,6 +142,8 @@ export const quotes = [
   { text: "Hope is a waking dream.", author: "Aristotle", jp: "希望は目覚めた夢だ" },
   { text: "Friendship is a single soul dwelling in two bodies.", author: "Aristotle", jp: "友情とは、二つの体に宿る一つの魂だ" },
   { text: "Knowing yourself is the beginning of all wisdom.", author: "Aristotle", jp: "自己を知ることが全ての智慧の始まりだ" },
+
+  // Modern Mindfulness & Poetry
   { text: "The wound is the place where the Light enters you.", author: "Rumi", jp: "傷は光があなたに入る場所だ" },
   { text: "Stop acting so small. You are the universe in ecstatic motion.", author: "Rumi", jp: "小さく振る舞うのはやめよ。あなたは歓喜して動く宇宙だ" },
   { text: "What you seek is seeking you.", author: "Rumi", jp: "あなたが探しているものは、あなたを探している" },
@@ -218,6 +154,8 @@ export const quotes = [
   { text: "Only from the heart can you touch the sky.", author: "Rumi", jp: "心からでしか、空に触れることはできない" },
   { text: "There is a voice that doesn't use words. Listen.", author: "Rumi", jp: "言葉を使わない声がある。耳を傾けよ" },
   { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi", jp: "昨日は世界を変えようとしたが、今日は自分を変えている" },
+
+  // Simple, powerful truths
   { text: "The quieter you become, the more you are able to hear.", author: "Rumi", jp: "静かになるほど、より多くが聞こえる" },
   { text: "As you start to walk on the way, the way appears.", author: "Rumi", jp: "道を歩き始めると、道が現れる" },
   { text: "Wear gratitude like a cloak and it will feed every corner of your life.", author: "Rumi", jp: "感謝をマントのように羽織れば、人生の隅々まで潤う" },
@@ -226,6 +164,8 @@ export const quotes = [
   { text: "It is your road, and yours alone. Others may walk it with you, but no one can walk it for you.", author: "Rumi", jp: "これはあなたの道だ。誰もあなたの代わりに歩くことはできない" },
   { text: "You were born with wings, why prefer to crawl through life?", author: "Rumi", jp: "翼を持って生まれたのに、なぜ這って生きようとするのか" },
   { text: "Respond to every call that excites your spirit.", author: "Rumi", jp: "魂を震わせる呼びかけ全てに応えよ" },
+  
+  // Mixed selection
   { text: "Sometimes the most productive thing you can do is relax.", author: "Mark Black", jp: "時にはリラックスすることが最も生産的だ" },
   { text: "Breathe. Let go. And remind yourself that this very moment is the only one you know you have for sure.", author: "Oprah Winfrey", jp: "呼吸し、手放し、今この瞬間だけが確かなものだと思い出しなさい" },
   { text: "Nothing is worth more than this day.", author: "Johann Wolfgang von Goethe", jp: "この日以上に価値のあるものはない" },
@@ -237,11 +177,15 @@ export const quotes = [
   { text: "Life is a dance. Mindfulness is witnessing that dance.", author: "Amit Ray", jp: "人生はダンスだ。マインドフルネスはそのダンスを目撃することだ" },
   { text: "When you do something, you should burn yourself completely, like a good bonfire, leaving no trace of yourself.", author: "Shunryu Suzuki", jp: "何かをする時は、良い焚き火のように完全に燃え尽き、跡を残すな" },
   { text: "Look past your thoughts, so you may drink the pure nectar of This Moment.", author: "Rumi", jp: "思考の向こうを見よ。そうすれば今この瞬間の純粋な蜜を飲める" },
+
+  // Stoics & Classic Philosophers Part 2
   { text: "No person has the power to have everything they want, but it is in their power not to want what they don't have.", author: "Seneca", jp: "全てを手に入れる力はないが、持たないものを欲しがらない力はある" },
   { text: "Life is very short and anxious for those who forget the past, neglect the present, and fear the future.", author: "Seneca", jp: "過去を忘れ、現在を疎かにし、未来を恐れる者の人生は短く不安だ" },
   { text: "We should always be asking ourselves: 'Is this something that is, or is not, in my control?'", author: "Epictetus", jp: "常に自問せよ『これは自分のコントロール下にあるか？』と" },
   { text: "You don't have to turn this into something. It doesn't have to upset you.", author: "Marcus Aurelius", jp: "これを大ごとにしなくていい。心を乱す必要はない" },
   { text: "If you want to improve, be content to be thought foolish and stupid.", author: "Epictetus", jp: "向上したいなら、愚かだと思われることに満足せよ" },
+  
+  // Confucius & Chinese Philosophy
   { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius", jp: "止まらない限り、どんなにゆっくりでも構わない" },
   { text: "Life is really simple, but we insist on making it complicated.", author: "Confucius", jp: "人生は実にシンプルだが、私たちはそれを複雑にしたがる" },
   { text: "Everything has beauty, but not everyone sees it.", author: "Confucius", jp: "どんなものにも美しさはあるが、誰もが見るわけではない" },
@@ -249,6 +193,8 @@ export const quotes = [
   { text: "To be wronged is nothing unless you continue to remember it.", author: "Confucius", jp: "忘れさえすれば、傷つけられたことなど何でもない" },
   { text: "When anger rises, think of the consequences.", author: "Confucius", jp: "怒りが湧いた時は、その結果を考えよ" },
   { text: "The man who moves a mountain begins by carrying away small stones.", author: "Confucius", jp: "山を動かす者は、小さな石を運ぶことから始める" },
+  
+  // Contemporary & Psychological Wisdom
   { text: "Between stimulus and response there is a space. In that space is our power to choose our response.", author: "Viktor E. Frankl", jp: "刺激と反応の間には空間がある。そこに反応を選ぶ力がある" },
   { text: "When we are no longer able to change a situation, we are challenged to change ourselves.", author: "Viktor E. Frankl", jp: "状況を変えられない時、私たちは自分自身を変えるよう求められる" },
   { text: "Everything can be taken from a man but one thing: the last of the human freedoms—to choose one's attitude in any given set of circumstances.", author: "Viktor E. Frankl", jp: "どんな状況でも自分の態度を選ぶ自由だけは奪えない" },
@@ -256,6 +202,8 @@ export const quotes = [
   { text: "Who looks outside, dreams; who looks inside, awakes.", author: "Carl Jung", jp: "外を見る者は夢を見、内を見る者は目覚める" },
   { text: "I am not what happened to me, I am what I choose to become.", author: "Carl Jung", jp: "私は私に起きたことではなく、私が選んだものになる" },
   { text: "Knowing your own darkness is the best method for dealing with the darknesses of other people.", author: "Carl Jung", jp: "自分の闇を知ることが、他人の闇を扱う最良の方法だ" },
+  
+  // Assorted Zen & Japanese Wisdom
   { text: "One kind word can warm three winter months.", author: "Japanese Proverb", jp: "一つの優しい言葉は三冬を暖める" },
   { text: "If you make a mistake, don't hesitate to correct it.", author: "Japanese Proverb", jp: "過ちては改むるに憚ることなかれ" },
   { text: "The nail that sticks out gets hammered down. (But a strong nail withstands the hammer.)", author: "Japanese Proverb", jp: "出る杭は打たれる（が、強い杭は耐える）" },
@@ -266,6 +214,8 @@ export const quotes = [
   { text: "This is the real secret of life -- to be completely engaged with what you are doing in the here and now.", author: "Alan Watts", jp: "人生の真の秘密は、今ここでしていることに完全に没頭することだ" },
   { text: "Problems that remain persistently insoluble should always be suspected as questions asked in the wrong way.", author: "Alan Watts", jp: "解決できない問題は、問い方が間違っていると疑うべきだ" },
   { text: "The meaning of life is just to be alive. It is so plain and so obvious and so simple.", author: "Alan Watts", jp: "人生の意味はただ生きていることだ。それはとても単純で明白だ" },
+  
+  // Poets and Visionaries
   { text: "Be patient toward all that is unsolved in your heart and try to love the questions themselves.", author: "Rainer Maria Rilke", jp: "心の中の未解決なものに忍耐を持ち、問いそのものを愛そうとせよ" },
   { text: "The only journey is the one within.", author: "Rainer Maria Rilke", jp: "唯一の旅は、内なる旅だ" },
   { text: "The most beautiful things in the world cannot be seen or touched, they are felt with the heart.", author: "Antoine de Saint-Exupéry", jp: "世界で最も美しいものは見えず触れられない。心で感じるものだ" },
@@ -274,6 +224,8 @@ export const quotes = [
   { text: "Do not go where the path may lead, go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson", jp: "道がある場所へ行くのではなく、道なき場所へ行き、足跡を残せ" },
   { text: "Keep your face always toward the sunshine - and shadows will fall behind you.", author: "Walt Whitman", jp: "常に太陽に顔を向けよ。そうすれば影はあなたの後ろに落ちる" },
   { text: "Be curious, not judgmental.", author: "Walt Whitman", jp: "批判的でなく、好奇心を持て" },
+  
+  // Final assortment
   { text: "Quiet people have the loudest minds.", author: "Stephen Hawking", jp: "静かな人は、最も騒がしい心を持っている" },
   { text: "To love oneself is the beginning of a lifelong romance.", author: "Oscar Wilde", jp: "自分を愛することは、生涯続くロマンスの始まりだ" },
   { text: "Nothing is impossible, the word itself says 'I'm possible'!", author: "Audrey Hepburn", jp: "不可能なんてない。言葉自体が『私には可能だ』と言っている" },
@@ -282,6 +234,19 @@ export const quotes = [
   { text: "Wherever you are, be there totally.", author: "Eckhart Tolle", jp: "どこにいようと、完全にそこにいなさい" }
 ];
 
-export function getRandomQuote() {
-  return quotes[Math.floor(Math.random() * quotes.length)];
+const currentContent = fs.readFileSync('../src/data/quotes.js', 'utf8');
+
+// The array ends with `];`. Let's strictly replace the LAST occurrence of `];` that comes before `export function`.
+const match = currentContent.match(/\];\s*export function getRandomQuote/);
+if (match) {
+  const index = match.index;
+  const newQuotesStr = moreQuotes.map(q => `  { text: ${JSON.stringify(q.text)}, author: ${JSON.stringify(q.author)}, jp: ${JSON.stringify(q.jp)} }`).join(',\n') + '\n';
+  
+  // We insert the new quotes right before the `];`
+  const updatedContent = currentContent.slice(0, index) + ',\n  // Added 200 quotes\n' + newQuotesStr + currentContent.slice(index);
+  
+  fs.writeFileSync('../src/data/quotes.js', updatedContent);
+  console.log('Appended 200 quotes safely.');
+} else {
+  console.log('Could not find the target match.');
 }

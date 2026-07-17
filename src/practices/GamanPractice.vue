@@ -6,6 +6,8 @@
       <p class="text-sm text-muted mt-1">我慢 - Endurance and patience</p>
     </div>
 
+    <DailyPrompt practiceId="gaman" />
+
     <div v-if="activeChallenges.length === 0" class="mb-6">
       <h2 class="font-semibold text-charcoal mb-4">Available Challenges</h2>
       <div class="space-y-3">
@@ -113,6 +115,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { gamanChallenges } from '../data/prompts.js';

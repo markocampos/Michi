@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="md:bg-[#FAFAF8]/95 md:backdrop-blur-md md:border-r md:border-gray-100/50 z-40 relative">
     <!-- Mobile: bottom bar -->
     <Teleport to="body">
-      <nav aria-label="Main navigation" class="fixed bottom-0 left-0 right-0 w-full max-w-5xl mx-auto nav-bg border-t border-gray-100/50 px-2 pb-safe z-50 lg:hidden">
+      <nav v-if="route.name !== 'practice'" aria-label="Main navigation" class="fixed bottom-0 left-0 right-0 w-full max-w-[1440px] mx-auto nav-bg border-t border-gray-100/50 px-2 pb-safe z-50 md:hidden">
         <div class="flex items-center h-16">
           <router-link
             v-for="tab in tabs"
@@ -20,8 +20,8 @@
       </nav>
     </Teleport>
 
-    <!-- Desktop: right sidebar -->
-    <nav aria-label="Main navigation" class="hidden lg:flex sticky top-0 h-screen w-20 nav-bg border-l border-gray-100/50 flex-col items-center py-8 z-40">
+    <!-- Desktop & Tablet: left sidebar -->
+    <nav aria-label="Main navigation" class="hidden md:flex sticky top-0 h-screen w-20 flex-col items-center py-8">
       <div class="flex flex-col items-center gap-6 flex-1">
         <router-link
           v-for="tab in allTabs"

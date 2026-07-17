@@ -6,6 +6,8 @@
       <p class="text-sm text-muted mt-1">反省 - Self-reflection</p>
     </div>
 
+    <DailyPrompt practiceId="hansei" />
+
     <div v-if="!editing">
       <button
         @click="startNew"
@@ -90,6 +92,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useStorage } from '../composables/useStorage.js';

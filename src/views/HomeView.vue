@@ -140,12 +140,26 @@ const { sendStreakMilestone } = useNotifications();
 const updateAvailable = ref(false);
 const latestVersion = ref('');
 
+function compareSemver(v1, v2) {
+  const sanitize = v => (v || '').replace(/^v/, '');
+  const p1 = sanitize(v1).split('.').map(Number);
+  const p2 = sanitize(v2).split('.').map(Number);
+  
+  for (let i = 0; i < Math.max(p1.length, p2.length); i++) {
+    const num1 = p1[i] || 0;
+    const num2 = p2[i] || 0;
+    if (num1 > num2) return 1;
+    if (num1 < num2) return -1;
+  }
+  return 0;
+}
+
 async function checkForUpdate() {
   try {
     const res = await fetch('https://api.github.com/repos/markocampos/michi/releases/latest');
     const data = await res.json();
     latestVersion.value = data.tag_name;
-    updateAvailable.value = data.tag_name !== APP_VERSION;
+    updateAvailable.value = compareSemver(data.tag_name, APP_VERSION) > 0;
   } catch {
     // Ignore errors — just don't show the banner
   }

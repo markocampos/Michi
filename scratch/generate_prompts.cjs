@@ -1,69 +1,8 @@
-export const ikigaiPrompts = [
-  {
-    step: 1,
-    title: "What do you love?",
-    subtitle: "What activities make you lose track of time?",
-    placeholder: "I love...",
-    jp: "好きなこと"
-  },
-  {
-    step: 2,
-    title: "What are you good at?",
-    subtitle: "What skills come naturally to you?",
-    placeholder: "I am good at...",
-    jp: "得意なこと"
-  },
-  {
-    step: 3,
-    title: "What does the world need?",
-    subtitle: "What problem do you wish you could solve?",
-    placeholder: "The world needs...",
-    jp: "世界に必要なこと"
-  },
-  {
-    step: 4,
-    title: "What can you be paid for?",
-    subtitle: "What value can you provide that others would invest in?",
-    placeholder: "I can be paid for...",
-    jp: "お金にできること"
-  }
-];
+const fs = require('fs');
+const path = require('path');
 
-export const wabisabiPrompts = [
-  "What imperfection did you accept today?",
-  "Describe something broken that still holds beauty.",
-  "What flaw in yourself are you learning to embrace?",
-  "What went wrong today that taught you something?",
-  "Describe a moment of beautiful imperfection you witnessed.",
-];
-
-export const mononoawarePrompts = [
-  "What are you grateful for today?",
-  "What changed today that you want to remember?",
-  "What season of life are you in right now?",
-  "What moment today felt fleeting and precious?",
-  "What will you miss about today when it's gone?",
-];
-
-export const gamanChallenges = [
-  { id: 'meditate-30', name: 'Daily Meditation', days: 30, description: '30 days of mindful breathing', jp: '瞑想30日' },
-  { id: 'gratitude-60', name: 'Gratitude Practice', days: 60, description: '60 days of thankfulness', jp: '感謝60日' },
-  { id: 'nature-90', name: 'Nature Connection', days: 90, description: '90 days of forest bathing', jp: '自然との繋がり90日' },
-  { id: 'journal-30', name: 'Daily Journaling', days: 30, description: '30 days of self-reflection', jp: '日記30日' },
-  { id: 'kaizen-60', name: 'Micro-Habits', days: 60, description: '60 days of 1% improvements', jp: '改善60日' },
-];
-
-export function getSeason(date = new Date()) {
-  const month = date.getMonth();
-  if (month >= 2 && month <= 4) return { en: 'Spring', jp: '春', color: '#E8B4B8' };
-  if (month >= 5 && month <= 7) return { en: 'Summer', jp: '夏', color: '#7BAE7F' };
-  if (month >= 8 && month <= 10) return { en: 'Autumn', jp: '秋', color: '#D4956A' };
-  return { en: 'Winter', jp: '冬', color: '#A8C4D8' };
-}
-
-
-export const practicePrompts = {
-  "ikigai": [
+const prompts = {
+  ikigai: [
     "What activity makes you lose track of time entirely?",
     "If money were not a factor, how would you spend your days?",
     "What is a small skill you have that brings joy to others?",
@@ -115,7 +54,7 @@ export const practicePrompts = {
     "What is a dream you've always had but never spoken out loud?",
     "What is one small step you can take today toward your life's purpose?"
   ],
-  "wabisabi": [
+  wabisabi: [
     "What is a physical 'flaw' in yourself that you can learn to find beautiful?",
     "Describe an old, worn object you own that holds deep sentimental value.",
     "What is a recent mistake you made that taught you a valuable lesson?",
@@ -167,7 +106,7 @@ export const practicePrompts = {
     "What is one way you can be gentler with your own imperfections today?",
     "Find an object near you. What story do its scratches and marks tell?"
   ],
-  "ma": [
+  ma: [
     "Where in your schedule today can you intentionally create a 5-minute pause?",
     "What is a conversation where you can practice listening in silence before responding?",
     "Look around your room. Where is there empty space, and how does it make you feel?",
@@ -219,7 +158,7 @@ export const practicePrompts = {
     "How does the night sky make you feel about the concept of vast space?",
     "What is one way you can embrace the 'empty' moments today instead of filling them with your phone?"
   ],
-  "kaizen": [
+  kaizen: [
     "What is a 1-minute habit you can start today to improve your health?",
     "What is a small friction point in your morning routine, and how can you fix it?",
     "What is a tiny improvement you made this week that you are proud of?",
@@ -271,7 +210,7 @@ export const practicePrompts = {
     "What is a small victory you achieved today that you can celebrate?",
     "If you improved by 1% every day for a year, where would you be next year?"
   ],
-  "shinrin": [
+  shinrin: [
     "What is a specific detail you noticed about a tree or plant today?",
     "Describe the smell of the air outside right now.",
     "How does the weather today affect your internal mood?",
@@ -323,7 +262,7 @@ export const practicePrompts = {
     "What is a profound silence you experienced in a forest or open field?",
     "Take a deep breath of outside air. What complex layers of scent can you detect?"
   ],
-  "gaman": [
+  gaman: [
     "What is a current difficulty you are facing that you cannot change, but must endure?",
     "Write about a time you persisted through physical or mental pain and came out stronger.",
     "How can you reframe a current frustration as a test of your patience?",
@@ -375,7 +314,7 @@ export const practicePrompts = {
     "What is a difficult emotion (like grief or jealousy) that you must sit with and endure?",
     "How will enduring your current struggle make you uniquely equipped to help others later?"
   ],
-  "mononoaware": [
+  mononoaware: [
     "What is something beautiful in your life right now that you know won't last forever?",
     "Write about the feeling of finishing a great book or movie.",
     "How does knowing a moment is fleeting make it more valuable to you?",
@@ -427,7 +366,7 @@ export const practicePrompts = {
     "How does Mono no aware help you combat the desire to control everything?",
     "Reflect on the exact moment you are in right now. It will never happen again. How does that feel?"
   ],
-  "hansei": [
+  hansei: [
     "What is a mistake you made today, and what did you learn from it?",
     "How did your actions today align (or misalign) with your core values?",
     "Who did you help today, and who could you have helped but didn't?",
@@ -480,3 +419,7 @@ export const practicePrompts = {
     "If today was a test of your character, what grade would you give yourself, and why?"
   ]
 };
+
+const fileContent = '\n\nexport const practicePrompts = ' + JSON.stringify(prompts, null, 2) + ';\n';
+fs.appendFileSync(path.join(__dirname, '../src/data/prompts.js'), fileContent);
+console.log('Prompts appended successfully.');

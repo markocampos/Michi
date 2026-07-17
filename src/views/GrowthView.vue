@@ -145,7 +145,7 @@
     <h3 class="font-semibold text-charcoal mb-4">Practice Breakdown</h3>
     <p class="text-[10px] text-muted mb-4">How much you've done in each practice area. Data comes from your completed practices.</p>
 
-    <div class="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-2">
+    <div class="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 xl:grid-cols-3 xl:gap-5">
 
       <!-- Ma (Meditation) -->
       <div v-if="maData.sessions?.length > 0" class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50">

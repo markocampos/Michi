@@ -7,6 +7,21 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [v1.1.3] — July 2026
+
+### Added
+- **Desktop & Tablet Layout**: Fully redesigned responsive grid layout that gracefully expands to 1440px wide monitors.
+- **Left Sidebar**: Navigation transforms into a sleek, frosted-glass left sidebar on larger screens.
+- **Responsive Dashboards**: Practice and Growth dashboards now use 3 and 4 column grids on large displays.
+- **Daily Reflections**: Added 400 deep philosophical prompts across all 8 practices.
+- **Quote Copy**: Added a quick copy-to-clipboard button on all daily quotes.
+
+### Fixed
+- **Layout Glitches**: Fixed bottom spacing, padding gaps, and sidebar cutoff glitches on the desktop layout.
+- **Journal UI**: Cleaned up the mobile view by removing the redundant Hansei filter tab.
+
+---
+
 ## [v1.0.3] — July 2026
 
 ### Added
@@ -113,6 +128,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+[v1.1.3]: https://github.com/markocampos/Michi/releases/tag/v1.1.3
 [v1.0.3]: https://github.com/markocampos/Michi/releases/tag/v1.0.3
 [v1.0.2]: https://github.com/markocampos/Michi/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/markocampos/Michi/releases/tag/v1.0.1

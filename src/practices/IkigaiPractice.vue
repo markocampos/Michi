@@ -6,6 +6,8 @@
       <p class="text-sm text-muted mt-1">生きがい - Your reason for being</p>
     </div>
 
+    <DailyPrompt practiceId="ikigai" />
+
     <div v-if="!showSummary">
       <div class="mb-6">
         <div class="flex gap-2 mb-4">
@@ -67,6 +69,7 @@
 </template>
 
 <script setup>
+import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref, reactive } from 'vue';
 import { Icon } from '@iconify/vue';
 import { ikigaiPrompts } from '../data/prompts.js';

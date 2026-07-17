@@ -36,7 +36,7 @@
       </button>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-3 lg:gap-6 stagger">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 xl:grid-cols-4 xl:gap-6 stagger">
       <PracticeCard
         v-for="practice in filteredPractices"
         :key="practice.id"
