@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-gray-100/50 flex justify-center transition-colors duration-500">
+  <div class="min-h-screen w-full overflow-x-hidden bg-gray-100/50 flex justify-center transition-colors duration-500">
     <a v-if="route.name !== 'onboarding' && route.name !== 'pin'" href="#main-content" class="skip-nav">Skip to main content</a>
-    <div class="w-full max-w-[1440px] bg-gradient-to-br from-warm-white via-[#F5F5F0] to-[#EAEAE2] min-h-screen relative shadow-2xl pb-[calc(64px+env(safe-area-inset-bottom,0px))] md:pb-0 md:grid md:grid-cols-[80px_1fr]">
+    <div class="w-full max-w-[1440px] bg-gradient-to-br from-warm-white via-[#F5F5F0] to-[#EAEAE2] min-h-screen relative shadow-2xl pb-[calc(64px+env(safe-area-inset-bottom,0px))] md:pb-0 md:grid md:grid-cols-[80px_1fr] overflow-x-hidden">
       <!-- Settings gear (mobile only) -->
       <router-link
         v-if="showNav && route.name !== 'settings' && route.name !== 'practice'"
@@ -15,12 +15,12 @@
       <main
         ref="swipeContainer"
         id="main-content"
-        class="min-h-screen"
+        class="min-h-screen overflow-x-hidden relative grid"
         :class="!showNav ? 'md:col-span-2' : ''"
         tabindex="-1"
         :style="swiping ? { transform: `translateX(${swipeOffset}px)`, transition: 'none' } : {}"
       >
-        <div v-if="error" class="p-8 text-center">
+        <div v-if="error" class="p-8 text-center" style="grid-area: 1/1">
           <Icon icon="lucide:alert-triangle" class="w-12 h-12 text-torii mx-auto mb-4" />
           <h2 class="text-lg font-semibold text-charcoal mb-2">Something went wrong</h2>
           <p class="text-sm text-muted mb-4">{{ error.message }}</p>
@@ -29,8 +29,10 @@
           </button>
         </div>
         <router-view v-else v-slot="{ Component, route: viewRoute }">
-          <transition :name="getTransition(viewRoute)" mode="out-in">
-            <component :is="Component" :key="viewRoute.fullPath" />
+          <transition :name="getTransition(viewRoute)">
+            <div :key="viewRoute.fullPath" style="grid-area: 1/1" class="w-full">
+              <component :is="Component" />
+            </div>
           </transition>
         </router-view>
       </main>

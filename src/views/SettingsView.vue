@@ -456,6 +456,7 @@ const releases = [
       { type: 'feature', text: 'Responsive Dashboards: Practice and Growth dashboards now use 3 and 4 column grids on large displays' },
       { type: 'feature', text: 'Daily Reflections: Added 400 deep philosophical prompts across all 8 practices' },
       { type: 'feature', text: 'Quote Copy: Added a quick copy-to-clipboard button on all daily quotes' },
+      { type: 'fix', text: 'Swipe Navigation: Blazing fast page transitions (0.15s) with overlapping grid animations to prevent layout collapse' },
       { type: 'fix', text: 'Level 501 Bug: Fixed a math glitch that incorrectly granted absolute enlightenment (Level 501) to users with 0 XP' },
       { type: 'fix', text: 'Fixed bottom spacing and sidebar cutoff glitches on desktop layout' },
       { type: 'fix', text: 'Journal UI cleanup on mobile by optimizing practice filters' },

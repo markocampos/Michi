@@ -22,6 +22,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
 }
 
 
@@ -165,41 +167,37 @@ button, a, input, select, textarea {
 /* Fade (default for routes without tabIndex) */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.2s ease;
 }
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(8px);
-}
+.fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: translateY(-8px);
 }
 
 /* Slide left — new page enters from right side */
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
 }
 .slide-left-enter-from {
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateX(30px);
 }
 .slide-left-leave-to {
   opacity: 0;
-  transform: translateX(-40px);
+  transform: translateX(-30px);
 }
 
 /* Slide right — new page enters from left side */
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
 }
 .slide-right-enter-from {
   opacity: 0;
-  transform: translateX(-40px);
+  transform: translateX(-30px);
 }
 .slide-right-leave-to {
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateX(30px);
 }

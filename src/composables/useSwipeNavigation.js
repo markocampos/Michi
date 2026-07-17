@@ -65,7 +65,9 @@ export function useSwipeNavigation({ tabCount = 4, onSwipe } = {}) {
     if (Math.abs(deltaX) > 8 && Math.abs(deltaY) < MAX_VERTICAL) {
       isSwiping.value = true;
       swipeOffset.value = deltaX * 0.3;
-      e.preventDefault();
+      if (e.cancelable) {
+        e.preventDefault();
+      }
     }
   }
 
@@ -91,6 +93,7 @@ export function useSwipeNavigation({ tabCount = 4, onSwipe } = {}) {
 
       if (newIndex !== currentIndex) {
         if (navigator.vibrate) navigator.vibrate(10);
+        window.scrollTo(0, 0);
         router.push(tabRoutes[newIndex]);
         onSwipe?.(deltaX < 0 ? 'left' : 'right');
       }

@@ -2,7 +2,7 @@
   <div class="md:bg-[#FAFAF8]/95 md:backdrop-blur-md md:border-r md:border-gray-100/50 z-40 relative">
     <!-- Mobile: bottom bar -->
     <Teleport to="body">
-      <nav v-if="route.name !== 'practice'" aria-label="Main navigation" class="fixed bottom-0 left-0 right-0 w-full max-w-[1440px] mx-auto nav-bg border-t border-gray-100/50 px-2 pb-safe z-50 md:hidden">
+      <nav v-if="route.name !== 'practice'" aria-label="Main navigation" class="fixed bottom-0 left-0 right-0 w-full max-w-[1440px] mx-auto nav-bg border-t border-gray-100/50 px-2 pb-safe z-50 md:hidden" style="transform: translateZ(0);">
         <div class="flex items-center h-16">
           <router-link
             v-for="tab in tabs"

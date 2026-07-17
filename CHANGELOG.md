@@ -17,6 +17,8 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Quote Copy**: Added a quick copy-to-clipboard button on all daily quotes.
 
 ### Fixed
+- **Swipe Transitions**: Rebuilt page transitions to use CSS grid overlapping and instant scroll resetting, entirely eliminating height collapse glitches on Android and making swiping 2x faster (0.15s).
+- **Navigation Stability**: Prevented native browser edge-swiping from interfering with app navigation, and locked root overflow to prevent horizontal scrollbars from causing UI jitter during swipes.
 - **Level 501 Bug**: Fixed a math glitch that accidentally granted absolute enlightenment (Level 501) to users who had 0 XP.
 - **Layout Glitches**: Fixed bottom spacing, padding gaps, and sidebar cutoff glitches on the desktop layout.
 - **Journal UI**: Cleaned up the mobile view by removing the redundant Hansei filter tab.
