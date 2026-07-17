@@ -40,7 +40,7 @@
           </div>
           <div class="flex items-center justify-end gap-1.5 md:justify-end">
             <p class="text-[11px] font-bold tracking-wider uppercase text-muted text-right">
-              {{ totalXP }} / {{ growthStage.nextThreshold }} XP
+              {{ growthStage.currentLevelXP }} / {{ growthStage.levelRequiredXP }} XP
             </p>
             <button @click="showXpModal = true" class="text-muted hover:text-charcoal transition-colors p-1 -mr-1" aria-label="What is XP?">
               <Icon icon="lucide:help-circle" class="w-3.5 h-3.5" />
@@ -382,15 +382,15 @@ const totalXP = computed(() => {
 
 const growthStage = computed(() => {
   const xp = totalXP.value;
-  if (xp < 50) return { name: 'Seed', kanji: '種', desc: 'Just planted in the soil.', icon: 'lucide:seedling', color: 'text-earth-dark', barColor: 'bg-earth-dark', progress: (xp / 50) * 100, nextThreshold: 50 };
-  if (xp < 150) return { name: 'Sprout', kanji: '芽', desc: 'Reaching for the sun.', icon: 'lucide:sprout', color: 'text-spring-dark', barColor: 'bg-spring-dark', progress: ((xp - 50) / 100) * 100, nextThreshold: 150 };
-  if (xp < 350) return { name: 'Sapling', kanji: '若木', desc: 'Growing roots deep.', icon: 'lucide:tree-deciduous', color: 'text-forest', barColor: 'bg-forest', progress: ((xp - 150) / 200) * 100, nextThreshold: 350 };
-  if (xp < 700) return { name: 'Bamboo', kanji: '竹', desc: 'Strong, flexible, and resilient.', icon: 'lucide:trees', color: 'text-forest-dark', barColor: 'bg-forest-dark', progress: ((xp - 350) / 350) * 100, nextThreshold: 700 };
+  if (xp < 50) return { name: 'Seed', kanji: '種', desc: 'Just planted in the soil.', icon: 'lucide:seedling', color: 'text-earth-dark', barColor: 'bg-earth-dark', currentLevelXP: xp, levelRequiredXP: 50, progress: (xp / 50) * 100 };
+  if (xp < 150) return { name: 'Sprout', kanji: '芽', desc: 'Reaching for the sun.', icon: 'lucide:sprout', color: 'text-spring-dark', barColor: 'bg-spring-dark', currentLevelXP: xp - 50, levelRequiredXP: 100, progress: ((xp - 50) / 100) * 100 };
+  if (xp < 350) return { name: 'Sapling', kanji: '若木', desc: 'Growing roots deep.', icon: 'lucide:tree-deciduous', color: 'text-forest', barColor: 'bg-forest', currentLevelXP: xp - 150, levelRequiredXP: 200, progress: ((xp - 150) / 200) * 100 };
+  if (xp < 700) return { name: 'Bamboo', kanji: '竹', desc: 'Strong, flexible, and resilient.', icon: 'lucide:trees', color: 'text-forest-dark', barColor: 'bg-forest-dark', currentLevelXP: xp - 350, levelRequiredXP: 350, progress: ((xp - 350) / 350) * 100 };
   
   const excess = xp - 700;
   const level = Math.floor(excess / 500) + 1;
-  const progress = (excess % 500) / 500 * 100;
-  return { name: `Zen Garden (Lv ${level})`, kanji: '庭園', desc: 'A cultivated sanctuary of peace.', icon: 'lucide:mountain', color: 'text-charcoal', barColor: 'bg-charcoal', progress: progress, nextThreshold: 700 + (level * 500) };
+  const currentLevelXP = excess % 500;
+  return { name: `Zen Garden (Lv ${level})`, kanji: '庭園', desc: 'A cultivated sanctuary of peace.', icon: 'lucide:mountain', color: 'text-charcoal', barColor: 'bg-charcoal', currentLevelXP: currentLevelXP, levelRequiredXP: 500, progress: (currentLevelXP / 500) * 100 };
 });
 
 // --- Heatmap (Aligned to Sunday-Saturday Calendar view) ---
