@@ -73,8 +73,19 @@ const props = defineProps({
 
 defineEmits(['close']);
 
-function openUpdate() {
-  window.open('https://github.com/markocampos/Michi/releases/latest', '_blank');
+async function openUpdate() {
+  try {
+    const res = await fetch('https://api.github.com/repos/markocampos/Michi/releases/latest');
+    const data = await res.json();
+    const apkAsset = data.assets?.find(asset => asset.name.endsWith('.apk'));
+    if (apkAsset) {
+      window.open(apkAsset.browser_download_url, '_blank');
+    } else {
+      window.open('https://markocampos.github.io/Michi/', '_blank');
+    }
+  } catch (e) {
+    window.open('https://markocampos.github.io/Michi/', '_blank');
+  }
 }
 
 onMounted(() => {

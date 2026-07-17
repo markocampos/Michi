@@ -381,6 +381,7 @@ const exportTypePending = ref('');
 const updateAvailable = ref(false);
 const checkingUpdate = ref(false);
 const latestVersion = ref('');
+const apkDownloadUrl = ref('');
 const currentVersion = pkg.version;
 
 const hapticsEnabled = ref(localStorage.getItem('michi_haptics') !== 'false');
@@ -412,6 +413,8 @@ async function checkForUpdates() {
       const data = await res.json();
       latestVersion.value = data.tag_name;
       updateAvailable.value = data.tag_name !== 'v' + currentVersion;
+      const apk = data.assets?.find(a => a.name.endsWith('.apk'));
+      if (apk) apkDownloadUrl.value = apk.browser_download_url;
     }
   } catch {
     // silently fail — offline or no releases yet
@@ -420,7 +423,11 @@ async function checkForUpdates() {
 }
 
 function openUpdate() {
-  window.open('https://github.com/markocampos/Michi/releases/latest', '_blank');
+  if (apkDownloadUrl.value) {
+    window.open(apkDownloadUrl.value, '_blank');
+  } else {
+    window.open('https://markocampos.github.io/Michi/', '_blank');
+  }
 }
 
 const releases = [
