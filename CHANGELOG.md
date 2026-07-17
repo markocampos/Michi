@@ -17,6 +17,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 - **Complete Data Wipe**: Resetting the app now completely clears the SQLite backend store as well as local storage, preventing "zombie data" from reappearing.
 - **Manifest Description**: Updated manifest description to accurately reflect all eight timeless concepts instead of seven.
+- **Auto-Backup Removal**: Removed silent auto-backup feature due to Android 11+ scoped storage restrictions (manual JSON Export remains available).
 
 ### Security
 - **PIN hashing**: PINs are now cryptographically hashed (SHA-256) instead of being stored in plain text, with automatic migration for legacy PINs.

@@ -146,20 +146,7 @@
             </div>
           </div>
           
-          <!-- Restore Backup (Native Only) -->
-          <div v-if="isNative" class="flex items-center justify-between pt-2 border-t border-gray-100/50">
-            <div>
-              <p class="font-medium text-charcoal">Auto-Backup</p>
-              <p class="text-xs text-muted">Restore data from phone storage</p>
-            </div>
-            <button
-              @click="handleRestoreAutoBackup"
-              class="px-3 py-1.5 rounded-lg text-sm font-medium bg-forest/10 text-forest hover:bg-forest/20 transition-colors flex items-center gap-2"
-            >
-              <Icon icon="lucide:hard-drive-download" class="w-4 h-4" />
-              Restore
-            </button>
-          </div>
+
         </div>
       </div>
 
@@ -358,7 +345,7 @@ import { STORAGE_KEYS } from '../utils/storage-keys.js';
 import { readPinHash } from '../utils/pin.js';
 import { clearAllStorage } from '../composables/useStorage.js';
 import { useNotifications } from '../composables/useNotifications.js';
-import { restoreAutoBackup } from '../utils/backup.js';
+
 import { Capacitor } from '@capacitor/core';
 import pkg from '../../package.json';
 import DangerConfirmModal from '../components/DangerConfirmModal.vue';
@@ -442,6 +429,7 @@ const releases = [
       { type: 'fix', text: 'Reduced package size by removing unused server dependencies' },
       { type: 'fix', text: 'Updated manifest to properly reflect eight concepts' },
       { type: 'feature', text: 'Security: Cryptographic hashing for PIN storage' },
+      { type: 'fix', text: 'Removed auto-backup feature due to Android 11+ storage restrictions (manual export remains)' },
     ],
   },
   {
@@ -634,15 +622,7 @@ function importData(event) {
   reader.readAsText(file);
 }
 
-async function handleRestoreAutoBackup() {
-  const success = await restoreAutoBackup();
-  if (success) {
-    alert('Successfully restored your data from phone storage!');
-    window.location.reload();
-  } else {
-    alert('No auto-backup file found on your phone storage, or permission denied.');
-  }
-}
+
 
 async function executeReset() {
   showResetModal.value = false;

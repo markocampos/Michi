@@ -1,6 +1,6 @@
 import { reactive, watch, computed, onUnmounted, getCurrentInstance } from 'vue';
 import { Capacitor } from '@capacitor/core';
-import { createAutoBackup } from '../utils/backup.js';
+
 
 /**
  * Global reactive store shared across all useStorage instances
@@ -121,11 +121,6 @@ export function useStorage(key, defaultValue) {
   const stopWatcher = watch(() => globalStore[key], (newValue) => {
     localStorage.setItem(key, JSON.stringify(newValue));
     saveToBackend(key, newValue);
-
-    if (window.autoBackupTimeout) clearTimeout(window.autoBackupTimeout);
-    window.autoBackupTimeout = setTimeout(() => {
-      createAutoBackup();
-    }, 3000);
   }, { deep: true });
 
   const stopThisWatcher = registerWatcher(key, stopWatcher);
