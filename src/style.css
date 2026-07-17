@@ -21,9 +21,6 @@ html, body {
   color: var(--color-charcoal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  overscroll-behavior-x: none;
-  overscroll-behavior-y: none;
 }
 
 
