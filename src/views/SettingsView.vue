@@ -355,6 +355,8 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import { STORAGE_KEYS } from '../utils/storage-keys.js';
+import { readPinHash } from '../utils/pin.js';
+import { clearAllStorage } from '../composables/useStorage.js';
 import { useNotifications } from '../composables/useNotifications.js';
 import { restoreAutoBackup } from '../utils/backup.js';
 import { Capacitor } from '@capacitor/core';
@@ -503,9 +505,10 @@ function updateReminderTime(e) {
   setReminderTime(e.target.value);
 }
 
-onMounted(() => {
-  pinEnabled.value = !!localStorage.getItem('michi_pin');
-  currentPinValue.value = localStorage.getItem('michi_pin') || '';
+onMounted(async () => {
+  // readPinHash() also migrates legacy plaintext PINs to hashes
+  currentPinValue.value = await readPinHash();
+  pinEnabled.value = !!currentPinValue.value;
   checkForUpdates();
 });
 
@@ -621,15 +624,17 @@ async function handleRestoreAutoBackup() {
   }
 }
 
-function executeReset() {
+async function executeReset() {
   showResetModal.value = false;
-  for (const key of Object.values(STORAGE_KEYS)) {
-    localStorage.removeItem(key);
-  }
-  localStorage.removeItem('michi_dark_mode');
-  localStorage.removeItem('michi_pin');
-  localStorage.removeItem('michi_pin_verified');
-  localStorage.removeItem('michi_onboarded');
+  // clearAllStorage also wipes the SQLite store table — without that,
+  // deleted data would silently reappear on the next app launch.
+  await clearAllStorage([
+    ...Object.values(STORAGE_KEYS),
+    'michi_dark_mode',
+    'michi_pin',
+    'michi_pin_verified',
+    'michi_onboarded',
+  ]);
   window.location.reload();
 }
 </script>

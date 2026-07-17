@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import PracticesView from '../views/PracticesView.vue';
 import JournalView from '../views/JournalView.vue';
@@ -17,7 +17,9 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  // Hash history is more reliable inside the Capacitor WebView
+  // (no server-side route resolution on reload / deep link)
+  history: createWebHashHistory(),
   routes,
   scrollBehavior() {
     return { top: 0, behavior: 'smooth' };

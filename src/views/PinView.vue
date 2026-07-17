@@ -85,6 +85,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Icon } from '@iconify/vue';
+import { readPinHash, verifyPin, writePin } from '../utils/pin.js';
 
 const router = useRouter();
 const route = useRoute();
@@ -120,8 +121,8 @@ function updateLockoutState() {
   }
 }
 
-onMounted(() => {
-  storedPin.value = localStorage.getItem('michi_pin') || '';
+onMounted(async () => {
+  storedPin.value = await readPinHash();
 
   if (isChanging.value) {
     mode.value = storedPin.value ? 'change-verify' : 'setup';
@@ -206,10 +207,10 @@ function triggerShake() {
   setTimeout(() => { shakeError.value = false; }, 600);
 }
 
-function handlePinComplete() {
+async function handlePinComplete() {
   switch (mode.value) {
     case 'entry':
-      if (currentPin.value === storedPin.value) {
+      if (await verifyPin(currentPin.value, storedPin.value)) {
         handleSuccessfulAttempt();
         localStorage.setItem('michi_pin_verified', 'true');
         const redirect = route.query.redirect || '/';
@@ -232,7 +233,7 @@ function handlePinComplete() {
 
     case 'confirm':
       if (currentPin.value === tempNewPin.value) {
-        localStorage.setItem('michi_pin', currentPin.value);
+        storedPin.value = await writePin(currentPin.value);
         localStorage.setItem('michi_pin_verified', 'true');
         successMsg.value = '✓ PIN set!';
         setTimeout(() => router.replace('/settings'), 700);
@@ -246,7 +247,7 @@ function handlePinComplete() {
       break;
 
     case 'change-verify':
-      if (currentPin.value === storedPin.value) {
+      if (await verifyPin(currentPin.value, storedPin.value)) {
         handleSuccessfulAttempt();
         currentPin.value = '';
         mode.value = 'change-new';
@@ -268,9 +269,8 @@ function handlePinComplete() {
 
     case 'change-confirm':
       if (currentPin.value === tempNewPin.value) {
-        localStorage.setItem('michi_pin', currentPin.value);
+        storedPin.value = await writePin(currentPin.value);
         localStorage.setItem('michi_pin_verified', 'true');
-        storedPin.value = currentPin.value;
         successMsg.value = '✓ PIN changed!';
         currentPin.value = '';
         setTimeout(() => router.replace('/settings'), 700);

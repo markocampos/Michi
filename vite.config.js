@@ -34,7 +34,6 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['sqlite3', 'sqlite'],
       output: {
         manualChunks(id) {
           if (id.includes('node_modules/@iconify')) {

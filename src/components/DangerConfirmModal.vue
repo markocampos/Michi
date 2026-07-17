@@ -93,6 +93,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Icon } from '@iconify/vue';
+import { verifyPin } from '../utils/pin.js';
 
 const props = defineProps({
   title: { type: String, required: true },
@@ -179,13 +180,13 @@ function handleSuccessfulAttempt() {
   localStorage.removeItem('michi_pin_lockout_until');
 }
 
-function addPinDigit(n) {
+async function addPinDigit(n) {
   if (pinInput.value.length >= 4 || isLockedOut.value) return;
   pinInput.value += n;
   pinError.value = '';
 
   if (pinInput.value.length === 4) {
-    if (pinInput.value === props.storedPin) {
+    if (await verifyPin(pinInput.value, props.storedPin)) {
       handleSuccessfulAttempt();
       if (props.skipPhrase) {
         emit('confirm');

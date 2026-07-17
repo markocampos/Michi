@@ -10,6 +10,15 @@ export async function createAutoBackup() {
   if (!Capacitor.isNativePlatform()) return;
   
   try {
+    const permStatus = await Filesystem.checkPermissions();
+    if (permStatus.publicStorage !== 'granted') {
+      const request = await Filesystem.requestPermissions();
+      if (request.publicStorage !== 'granted') {
+        console.warn('Storage permission denied for auto-backup.');
+        return;
+      }
+    }
+
     const data = {};
     for (const key of Object.values(STORAGE_KEYS)) {
       const raw = localStorage.getItem(key);
@@ -23,7 +32,6 @@ export async function createAutoBackup() {
       directory: Directory.Documents,
       encoding: Encoding.UTF8,
     });
-    console.log('Auto-backup saved to Documents/MichiBackup.json');
   } catch (e) {
     console.error('Failed to auto-backup to filesystem:', e);
   }
@@ -36,6 +44,15 @@ export async function restoreAutoBackup() {
   if (!Capacitor.isNativePlatform()) return false;
   
   try {
+    const permStatus = await Filesystem.checkPermissions();
+    if (permStatus.publicStorage !== 'granted') {
+      const request = await Filesystem.requestPermissions();
+      if (request.publicStorage !== 'granted') {
+        console.warn('Storage permission denied for auto-backup restore.');
+        return false;
+      }
+    }
+
     const contents = await Filesystem.readFile({
       path: 'MichiBackup.json',
       directory: Directory.Documents,

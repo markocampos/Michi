@@ -1,4 +1,4 @@
-import { reactive, watch, computed, onUnmounted } from 'vue';
+import { reactive, watch, computed, onUnmounted, getCurrentInstance } from 'vue';
 import { Capacitor } from '@capacitor/core';
 import { createAutoBackup } from '../utils/backup.js';
 
@@ -68,8 +68,38 @@ function saveToBackend(key, value) {
   }, 500);
 }
 
-// Track active watchers for cleanup
-const activeWatchers = new Map();
+// Track watchers per key AND per component instance, so one component
+// unmounting never stops localStorage/SQLite sync for another component
+// that uses the same key.
+const watchersByKey = new Map(); // key -> Map<watcherId, stopFn>
+let watcherSeq = 0;
+
+function registerWatcher(key, stopFn) {
+  let keyWatchers = watchersByKey.get(key);
+  if (!keyWatchers) {
+    keyWatchers = new Map();
+    watchersByKey.set(key, keyWatchers);
+  }
+  const instance = getCurrentInstance();
+  const watcherId = instance ? `${instance.uid}:${++watcherSeq}` : `anon:${++watcherSeq}`;
+  keyWatchers.set(watcherId, stopFn);
+  return () => {
+    const watchers = watchersByKey.get(key);
+    if (watchers && watchers.has(watcherId)) {
+      watchers.get(watcherId)();
+      watchers.delete(watcherId);
+      if (watchers.size === 0) watchersByKey.delete(key);
+    }
+  };
+}
+
+function stopAllWatchersForKey(key) {
+  const watchers = watchersByKey.get(key);
+  if (watchers) {
+    for (const stop of watchers.values()) stop();
+    watchersByKey.delete(key);
+  }
+}
 
 /**
  * Reactive storage composable with automatic localStorage and SQLite sync.
@@ -88,30 +118,20 @@ export function useStorage(key, defaultValue) {
     saveToBackend(key, globalStore[key]);
   }
 
-  // Clean up existing watcher for this key if any
-  if (activeWatchers.has(key)) {
-    activeWatchers.get(key)();
-    activeWatchers.delete(key);
-  }
-
   const stopWatcher = watch(() => globalStore[key], (newValue) => {
     localStorage.setItem(key, JSON.stringify(newValue));
     saveToBackend(key, newValue);
-    
+
     if (window.autoBackupTimeout) clearTimeout(window.autoBackupTimeout);
     window.autoBackupTimeout = setTimeout(() => {
       createAutoBackup();
     }, 3000);
   }, { deep: true });
 
-  activeWatchers.set(key, stopWatcher);
-
-  onUnmounted(() => {
-    if (activeWatchers.has(key)) {
-      activeWatchers.get(key)();
-      activeWatchers.delete(key);
-    }
-  });
+  const stopThisWatcher = registerWatcher(key, stopWatcher);
+  if (getCurrentInstance()) {
+    onUnmounted(stopThisWatcher);
+  }
 
   return computed({
     get: () => globalStore[key],
@@ -147,14 +167,39 @@ export function safeReadArray(key, arrayProp) {
 }
 
 /**
- * Remove a key from storage.
+ * Remove a key from storage (globalStore, localStorage AND SQLite).
  * @param {string} key - Storage key to remove
  */
 export function removeStorage(key) {
   delete globalStore[key];
   localStorage.removeItem(key);
-  if (activeWatchers.has(key)) {
-    activeWatchers.get(key)();
-    activeWatchers.delete(key);
+  stopAllWatchersForKey(key);
+  if (db) {
+    db.run('DELETE FROM store WHERE key = ?', [key]).catch((e) => {
+      console.error(`Failed to delete ${key} from SQLite`, e);
+    });
+  }
+}
+
+/**
+ * Wipe ALL app data: in-memory store, the given localStorage keys, and the
+ * entire SQLite store table. Without the SQLite wipe, deleted data would
+ * silently come back on the next app launch (initStore re-loads the DB).
+ * @param {string[]} keys - localStorage keys to remove
+ */
+export async function clearAllStorage(keys) {
+  for (const key of keys) {
+    delete globalStore[key];
+    localStorage.removeItem(key);
+  }
+  for (const key of [...watchersByKey.keys()]) {
+    stopAllWatchersForKey(key);
+  }
+  if (db) {
+    try {
+      await db.execute('DELETE FROM store');
+    } catch (e) {
+      console.error('Failed to clear SQLite store', e);
+    }
   }
 }
