@@ -7,6 +7,22 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [v1.0.3] — July 2026
+
+### Added
+- **Streamlined Android Build**: CI workflow now automates APK signing with a release keystore.
+- **Strict CI Checks**: Added build checks for leftover `console.log` statements, merge conflict markers, and malformed JSON.
+- **Dependency Cleanup**: Removed unused backend server dependencies (`express`, `sqlite3`, etc.) for a cleaner package footprint.
+
+### Fixed
+- **Complete Data Wipe**: Resetting the app now completely clears the SQLite backend store as well as local storage, preventing "zombie data" from reappearing.
+- **Manifest Description**: Updated manifest description to accurately reflect all eight timeless concepts instead of seven.
+
+### Security
+- **PIN hashing**: PINs are now cryptographically hashed (SHA-256) instead of being stored in plain text, with automatic migration for legacy PINs.
+
+---
+
 ## [v1.0.2] — July 2026
 
 ### Added
@@ -96,5 +112,6 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+[v1.0.3]: https://github.com/markocampos/Michi/releases/tag/v1.0.3
 [v1.0.2]: https://github.com/markocampos/Michi/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/markocampos/Michi/releases/tag/v1.0.1
