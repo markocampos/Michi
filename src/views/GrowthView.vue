@@ -24,7 +24,10 @@
     <!-- Zen Journey Banner -->
     <div class="relative overflow-hidden glass rounded-3xl p-6 shadow-sm border border-gray-100/50 mb-8 flex flex-col md:flex-row items-center gap-6 text-center md:text-left bg-gradient-to-b from-white to-gray-50">
       <div class="relative flex-shrink-0 mt-2 md:mt-0">
-        <Icon :icon="growthStage.icon" class="w-16 h-16" :class="growthStage.color" />
+        <Icon v-if="growthStage.icon.startsWith('lucide:')" :icon="growthStage.icon" class="w-16 h-16" :class="growthStage.color" />
+        <div v-else class="text-6xl flex items-center justify-center w-16 h-16 grayscale opacity-80 select-none transform transition-transform group-hover:scale-110">
+          {{ growthStage.icon }}
+        </div>
         <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center">
           <Icon icon="lucide:star" class="w-4 h-4 text-earth-dark" />
         </div>
@@ -331,6 +334,7 @@ import { computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import XpInfoModal from '../components/XpInfoModal.vue';
 import { readJson } from '../composables/useStorage.js';
+import levelsData from '../utils/levels.json';
 import { calculateStreak, getHabitStreak } from '../utils/streaks.js';
 import { getLastNDays } from '../utils/dates.js';
 import { STORAGE_KEYS } from '../utils/storage-keys.js';
@@ -382,15 +386,40 @@ const totalXP = computed(() => {
 
 const growthStage = computed(() => {
   const xp = totalXP.value;
-  if (xp < 50) return { name: 'Seed', kanji: '種', desc: 'Just planted in the soil.', icon: 'lucide:seedling', color: 'text-earth-dark', barColor: 'bg-earth-dark', currentLevelXP: xp, levelRequiredXP: 50, progress: (xp / 50) * 100 };
-  if (xp < 150) return { name: 'Sprout', kanji: '芽', desc: 'Reaching for the sun.', icon: 'lucide:sprout', color: 'text-spring-dark', barColor: 'bg-spring-dark', currentLevelXP: xp - 50, levelRequiredXP: 100, progress: ((xp - 50) / 100) * 100 };
-  if (xp < 350) return { name: 'Sapling', kanji: '若木', desc: 'Growing roots deep.', icon: 'lucide:tree-deciduous', color: 'text-forest', barColor: 'bg-forest', currentLevelXP: xp - 150, levelRequiredXP: 200, progress: ((xp - 150) / 200) * 100 };
-  if (xp < 700) return { name: 'Bamboo', kanji: '竹', desc: 'Strong, flexible, and resilient.', icon: 'lucide:trees', color: 'text-forest-dark', barColor: 'bg-forest-dark', currentLevelXP: xp - 350, levelRequiredXP: 350, progress: ((xp - 350) / 350) * 100 };
   
-  const excess = xp - 700;
-  const level = Math.floor(excess / 500) + 1;
-  const currentLevelXP = excess % 500;
-  return { name: `Zen Garden (Lv ${level})`, kanji: '庭園', desc: 'A cultivated sanctuary of peace.', icon: 'lucide:mountain', color: 'text-charcoal', barColor: 'bg-charcoal', currentLevelXP: currentLevelXP, levelRequiredXP: 500, progress: (currentLevelXP / 500) * 100 };
+  let currentLevelIndex = 0;
+  let accumulatedXP = 0;
+  
+  for (let i = 0; i < levelsData.length; i++) {
+    const lvl = levelsData[i];
+    if (xp < accumulatedXP + lvl.requiredXP) {
+      currentLevelIndex = i;
+      break;
+    }
+    accumulatedXP += lvl.requiredXP;
+  }
+  
+  // Cap at max level if they somehow exceed everything
+  if (currentLevelIndex === 0 && xp >= accumulatedXP) {
+    currentLevelIndex = levelsData.length - 1;
+    accumulatedXP -= levelsData[currentLevelIndex].requiredXP;
+  }
+  
+  const currentLvl = levelsData[currentLevelIndex];
+  const xpInCurrentLevel = xp - accumulatedXP;
+  const progress = (xpInCurrentLevel / currentLvl.requiredXP) * 100;
+  
+  return {
+    name: currentLvl.name,
+    kanji: `LV ${currentLvl.level}`,
+    desc: 'The path is the path. Keep walking.',
+    icon: currentLvl.icon,
+    color: 'text-charcoal',
+    barColor: 'bg-forest',
+    currentLevelXP: xpInCurrentLevel,
+    levelRequiredXP: currentLvl.requiredXP,
+    progress: Math.min(progress, 100)
+  };
 });
 
 // --- Heatmap (Aligned to Sunday-Saturday Calendar view) ---

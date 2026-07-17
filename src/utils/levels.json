@@ -1,0 +1,3008 @@
+[
+  {
+    "level": 1,
+    "name": "Awakening Seed",
+    "icon": "🌱",
+    "requiredXP": 20
+  },
+  {
+    "level": 2,
+    "name": "Awakening Herb",
+    "icon": "🌿",
+    "requiredXP": 22
+  },
+  {
+    "level": 3,
+    "name": "Awakening Shamrock",
+    "icon": "☘️",
+    "requiredXP": 24
+  },
+  {
+    "level": 4,
+    "name": "Awakening Clover",
+    "icon": "🍀",
+    "requiredXP": 26
+  },
+  {
+    "level": 5,
+    "name": "Awakening Plant",
+    "icon": "🪴",
+    "requiredXP": 28
+  },
+  {
+    "level": 6,
+    "name": "Awakening Bamboo",
+    "icon": "🎋",
+    "requiredXP": 30
+  },
+  {
+    "level": 7,
+    "name": "Awakening Leaf",
+    "icon": "🍃",
+    "requiredXP": 32
+  },
+  {
+    "level": 8,
+    "name": "Awakening Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 34
+  },
+  {
+    "level": 9,
+    "name": "Awakening Maple",
+    "icon": "🍁",
+    "requiredXP": 36
+  },
+  {
+    "level": 10,
+    "name": "Awakening Mushroom",
+    "icon": "🍄",
+    "requiredXP": 38
+  },
+  {
+    "level": 11,
+    "name": "Awakening Rice",
+    "icon": "🌾",
+    "requiredXP": 40
+  },
+  {
+    "level": 12,
+    "name": "Awakening Bouquet",
+    "icon": "💐",
+    "requiredXP": 42
+  },
+  {
+    "level": 13,
+    "name": "Awakening Tulip",
+    "icon": "🌷",
+    "requiredXP": 44
+  },
+  {
+    "level": 14,
+    "name": "Awakening Rose",
+    "icon": "🌹",
+    "requiredXP": 46
+  },
+  {
+    "level": 15,
+    "name": "Awakening Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 48
+  },
+  {
+    "level": 16,
+    "name": "Awakening Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 50
+  },
+  {
+    "level": 17,
+    "name": "Awakening Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 52
+  },
+  {
+    "level": 18,
+    "name": "Awakening Blossom",
+    "icon": "🌼",
+    "requiredXP": 54
+  },
+  {
+    "level": 19,
+    "name": "Awakening Sunflower",
+    "icon": "🌻",
+    "requiredXP": 56
+  },
+  {
+    "level": 20,
+    "name": "Awakening Lotus",
+    "icon": "🪷",
+    "requiredXP": 58
+  },
+  {
+    "level": 21,
+    "name": "Awakening Log",
+    "icon": "🪵",
+    "requiredXP": 60
+  },
+  {
+    "level": 22,
+    "name": "Awakening Stone",
+    "icon": "🪨",
+    "requiredXP": 62
+  },
+  {
+    "level": 23,
+    "name": "Awakening Shell",
+    "icon": "🐚",
+    "requiredXP": 64
+  },
+  {
+    "level": 24,
+    "name": "Awakening Snail",
+    "icon": "🐌",
+    "requiredXP": 66
+  },
+  {
+    "level": 25,
+    "name": "Awakening Butterfly",
+    "icon": "🦋",
+    "requiredXP": 68
+  },
+  {
+    "level": 26,
+    "name": "Awakening Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 70
+  },
+  {
+    "level": 27,
+    "name": "Awakening Ant",
+    "icon": "🐜",
+    "requiredXP": 72
+  },
+  {
+    "level": 28,
+    "name": "Awakening Bee",
+    "icon": "🐝",
+    "requiredXP": 74
+  },
+  {
+    "level": 29,
+    "name": "Awakening Beetle",
+    "icon": "🪲",
+    "requiredXP": 76
+  },
+  {
+    "level": 30,
+    "name": "Awakening Ladybug",
+    "icon": "🐞",
+    "requiredXP": 78
+  },
+  {
+    "level": 31,
+    "name": "Awakening Turtle",
+    "icon": "🐢",
+    "requiredXP": 80
+  },
+  {
+    "level": 32,
+    "name": "Awakening Snake",
+    "icon": "🐍",
+    "requiredXP": 82
+  },
+  {
+    "level": 33,
+    "name": "Awakening Lizard",
+    "icon": "🦎",
+    "requiredXP": 84
+  },
+  {
+    "level": 34,
+    "name": "Awakening Octopus",
+    "icon": "🐙",
+    "requiredXP": 86
+  },
+  {
+    "level": 35,
+    "name": "Awakening Squid",
+    "icon": "🦑",
+    "requiredXP": 88
+  },
+  {
+    "level": 36,
+    "name": "Awakening Shrimp",
+    "icon": "🦐",
+    "requiredXP": 90
+  },
+  {
+    "level": 37,
+    "name": "Awakening Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 92
+  },
+  {
+    "level": 38,
+    "name": "Awakening Fish",
+    "icon": "🐟",
+    "requiredXP": 94
+  },
+  {
+    "level": 39,
+    "name": "Awakening Dolphin",
+    "icon": "🐬",
+    "requiredXP": 96
+  },
+  {
+    "level": 40,
+    "name": "Awakening Whale",
+    "icon": "🐳",
+    "requiredXP": 98
+  },
+  {
+    "level": 41,
+    "name": "Awakening Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 100
+  },
+  {
+    "level": 42,
+    "name": "Awakening Shark",
+    "icon": "🦈",
+    "requiredXP": 102
+  },
+  {
+    "level": 43,
+    "name": "Awakening Seal",
+    "icon": "🦭",
+    "requiredXP": 104
+  },
+  {
+    "level": 44,
+    "name": "Awakening Tiger",
+    "icon": "🐅",
+    "requiredXP": 106
+  },
+  {
+    "level": 45,
+    "name": "Awakening Leopard",
+    "icon": "🐆",
+    "requiredXP": 108
+  },
+  {
+    "level": 46,
+    "name": "Awakening Zebra",
+    "icon": "🦓",
+    "requiredXP": 110
+  },
+  {
+    "level": 47,
+    "name": "Awakening Elephant",
+    "icon": "🐘",
+    "requiredXP": 112
+  },
+  {
+    "level": 48,
+    "name": "Awakening Rhino",
+    "icon": "🦏",
+    "requiredXP": 114
+  },
+  {
+    "level": 49,
+    "name": "Awakening Giraffe",
+    "icon": "🦒",
+    "requiredXP": 116
+  },
+  {
+    "level": 50,
+    "name": "Awakening Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 118
+  },
+  {
+    "level": 51,
+    "name": "Sprouting Seed",
+    "icon": "🌱",
+    "requiredXP": 120
+  },
+  {
+    "level": 52,
+    "name": "Sprouting Herb",
+    "icon": "🌿",
+    "requiredXP": 122
+  },
+  {
+    "level": 53,
+    "name": "Sprouting Shamrock",
+    "icon": "☘️",
+    "requiredXP": 124
+  },
+  {
+    "level": 54,
+    "name": "Sprouting Clover",
+    "icon": "🍀",
+    "requiredXP": 126
+  },
+  {
+    "level": 55,
+    "name": "Sprouting Plant",
+    "icon": "🪴",
+    "requiredXP": 128
+  },
+  {
+    "level": 56,
+    "name": "Sprouting Bamboo",
+    "icon": "🎋",
+    "requiredXP": 130
+  },
+  {
+    "level": 57,
+    "name": "Sprouting Leaf",
+    "icon": "🍃",
+    "requiredXP": 132
+  },
+  {
+    "level": 58,
+    "name": "Sprouting Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 134
+  },
+  {
+    "level": 59,
+    "name": "Sprouting Maple",
+    "icon": "🍁",
+    "requiredXP": 136
+  },
+  {
+    "level": 60,
+    "name": "Sprouting Mushroom",
+    "icon": "🍄",
+    "requiredXP": 138
+  },
+  {
+    "level": 61,
+    "name": "Sprouting Rice",
+    "icon": "🌾",
+    "requiredXP": 140
+  },
+  {
+    "level": 62,
+    "name": "Sprouting Bouquet",
+    "icon": "💐",
+    "requiredXP": 142
+  },
+  {
+    "level": 63,
+    "name": "Sprouting Tulip",
+    "icon": "🌷",
+    "requiredXP": 144
+  },
+  {
+    "level": 64,
+    "name": "Sprouting Rose",
+    "icon": "🌹",
+    "requiredXP": 146
+  },
+  {
+    "level": 65,
+    "name": "Sprouting Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 148
+  },
+  {
+    "level": 66,
+    "name": "Sprouting Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 150
+  },
+  {
+    "level": 67,
+    "name": "Sprouting Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 152
+  },
+  {
+    "level": 68,
+    "name": "Sprouting Blossom",
+    "icon": "🌼",
+    "requiredXP": 154
+  },
+  {
+    "level": 69,
+    "name": "Sprouting Sunflower",
+    "icon": "🌻",
+    "requiredXP": 156
+  },
+  {
+    "level": 70,
+    "name": "Sprouting Lotus",
+    "icon": "🪷",
+    "requiredXP": 158
+  },
+  {
+    "level": 71,
+    "name": "Sprouting Log",
+    "icon": "🪵",
+    "requiredXP": 160
+  },
+  {
+    "level": 72,
+    "name": "Sprouting Stone",
+    "icon": "🪨",
+    "requiredXP": 162
+  },
+  {
+    "level": 73,
+    "name": "Sprouting Shell",
+    "icon": "🐚",
+    "requiredXP": 164
+  },
+  {
+    "level": 74,
+    "name": "Sprouting Snail",
+    "icon": "🐌",
+    "requiredXP": 166
+  },
+  {
+    "level": 75,
+    "name": "Sprouting Butterfly",
+    "icon": "🦋",
+    "requiredXP": 168
+  },
+  {
+    "level": 76,
+    "name": "Sprouting Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 170
+  },
+  {
+    "level": 77,
+    "name": "Sprouting Ant",
+    "icon": "🐜",
+    "requiredXP": 172
+  },
+  {
+    "level": 78,
+    "name": "Sprouting Bee",
+    "icon": "🐝",
+    "requiredXP": 174
+  },
+  {
+    "level": 79,
+    "name": "Sprouting Beetle",
+    "icon": "🪲",
+    "requiredXP": 176
+  },
+  {
+    "level": 80,
+    "name": "Sprouting Ladybug",
+    "icon": "🐞",
+    "requiredXP": 178
+  },
+  {
+    "level": 81,
+    "name": "Sprouting Turtle",
+    "icon": "🐢",
+    "requiredXP": 180
+  },
+  {
+    "level": 82,
+    "name": "Sprouting Snake",
+    "icon": "🐍",
+    "requiredXP": 182
+  },
+  {
+    "level": 83,
+    "name": "Sprouting Lizard",
+    "icon": "🦎",
+    "requiredXP": 184
+  },
+  {
+    "level": 84,
+    "name": "Sprouting Octopus",
+    "icon": "🐙",
+    "requiredXP": 186
+  },
+  {
+    "level": 85,
+    "name": "Sprouting Squid",
+    "icon": "🦑",
+    "requiredXP": 188
+  },
+  {
+    "level": 86,
+    "name": "Sprouting Shrimp",
+    "icon": "🦐",
+    "requiredXP": 190
+  },
+  {
+    "level": 87,
+    "name": "Sprouting Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 192
+  },
+  {
+    "level": 88,
+    "name": "Sprouting Fish",
+    "icon": "🐟",
+    "requiredXP": 194
+  },
+  {
+    "level": 89,
+    "name": "Sprouting Dolphin",
+    "icon": "🐬",
+    "requiredXP": 196
+  },
+  {
+    "level": 90,
+    "name": "Sprouting Whale",
+    "icon": "🐳",
+    "requiredXP": 198
+  },
+  {
+    "level": 91,
+    "name": "Sprouting Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 200
+  },
+  {
+    "level": 92,
+    "name": "Sprouting Shark",
+    "icon": "🦈",
+    "requiredXP": 202
+  },
+  {
+    "level": 93,
+    "name": "Sprouting Seal",
+    "icon": "🦭",
+    "requiredXP": 204
+  },
+  {
+    "level": 94,
+    "name": "Sprouting Tiger",
+    "icon": "🐅",
+    "requiredXP": 206
+  },
+  {
+    "level": 95,
+    "name": "Sprouting Leopard",
+    "icon": "🐆",
+    "requiredXP": 208
+  },
+  {
+    "level": 96,
+    "name": "Sprouting Zebra",
+    "icon": "🦓",
+    "requiredXP": 210
+  },
+  {
+    "level": 97,
+    "name": "Sprouting Elephant",
+    "icon": "🐘",
+    "requiredXP": 212
+  },
+  {
+    "level": 98,
+    "name": "Sprouting Rhino",
+    "icon": "🦏",
+    "requiredXP": 214
+  },
+  {
+    "level": 99,
+    "name": "Sprouting Giraffe",
+    "icon": "🦒",
+    "requiredXP": 216
+  },
+  {
+    "level": 100,
+    "name": "Sprouting Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 218
+  },
+  {
+    "level": 101,
+    "name": "Growing Seed",
+    "icon": "🌱",
+    "requiredXP": 220
+  },
+  {
+    "level": 102,
+    "name": "Growing Herb",
+    "icon": "🌿",
+    "requiredXP": 222
+  },
+  {
+    "level": 103,
+    "name": "Growing Shamrock",
+    "icon": "☘️",
+    "requiredXP": 224
+  },
+  {
+    "level": 104,
+    "name": "Growing Clover",
+    "icon": "🍀",
+    "requiredXP": 226
+  },
+  {
+    "level": 105,
+    "name": "Growing Plant",
+    "icon": "🪴",
+    "requiredXP": 228
+  },
+  {
+    "level": 106,
+    "name": "Growing Bamboo",
+    "icon": "🎋",
+    "requiredXP": 230
+  },
+  {
+    "level": 107,
+    "name": "Growing Leaf",
+    "icon": "🍃",
+    "requiredXP": 232
+  },
+  {
+    "level": 108,
+    "name": "Growing Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 234
+  },
+  {
+    "level": 109,
+    "name": "Growing Maple",
+    "icon": "🍁",
+    "requiredXP": 236
+  },
+  {
+    "level": 110,
+    "name": "Growing Mushroom",
+    "icon": "🍄",
+    "requiredXP": 238
+  },
+  {
+    "level": 111,
+    "name": "Growing Rice",
+    "icon": "🌾",
+    "requiredXP": 240
+  },
+  {
+    "level": 112,
+    "name": "Growing Bouquet",
+    "icon": "💐",
+    "requiredXP": 242
+  },
+  {
+    "level": 113,
+    "name": "Growing Tulip",
+    "icon": "🌷",
+    "requiredXP": 244
+  },
+  {
+    "level": 114,
+    "name": "Growing Rose",
+    "icon": "🌹",
+    "requiredXP": 246
+  },
+  {
+    "level": 115,
+    "name": "Growing Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 248
+  },
+  {
+    "level": 116,
+    "name": "Growing Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 250
+  },
+  {
+    "level": 117,
+    "name": "Growing Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 252
+  },
+  {
+    "level": 118,
+    "name": "Growing Blossom",
+    "icon": "🌼",
+    "requiredXP": 254
+  },
+  {
+    "level": 119,
+    "name": "Growing Sunflower",
+    "icon": "🌻",
+    "requiredXP": 256
+  },
+  {
+    "level": 120,
+    "name": "Growing Lotus",
+    "icon": "🪷",
+    "requiredXP": 258
+  },
+  {
+    "level": 121,
+    "name": "Growing Log",
+    "icon": "🪵",
+    "requiredXP": 260
+  },
+  {
+    "level": 122,
+    "name": "Growing Stone",
+    "icon": "🪨",
+    "requiredXP": 262
+  },
+  {
+    "level": 123,
+    "name": "Growing Shell",
+    "icon": "🐚",
+    "requiredXP": 264
+  },
+  {
+    "level": 124,
+    "name": "Growing Snail",
+    "icon": "🐌",
+    "requiredXP": 266
+  },
+  {
+    "level": 125,
+    "name": "Growing Butterfly",
+    "icon": "🦋",
+    "requiredXP": 268
+  },
+  {
+    "level": 126,
+    "name": "Growing Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 270
+  },
+  {
+    "level": 127,
+    "name": "Growing Ant",
+    "icon": "🐜",
+    "requiredXP": 272
+  },
+  {
+    "level": 128,
+    "name": "Growing Bee",
+    "icon": "🐝",
+    "requiredXP": 274
+  },
+  {
+    "level": 129,
+    "name": "Growing Beetle",
+    "icon": "🪲",
+    "requiredXP": 276
+  },
+  {
+    "level": 130,
+    "name": "Growing Ladybug",
+    "icon": "🐞",
+    "requiredXP": 278
+  },
+  {
+    "level": 131,
+    "name": "Growing Turtle",
+    "icon": "🐢",
+    "requiredXP": 280
+  },
+  {
+    "level": 132,
+    "name": "Growing Snake",
+    "icon": "🐍",
+    "requiredXP": 282
+  },
+  {
+    "level": 133,
+    "name": "Growing Lizard",
+    "icon": "🦎",
+    "requiredXP": 284
+  },
+  {
+    "level": 134,
+    "name": "Growing Octopus",
+    "icon": "🐙",
+    "requiredXP": 286
+  },
+  {
+    "level": 135,
+    "name": "Growing Squid",
+    "icon": "🦑",
+    "requiredXP": 288
+  },
+  {
+    "level": 136,
+    "name": "Growing Shrimp",
+    "icon": "🦐",
+    "requiredXP": 290
+  },
+  {
+    "level": 137,
+    "name": "Growing Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 292
+  },
+  {
+    "level": 138,
+    "name": "Growing Fish",
+    "icon": "🐟",
+    "requiredXP": 294
+  },
+  {
+    "level": 139,
+    "name": "Growing Dolphin",
+    "icon": "🐬",
+    "requiredXP": 296
+  },
+  {
+    "level": 140,
+    "name": "Growing Whale",
+    "icon": "🐳",
+    "requiredXP": 298
+  },
+  {
+    "level": 141,
+    "name": "Growing Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 300
+  },
+  {
+    "level": 142,
+    "name": "Growing Shark",
+    "icon": "🦈",
+    "requiredXP": 302
+  },
+  {
+    "level": 143,
+    "name": "Growing Seal",
+    "icon": "🦭",
+    "requiredXP": 304
+  },
+  {
+    "level": 144,
+    "name": "Growing Tiger",
+    "icon": "🐅",
+    "requiredXP": 306
+  },
+  {
+    "level": 145,
+    "name": "Growing Leopard",
+    "icon": "🐆",
+    "requiredXP": 308
+  },
+  {
+    "level": 146,
+    "name": "Growing Zebra",
+    "icon": "🦓",
+    "requiredXP": 310
+  },
+  {
+    "level": 147,
+    "name": "Growing Elephant",
+    "icon": "🐘",
+    "requiredXP": 312
+  },
+  {
+    "level": 148,
+    "name": "Growing Rhino",
+    "icon": "🦏",
+    "requiredXP": 314
+  },
+  {
+    "level": 149,
+    "name": "Growing Giraffe",
+    "icon": "🦒",
+    "requiredXP": 316
+  },
+  {
+    "level": 150,
+    "name": "Growing Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 318
+  },
+  {
+    "level": 151,
+    "name": "Flourishing Seed",
+    "icon": "🌱",
+    "requiredXP": 320
+  },
+  {
+    "level": 152,
+    "name": "Flourishing Herb",
+    "icon": "🌿",
+    "requiredXP": 322
+  },
+  {
+    "level": 153,
+    "name": "Flourishing Shamrock",
+    "icon": "☘️",
+    "requiredXP": 324
+  },
+  {
+    "level": 154,
+    "name": "Flourishing Clover",
+    "icon": "🍀",
+    "requiredXP": 326
+  },
+  {
+    "level": 155,
+    "name": "Flourishing Plant",
+    "icon": "🪴",
+    "requiredXP": 328
+  },
+  {
+    "level": 156,
+    "name": "Flourishing Bamboo",
+    "icon": "🎋",
+    "requiredXP": 330
+  },
+  {
+    "level": 157,
+    "name": "Flourishing Leaf",
+    "icon": "🍃",
+    "requiredXP": 332
+  },
+  {
+    "level": 158,
+    "name": "Flourishing Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 334
+  },
+  {
+    "level": 159,
+    "name": "Flourishing Maple",
+    "icon": "🍁",
+    "requiredXP": 336
+  },
+  {
+    "level": 160,
+    "name": "Flourishing Mushroom",
+    "icon": "🍄",
+    "requiredXP": 338
+  },
+  {
+    "level": 161,
+    "name": "Flourishing Rice",
+    "icon": "🌾",
+    "requiredXP": 340
+  },
+  {
+    "level": 162,
+    "name": "Flourishing Bouquet",
+    "icon": "💐",
+    "requiredXP": 342
+  },
+  {
+    "level": 163,
+    "name": "Flourishing Tulip",
+    "icon": "🌷",
+    "requiredXP": 344
+  },
+  {
+    "level": 164,
+    "name": "Flourishing Rose",
+    "icon": "🌹",
+    "requiredXP": 346
+  },
+  {
+    "level": 165,
+    "name": "Flourishing Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 348
+  },
+  {
+    "level": 166,
+    "name": "Flourishing Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 350
+  },
+  {
+    "level": 167,
+    "name": "Flourishing Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 352
+  },
+  {
+    "level": 168,
+    "name": "Flourishing Blossom",
+    "icon": "🌼",
+    "requiredXP": 354
+  },
+  {
+    "level": 169,
+    "name": "Flourishing Sunflower",
+    "icon": "🌻",
+    "requiredXP": 356
+  },
+  {
+    "level": 170,
+    "name": "Flourishing Lotus",
+    "icon": "🪷",
+    "requiredXP": 358
+  },
+  {
+    "level": 171,
+    "name": "Flourishing Log",
+    "icon": "🪵",
+    "requiredXP": 360
+  },
+  {
+    "level": 172,
+    "name": "Flourishing Stone",
+    "icon": "🪨",
+    "requiredXP": 362
+  },
+  {
+    "level": 173,
+    "name": "Flourishing Shell",
+    "icon": "🐚",
+    "requiredXP": 364
+  },
+  {
+    "level": 174,
+    "name": "Flourishing Snail",
+    "icon": "🐌",
+    "requiredXP": 366
+  },
+  {
+    "level": 175,
+    "name": "Flourishing Butterfly",
+    "icon": "🦋",
+    "requiredXP": 368
+  },
+  {
+    "level": 176,
+    "name": "Flourishing Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 370
+  },
+  {
+    "level": 177,
+    "name": "Flourishing Ant",
+    "icon": "🐜",
+    "requiredXP": 372
+  },
+  {
+    "level": 178,
+    "name": "Flourishing Bee",
+    "icon": "🐝",
+    "requiredXP": 374
+  },
+  {
+    "level": 179,
+    "name": "Flourishing Beetle",
+    "icon": "🪲",
+    "requiredXP": 376
+  },
+  {
+    "level": 180,
+    "name": "Flourishing Ladybug",
+    "icon": "🐞",
+    "requiredXP": 378
+  },
+  {
+    "level": 181,
+    "name": "Flourishing Turtle",
+    "icon": "🐢",
+    "requiredXP": 380
+  },
+  {
+    "level": 182,
+    "name": "Flourishing Snake",
+    "icon": "🐍",
+    "requiredXP": 382
+  },
+  {
+    "level": 183,
+    "name": "Flourishing Lizard",
+    "icon": "🦎",
+    "requiredXP": 384
+  },
+  {
+    "level": 184,
+    "name": "Flourishing Octopus",
+    "icon": "🐙",
+    "requiredXP": 386
+  },
+  {
+    "level": 185,
+    "name": "Flourishing Squid",
+    "icon": "🦑",
+    "requiredXP": 388
+  },
+  {
+    "level": 186,
+    "name": "Flourishing Shrimp",
+    "icon": "🦐",
+    "requiredXP": 390
+  },
+  {
+    "level": 187,
+    "name": "Flourishing Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 392
+  },
+  {
+    "level": 188,
+    "name": "Flourishing Fish",
+    "icon": "🐟",
+    "requiredXP": 394
+  },
+  {
+    "level": 189,
+    "name": "Flourishing Dolphin",
+    "icon": "🐬",
+    "requiredXP": 396
+  },
+  {
+    "level": 190,
+    "name": "Flourishing Whale",
+    "icon": "🐳",
+    "requiredXP": 398
+  },
+  {
+    "level": 191,
+    "name": "Flourishing Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 400
+  },
+  {
+    "level": 192,
+    "name": "Flourishing Shark",
+    "icon": "🦈",
+    "requiredXP": 402
+  },
+  {
+    "level": 193,
+    "name": "Flourishing Seal",
+    "icon": "🦭",
+    "requiredXP": 404
+  },
+  {
+    "level": 194,
+    "name": "Flourishing Tiger",
+    "icon": "🐅",
+    "requiredXP": 406
+  },
+  {
+    "level": 195,
+    "name": "Flourishing Leopard",
+    "icon": "🐆",
+    "requiredXP": 408
+  },
+  {
+    "level": 196,
+    "name": "Flourishing Zebra",
+    "icon": "🦓",
+    "requiredXP": 410
+  },
+  {
+    "level": 197,
+    "name": "Flourishing Elephant",
+    "icon": "🐘",
+    "requiredXP": 412
+  },
+  {
+    "level": 198,
+    "name": "Flourishing Rhino",
+    "icon": "🦏",
+    "requiredXP": 414
+  },
+  {
+    "level": 199,
+    "name": "Flourishing Giraffe",
+    "icon": "🦒",
+    "requiredXP": 416
+  },
+  {
+    "level": 200,
+    "name": "Flourishing Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 418
+  },
+  {
+    "level": 201,
+    "name": "Blooming Seed",
+    "icon": "🌱",
+    "requiredXP": 420
+  },
+  {
+    "level": 202,
+    "name": "Blooming Herb",
+    "icon": "🌿",
+    "requiredXP": 422
+  },
+  {
+    "level": 203,
+    "name": "Blooming Shamrock",
+    "icon": "☘️",
+    "requiredXP": 424
+  },
+  {
+    "level": 204,
+    "name": "Blooming Clover",
+    "icon": "🍀",
+    "requiredXP": 426
+  },
+  {
+    "level": 205,
+    "name": "Blooming Plant",
+    "icon": "🪴",
+    "requiredXP": 428
+  },
+  {
+    "level": 206,
+    "name": "Blooming Bamboo",
+    "icon": "🎋",
+    "requiredXP": 430
+  },
+  {
+    "level": 207,
+    "name": "Blooming Leaf",
+    "icon": "🍃",
+    "requiredXP": 432
+  },
+  {
+    "level": 208,
+    "name": "Blooming Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 434
+  },
+  {
+    "level": 209,
+    "name": "Blooming Maple",
+    "icon": "🍁",
+    "requiredXP": 436
+  },
+  {
+    "level": 210,
+    "name": "Blooming Mushroom",
+    "icon": "🍄",
+    "requiredXP": 438
+  },
+  {
+    "level": 211,
+    "name": "Blooming Rice",
+    "icon": "🌾",
+    "requiredXP": 440
+  },
+  {
+    "level": 212,
+    "name": "Blooming Bouquet",
+    "icon": "💐",
+    "requiredXP": 442
+  },
+  {
+    "level": 213,
+    "name": "Blooming Tulip",
+    "icon": "🌷",
+    "requiredXP": 444
+  },
+  {
+    "level": 214,
+    "name": "Blooming Rose",
+    "icon": "🌹",
+    "requiredXP": 446
+  },
+  {
+    "level": 215,
+    "name": "Blooming Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 448
+  },
+  {
+    "level": 216,
+    "name": "Blooming Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 450
+  },
+  {
+    "level": 217,
+    "name": "Blooming Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 452
+  },
+  {
+    "level": 218,
+    "name": "Blooming Blossom",
+    "icon": "🌼",
+    "requiredXP": 454
+  },
+  {
+    "level": 219,
+    "name": "Blooming Sunflower",
+    "icon": "🌻",
+    "requiredXP": 456
+  },
+  {
+    "level": 220,
+    "name": "Blooming Lotus",
+    "icon": "🪷",
+    "requiredXP": 458
+  },
+  {
+    "level": 221,
+    "name": "Blooming Log",
+    "icon": "🪵",
+    "requiredXP": 460
+  },
+  {
+    "level": 222,
+    "name": "Blooming Stone",
+    "icon": "🪨",
+    "requiredXP": 462
+  },
+  {
+    "level": 223,
+    "name": "Blooming Shell",
+    "icon": "🐚",
+    "requiredXP": 464
+  },
+  {
+    "level": 224,
+    "name": "Blooming Snail",
+    "icon": "🐌",
+    "requiredXP": 466
+  },
+  {
+    "level": 225,
+    "name": "Blooming Butterfly",
+    "icon": "🦋",
+    "requiredXP": 468
+  },
+  {
+    "level": 226,
+    "name": "Blooming Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 470
+  },
+  {
+    "level": 227,
+    "name": "Blooming Ant",
+    "icon": "🐜",
+    "requiredXP": 472
+  },
+  {
+    "level": 228,
+    "name": "Blooming Bee",
+    "icon": "🐝",
+    "requiredXP": 474
+  },
+  {
+    "level": 229,
+    "name": "Blooming Beetle",
+    "icon": "🪲",
+    "requiredXP": 476
+  },
+  {
+    "level": 230,
+    "name": "Blooming Ladybug",
+    "icon": "🐞",
+    "requiredXP": 478
+  },
+  {
+    "level": 231,
+    "name": "Blooming Turtle",
+    "icon": "🐢",
+    "requiredXP": 480
+  },
+  {
+    "level": 232,
+    "name": "Blooming Snake",
+    "icon": "🐍",
+    "requiredXP": 482
+  },
+  {
+    "level": 233,
+    "name": "Blooming Lizard",
+    "icon": "🦎",
+    "requiredXP": 484
+  },
+  {
+    "level": 234,
+    "name": "Blooming Octopus",
+    "icon": "🐙",
+    "requiredXP": 486
+  },
+  {
+    "level": 235,
+    "name": "Blooming Squid",
+    "icon": "🦑",
+    "requiredXP": 488
+  },
+  {
+    "level": 236,
+    "name": "Blooming Shrimp",
+    "icon": "🦐",
+    "requiredXP": 490
+  },
+  {
+    "level": 237,
+    "name": "Blooming Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 492
+  },
+  {
+    "level": 238,
+    "name": "Blooming Fish",
+    "icon": "🐟",
+    "requiredXP": 494
+  },
+  {
+    "level": 239,
+    "name": "Blooming Dolphin",
+    "icon": "🐬",
+    "requiredXP": 496
+  },
+  {
+    "level": 240,
+    "name": "Blooming Whale",
+    "icon": "🐳",
+    "requiredXP": 498
+  },
+  {
+    "level": 241,
+    "name": "Blooming Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 500
+  },
+  {
+    "level": 242,
+    "name": "Blooming Shark",
+    "icon": "🦈",
+    "requiredXP": 502
+  },
+  {
+    "level": 243,
+    "name": "Blooming Seal",
+    "icon": "🦭",
+    "requiredXP": 504
+  },
+  {
+    "level": 244,
+    "name": "Blooming Tiger",
+    "icon": "🐅",
+    "requiredXP": 506
+  },
+  {
+    "level": 245,
+    "name": "Blooming Leopard",
+    "icon": "🐆",
+    "requiredXP": 508
+  },
+  {
+    "level": 246,
+    "name": "Blooming Zebra",
+    "icon": "🦓",
+    "requiredXP": 510
+  },
+  {
+    "level": 247,
+    "name": "Blooming Elephant",
+    "icon": "🐘",
+    "requiredXP": 512
+  },
+  {
+    "level": 248,
+    "name": "Blooming Rhino",
+    "icon": "🦏",
+    "requiredXP": 514
+  },
+  {
+    "level": 249,
+    "name": "Blooming Giraffe",
+    "icon": "🦒",
+    "requiredXP": 516
+  },
+  {
+    "level": 250,
+    "name": "Blooming Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 518
+  },
+  {
+    "level": 251,
+    "name": "Radiant Seed",
+    "icon": "🌱",
+    "requiredXP": 520
+  },
+  {
+    "level": 252,
+    "name": "Radiant Herb",
+    "icon": "🌿",
+    "requiredXP": 522
+  },
+  {
+    "level": 253,
+    "name": "Radiant Shamrock",
+    "icon": "☘️",
+    "requiredXP": 524
+  },
+  {
+    "level": 254,
+    "name": "Radiant Clover",
+    "icon": "🍀",
+    "requiredXP": 526
+  },
+  {
+    "level": 255,
+    "name": "Radiant Plant",
+    "icon": "🪴",
+    "requiredXP": 528
+  },
+  {
+    "level": 256,
+    "name": "Radiant Bamboo",
+    "icon": "🎋",
+    "requiredXP": 530
+  },
+  {
+    "level": 257,
+    "name": "Radiant Leaf",
+    "icon": "🍃",
+    "requiredXP": 532
+  },
+  {
+    "level": 258,
+    "name": "Radiant Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 534
+  },
+  {
+    "level": 259,
+    "name": "Radiant Maple",
+    "icon": "🍁",
+    "requiredXP": 536
+  },
+  {
+    "level": 260,
+    "name": "Radiant Mushroom",
+    "icon": "🍄",
+    "requiredXP": 538
+  },
+  {
+    "level": 261,
+    "name": "Radiant Rice",
+    "icon": "🌾",
+    "requiredXP": 540
+  },
+  {
+    "level": 262,
+    "name": "Radiant Bouquet",
+    "icon": "💐",
+    "requiredXP": 542
+  },
+  {
+    "level": 263,
+    "name": "Radiant Tulip",
+    "icon": "🌷",
+    "requiredXP": 544
+  },
+  {
+    "level": 264,
+    "name": "Radiant Rose",
+    "icon": "🌹",
+    "requiredXP": 546
+  },
+  {
+    "level": 265,
+    "name": "Radiant Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 548
+  },
+  {
+    "level": 266,
+    "name": "Radiant Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 550
+  },
+  {
+    "level": 267,
+    "name": "Radiant Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 552
+  },
+  {
+    "level": 268,
+    "name": "Radiant Blossom",
+    "icon": "🌼",
+    "requiredXP": 554
+  },
+  {
+    "level": 269,
+    "name": "Radiant Sunflower",
+    "icon": "🌻",
+    "requiredXP": 556
+  },
+  {
+    "level": 270,
+    "name": "Radiant Lotus",
+    "icon": "🪷",
+    "requiredXP": 558
+  },
+  {
+    "level": 271,
+    "name": "Radiant Log",
+    "icon": "🪵",
+    "requiredXP": 560
+  },
+  {
+    "level": 272,
+    "name": "Radiant Stone",
+    "icon": "🪨",
+    "requiredXP": 562
+  },
+  {
+    "level": 273,
+    "name": "Radiant Shell",
+    "icon": "🐚",
+    "requiredXP": 564
+  },
+  {
+    "level": 274,
+    "name": "Radiant Snail",
+    "icon": "🐌",
+    "requiredXP": 566
+  },
+  {
+    "level": 275,
+    "name": "Radiant Butterfly",
+    "icon": "🦋",
+    "requiredXP": 568
+  },
+  {
+    "level": 276,
+    "name": "Radiant Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 570
+  },
+  {
+    "level": 277,
+    "name": "Radiant Ant",
+    "icon": "🐜",
+    "requiredXP": 572
+  },
+  {
+    "level": 278,
+    "name": "Radiant Bee",
+    "icon": "🐝",
+    "requiredXP": 574
+  },
+  {
+    "level": 279,
+    "name": "Radiant Beetle",
+    "icon": "🪲",
+    "requiredXP": 576
+  },
+  {
+    "level": 280,
+    "name": "Radiant Ladybug",
+    "icon": "🐞",
+    "requiredXP": 578
+  },
+  {
+    "level": 281,
+    "name": "Radiant Turtle",
+    "icon": "🐢",
+    "requiredXP": 580
+  },
+  {
+    "level": 282,
+    "name": "Radiant Snake",
+    "icon": "🐍",
+    "requiredXP": 582
+  },
+  {
+    "level": 283,
+    "name": "Radiant Lizard",
+    "icon": "🦎",
+    "requiredXP": 584
+  },
+  {
+    "level": 284,
+    "name": "Radiant Octopus",
+    "icon": "🐙",
+    "requiredXP": 586
+  },
+  {
+    "level": 285,
+    "name": "Radiant Squid",
+    "icon": "🦑",
+    "requiredXP": 588
+  },
+  {
+    "level": 286,
+    "name": "Radiant Shrimp",
+    "icon": "🦐",
+    "requiredXP": 590
+  },
+  {
+    "level": 287,
+    "name": "Radiant Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 592
+  },
+  {
+    "level": 288,
+    "name": "Radiant Fish",
+    "icon": "🐟",
+    "requiredXP": 594
+  },
+  {
+    "level": 289,
+    "name": "Radiant Dolphin",
+    "icon": "🐬",
+    "requiredXP": 596
+  },
+  {
+    "level": 290,
+    "name": "Radiant Whale",
+    "icon": "🐳",
+    "requiredXP": 598
+  },
+  {
+    "level": 291,
+    "name": "Radiant Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 600
+  },
+  {
+    "level": 292,
+    "name": "Radiant Shark",
+    "icon": "🦈",
+    "requiredXP": 602
+  },
+  {
+    "level": 293,
+    "name": "Radiant Seal",
+    "icon": "🦭",
+    "requiredXP": 604
+  },
+  {
+    "level": 294,
+    "name": "Radiant Tiger",
+    "icon": "🐅",
+    "requiredXP": 606
+  },
+  {
+    "level": 295,
+    "name": "Radiant Leopard",
+    "icon": "🐆",
+    "requiredXP": 608
+  },
+  {
+    "level": 296,
+    "name": "Radiant Zebra",
+    "icon": "🦓",
+    "requiredXP": 610
+  },
+  {
+    "level": 297,
+    "name": "Radiant Elephant",
+    "icon": "🐘",
+    "requiredXP": 612
+  },
+  {
+    "level": 298,
+    "name": "Radiant Rhino",
+    "icon": "🦏",
+    "requiredXP": 614
+  },
+  {
+    "level": 299,
+    "name": "Radiant Giraffe",
+    "icon": "🦒",
+    "requiredXP": 616
+  },
+  {
+    "level": 300,
+    "name": "Radiant Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 618
+  },
+  {
+    "level": 301,
+    "name": "Tranquil Seed",
+    "icon": "🌱",
+    "requiredXP": 620
+  },
+  {
+    "level": 302,
+    "name": "Tranquil Herb",
+    "icon": "🌿",
+    "requiredXP": 622
+  },
+  {
+    "level": 303,
+    "name": "Tranquil Shamrock",
+    "icon": "☘️",
+    "requiredXP": 624
+  },
+  {
+    "level": 304,
+    "name": "Tranquil Clover",
+    "icon": "🍀",
+    "requiredXP": 626
+  },
+  {
+    "level": 305,
+    "name": "Tranquil Plant",
+    "icon": "🪴",
+    "requiredXP": 628
+  },
+  {
+    "level": 306,
+    "name": "Tranquil Bamboo",
+    "icon": "🎋",
+    "requiredXP": 630
+  },
+  {
+    "level": 307,
+    "name": "Tranquil Leaf",
+    "icon": "🍃",
+    "requiredXP": 632
+  },
+  {
+    "level": 308,
+    "name": "Tranquil Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 634
+  },
+  {
+    "level": 309,
+    "name": "Tranquil Maple",
+    "icon": "🍁",
+    "requiredXP": 636
+  },
+  {
+    "level": 310,
+    "name": "Tranquil Mushroom",
+    "icon": "🍄",
+    "requiredXP": 638
+  },
+  {
+    "level": 311,
+    "name": "Tranquil Rice",
+    "icon": "🌾",
+    "requiredXP": 640
+  },
+  {
+    "level": 312,
+    "name": "Tranquil Bouquet",
+    "icon": "💐",
+    "requiredXP": 642
+  },
+  {
+    "level": 313,
+    "name": "Tranquil Tulip",
+    "icon": "🌷",
+    "requiredXP": 644
+  },
+  {
+    "level": 314,
+    "name": "Tranquil Rose",
+    "icon": "🌹",
+    "requiredXP": 646
+  },
+  {
+    "level": 315,
+    "name": "Tranquil Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 648
+  },
+  {
+    "level": 316,
+    "name": "Tranquil Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 650
+  },
+  {
+    "level": 317,
+    "name": "Tranquil Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 652
+  },
+  {
+    "level": 318,
+    "name": "Tranquil Blossom",
+    "icon": "🌼",
+    "requiredXP": 654
+  },
+  {
+    "level": 319,
+    "name": "Tranquil Sunflower",
+    "icon": "🌻",
+    "requiredXP": 656
+  },
+  {
+    "level": 320,
+    "name": "Tranquil Lotus",
+    "icon": "🪷",
+    "requiredXP": 658
+  },
+  {
+    "level": 321,
+    "name": "Tranquil Log",
+    "icon": "🪵",
+    "requiredXP": 660
+  },
+  {
+    "level": 322,
+    "name": "Tranquil Stone",
+    "icon": "🪨",
+    "requiredXP": 662
+  },
+  {
+    "level": 323,
+    "name": "Tranquil Shell",
+    "icon": "🐚",
+    "requiredXP": 664
+  },
+  {
+    "level": 324,
+    "name": "Tranquil Snail",
+    "icon": "🐌",
+    "requiredXP": 666
+  },
+  {
+    "level": 325,
+    "name": "Tranquil Butterfly",
+    "icon": "🦋",
+    "requiredXP": 668
+  },
+  {
+    "level": 326,
+    "name": "Tranquil Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 670
+  },
+  {
+    "level": 327,
+    "name": "Tranquil Ant",
+    "icon": "🐜",
+    "requiredXP": 672
+  },
+  {
+    "level": 328,
+    "name": "Tranquil Bee",
+    "icon": "🐝",
+    "requiredXP": 674
+  },
+  {
+    "level": 329,
+    "name": "Tranquil Beetle",
+    "icon": "🪲",
+    "requiredXP": 676
+  },
+  {
+    "level": 330,
+    "name": "Tranquil Ladybug",
+    "icon": "🐞",
+    "requiredXP": 678
+  },
+  {
+    "level": 331,
+    "name": "Tranquil Turtle",
+    "icon": "🐢",
+    "requiredXP": 680
+  },
+  {
+    "level": 332,
+    "name": "Tranquil Snake",
+    "icon": "🐍",
+    "requiredXP": 682
+  },
+  {
+    "level": 333,
+    "name": "Tranquil Lizard",
+    "icon": "🦎",
+    "requiredXP": 684
+  },
+  {
+    "level": 334,
+    "name": "Tranquil Octopus",
+    "icon": "🐙",
+    "requiredXP": 686
+  },
+  {
+    "level": 335,
+    "name": "Tranquil Squid",
+    "icon": "🦑",
+    "requiredXP": 688
+  },
+  {
+    "level": 336,
+    "name": "Tranquil Shrimp",
+    "icon": "🦐",
+    "requiredXP": 690
+  },
+  {
+    "level": 337,
+    "name": "Tranquil Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 692
+  },
+  {
+    "level": 338,
+    "name": "Tranquil Fish",
+    "icon": "🐟",
+    "requiredXP": 694
+  },
+  {
+    "level": 339,
+    "name": "Tranquil Dolphin",
+    "icon": "🐬",
+    "requiredXP": 696
+  },
+  {
+    "level": 340,
+    "name": "Tranquil Whale",
+    "icon": "🐳",
+    "requiredXP": 698
+  },
+  {
+    "level": 341,
+    "name": "Tranquil Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 700
+  },
+  {
+    "level": 342,
+    "name": "Tranquil Shark",
+    "icon": "🦈",
+    "requiredXP": 702
+  },
+  {
+    "level": 343,
+    "name": "Tranquil Seal",
+    "icon": "🦭",
+    "requiredXP": 704
+  },
+  {
+    "level": 344,
+    "name": "Tranquil Tiger",
+    "icon": "🐅",
+    "requiredXP": 706
+  },
+  {
+    "level": 345,
+    "name": "Tranquil Leopard",
+    "icon": "🐆",
+    "requiredXP": 708
+  },
+  {
+    "level": 346,
+    "name": "Tranquil Zebra",
+    "icon": "🦓",
+    "requiredXP": 710
+  },
+  {
+    "level": 347,
+    "name": "Tranquil Elephant",
+    "icon": "🐘",
+    "requiredXP": 712
+  },
+  {
+    "level": 348,
+    "name": "Tranquil Rhino",
+    "icon": "🦏",
+    "requiredXP": 714
+  },
+  {
+    "level": 349,
+    "name": "Tranquil Giraffe",
+    "icon": "🦒",
+    "requiredXP": 716
+  },
+  {
+    "level": 350,
+    "name": "Tranquil Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 718
+  },
+  {
+    "level": 351,
+    "name": "Ancient Seed",
+    "icon": "🌱",
+    "requiredXP": 720
+  },
+  {
+    "level": 352,
+    "name": "Ancient Herb",
+    "icon": "🌿",
+    "requiredXP": 722
+  },
+  {
+    "level": 353,
+    "name": "Ancient Shamrock",
+    "icon": "☘️",
+    "requiredXP": 724
+  },
+  {
+    "level": 354,
+    "name": "Ancient Clover",
+    "icon": "🍀",
+    "requiredXP": 726
+  },
+  {
+    "level": 355,
+    "name": "Ancient Plant",
+    "icon": "🪴",
+    "requiredXP": 728
+  },
+  {
+    "level": 356,
+    "name": "Ancient Bamboo",
+    "icon": "🎋",
+    "requiredXP": 730
+  },
+  {
+    "level": 357,
+    "name": "Ancient Leaf",
+    "icon": "🍃",
+    "requiredXP": 732
+  },
+  {
+    "level": 358,
+    "name": "Ancient Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 734
+  },
+  {
+    "level": 359,
+    "name": "Ancient Maple",
+    "icon": "🍁",
+    "requiredXP": 736
+  },
+  {
+    "level": 360,
+    "name": "Ancient Mushroom",
+    "icon": "🍄",
+    "requiredXP": 738
+  },
+  {
+    "level": 361,
+    "name": "Ancient Rice",
+    "icon": "🌾",
+    "requiredXP": 740
+  },
+  {
+    "level": 362,
+    "name": "Ancient Bouquet",
+    "icon": "💐",
+    "requiredXP": 742
+  },
+  {
+    "level": 363,
+    "name": "Ancient Tulip",
+    "icon": "🌷",
+    "requiredXP": 744
+  },
+  {
+    "level": 364,
+    "name": "Ancient Rose",
+    "icon": "🌹",
+    "requiredXP": 746
+  },
+  {
+    "level": 365,
+    "name": "Ancient Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 748
+  },
+  {
+    "level": 366,
+    "name": "Ancient Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 750
+  },
+  {
+    "level": 367,
+    "name": "Ancient Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 752
+  },
+  {
+    "level": 368,
+    "name": "Ancient Blossom",
+    "icon": "🌼",
+    "requiredXP": 754
+  },
+  {
+    "level": 369,
+    "name": "Ancient Sunflower",
+    "icon": "🌻",
+    "requiredXP": 756
+  },
+  {
+    "level": 370,
+    "name": "Ancient Lotus",
+    "icon": "🪷",
+    "requiredXP": 758
+  },
+  {
+    "level": 371,
+    "name": "Ancient Log",
+    "icon": "🪵",
+    "requiredXP": 760
+  },
+  {
+    "level": 372,
+    "name": "Ancient Stone",
+    "icon": "🪨",
+    "requiredXP": 762
+  },
+  {
+    "level": 373,
+    "name": "Ancient Shell",
+    "icon": "🐚",
+    "requiredXP": 764
+  },
+  {
+    "level": 374,
+    "name": "Ancient Snail",
+    "icon": "🐌",
+    "requiredXP": 766
+  },
+  {
+    "level": 375,
+    "name": "Ancient Butterfly",
+    "icon": "🦋",
+    "requiredXP": 768
+  },
+  {
+    "level": 376,
+    "name": "Ancient Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 770
+  },
+  {
+    "level": 377,
+    "name": "Ancient Ant",
+    "icon": "🐜",
+    "requiredXP": 772
+  },
+  {
+    "level": 378,
+    "name": "Ancient Bee",
+    "icon": "🐝",
+    "requiredXP": 774
+  },
+  {
+    "level": 379,
+    "name": "Ancient Beetle",
+    "icon": "🪲",
+    "requiredXP": 776
+  },
+  {
+    "level": 380,
+    "name": "Ancient Ladybug",
+    "icon": "🐞",
+    "requiredXP": 778
+  },
+  {
+    "level": 381,
+    "name": "Ancient Turtle",
+    "icon": "🐢",
+    "requiredXP": 780
+  },
+  {
+    "level": 382,
+    "name": "Ancient Snake",
+    "icon": "🐍",
+    "requiredXP": 782
+  },
+  {
+    "level": 383,
+    "name": "Ancient Lizard",
+    "icon": "🦎",
+    "requiredXP": 784
+  },
+  {
+    "level": 384,
+    "name": "Ancient Octopus",
+    "icon": "🐙",
+    "requiredXP": 786
+  },
+  {
+    "level": 385,
+    "name": "Ancient Squid",
+    "icon": "🦑",
+    "requiredXP": 788
+  },
+  {
+    "level": 386,
+    "name": "Ancient Shrimp",
+    "icon": "🦐",
+    "requiredXP": 790
+  },
+  {
+    "level": 387,
+    "name": "Ancient Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 792
+  },
+  {
+    "level": 388,
+    "name": "Ancient Fish",
+    "icon": "🐟",
+    "requiredXP": 794
+  },
+  {
+    "level": 389,
+    "name": "Ancient Dolphin",
+    "icon": "🐬",
+    "requiredXP": 796
+  },
+  {
+    "level": 390,
+    "name": "Ancient Whale",
+    "icon": "🐳",
+    "requiredXP": 798
+  },
+  {
+    "level": 391,
+    "name": "Ancient Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 800
+  },
+  {
+    "level": 392,
+    "name": "Ancient Shark",
+    "icon": "🦈",
+    "requiredXP": 802
+  },
+  {
+    "level": 393,
+    "name": "Ancient Seal",
+    "icon": "🦭",
+    "requiredXP": 804
+  },
+  {
+    "level": 394,
+    "name": "Ancient Tiger",
+    "icon": "🐅",
+    "requiredXP": 806
+  },
+  {
+    "level": 395,
+    "name": "Ancient Leopard",
+    "icon": "🐆",
+    "requiredXP": 808
+  },
+  {
+    "level": 396,
+    "name": "Ancient Zebra",
+    "icon": "🦓",
+    "requiredXP": 810
+  },
+  {
+    "level": 397,
+    "name": "Ancient Elephant",
+    "icon": "🐘",
+    "requiredXP": 812
+  },
+  {
+    "level": 398,
+    "name": "Ancient Rhino",
+    "icon": "🦏",
+    "requiredXP": 814
+  },
+  {
+    "level": 399,
+    "name": "Ancient Giraffe",
+    "icon": "🦒",
+    "requiredXP": 816
+  },
+  {
+    "level": 400,
+    "name": "Ancient Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 818
+  },
+  {
+    "level": 401,
+    "name": "Celestial Seed",
+    "icon": "🌱",
+    "requiredXP": 820
+  },
+  {
+    "level": 402,
+    "name": "Celestial Herb",
+    "icon": "🌿",
+    "requiredXP": 822
+  },
+  {
+    "level": 403,
+    "name": "Celestial Shamrock",
+    "icon": "☘️",
+    "requiredXP": 824
+  },
+  {
+    "level": 404,
+    "name": "Celestial Clover",
+    "icon": "🍀",
+    "requiredXP": 826
+  },
+  {
+    "level": 405,
+    "name": "Celestial Plant",
+    "icon": "🪴",
+    "requiredXP": 828
+  },
+  {
+    "level": 406,
+    "name": "Celestial Bamboo",
+    "icon": "🎋",
+    "requiredXP": 830
+  },
+  {
+    "level": 407,
+    "name": "Celestial Leaf",
+    "icon": "🍃",
+    "requiredXP": 832
+  },
+  {
+    "level": 408,
+    "name": "Celestial Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 834
+  },
+  {
+    "level": 409,
+    "name": "Celestial Maple",
+    "icon": "🍁",
+    "requiredXP": 836
+  },
+  {
+    "level": 410,
+    "name": "Celestial Mushroom",
+    "icon": "🍄",
+    "requiredXP": 838
+  },
+  {
+    "level": 411,
+    "name": "Celestial Rice",
+    "icon": "🌾",
+    "requiredXP": 840
+  },
+  {
+    "level": 412,
+    "name": "Celestial Bouquet",
+    "icon": "💐",
+    "requiredXP": 842
+  },
+  {
+    "level": 413,
+    "name": "Celestial Tulip",
+    "icon": "🌷",
+    "requiredXP": 844
+  },
+  {
+    "level": 414,
+    "name": "Celestial Rose",
+    "icon": "🌹",
+    "requiredXP": 846
+  },
+  {
+    "level": 415,
+    "name": "Celestial Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 848
+  },
+  {
+    "level": 416,
+    "name": "Celestial Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 850
+  },
+  {
+    "level": 417,
+    "name": "Celestial Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 852
+  },
+  {
+    "level": 418,
+    "name": "Celestial Blossom",
+    "icon": "🌼",
+    "requiredXP": 854
+  },
+  {
+    "level": 419,
+    "name": "Celestial Sunflower",
+    "icon": "🌻",
+    "requiredXP": 856
+  },
+  {
+    "level": 420,
+    "name": "Celestial Lotus",
+    "icon": "🪷",
+    "requiredXP": 858
+  },
+  {
+    "level": 421,
+    "name": "Celestial Log",
+    "icon": "🪵",
+    "requiredXP": 860
+  },
+  {
+    "level": 422,
+    "name": "Celestial Stone",
+    "icon": "🪨",
+    "requiredXP": 862
+  },
+  {
+    "level": 423,
+    "name": "Celestial Shell",
+    "icon": "🐚",
+    "requiredXP": 864
+  },
+  {
+    "level": 424,
+    "name": "Celestial Snail",
+    "icon": "🐌",
+    "requiredXP": 866
+  },
+  {
+    "level": 425,
+    "name": "Celestial Butterfly",
+    "icon": "🦋",
+    "requiredXP": 868
+  },
+  {
+    "level": 426,
+    "name": "Celestial Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 870
+  },
+  {
+    "level": 427,
+    "name": "Celestial Ant",
+    "icon": "🐜",
+    "requiredXP": 872
+  },
+  {
+    "level": 428,
+    "name": "Celestial Bee",
+    "icon": "🐝",
+    "requiredXP": 874
+  },
+  {
+    "level": 429,
+    "name": "Celestial Beetle",
+    "icon": "🪲",
+    "requiredXP": 876
+  },
+  {
+    "level": 430,
+    "name": "Celestial Ladybug",
+    "icon": "🐞",
+    "requiredXP": 878
+  },
+  {
+    "level": 431,
+    "name": "Celestial Turtle",
+    "icon": "🐢",
+    "requiredXP": 880
+  },
+  {
+    "level": 432,
+    "name": "Celestial Snake",
+    "icon": "🐍",
+    "requiredXP": 882
+  },
+  {
+    "level": 433,
+    "name": "Celestial Lizard",
+    "icon": "🦎",
+    "requiredXP": 884
+  },
+  {
+    "level": 434,
+    "name": "Celestial Octopus",
+    "icon": "🐙",
+    "requiredXP": 886
+  },
+  {
+    "level": 435,
+    "name": "Celestial Squid",
+    "icon": "🦑",
+    "requiredXP": 888
+  },
+  {
+    "level": 436,
+    "name": "Celestial Shrimp",
+    "icon": "🦐",
+    "requiredXP": 890
+  },
+  {
+    "level": 437,
+    "name": "Celestial Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 892
+  },
+  {
+    "level": 438,
+    "name": "Celestial Fish",
+    "icon": "🐟",
+    "requiredXP": 894
+  },
+  {
+    "level": 439,
+    "name": "Celestial Dolphin",
+    "icon": "🐬",
+    "requiredXP": 896
+  },
+  {
+    "level": 440,
+    "name": "Celestial Whale",
+    "icon": "🐳",
+    "requiredXP": 898
+  },
+  {
+    "level": 441,
+    "name": "Celestial Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 900
+  },
+  {
+    "level": 442,
+    "name": "Celestial Shark",
+    "icon": "🦈",
+    "requiredXP": 902
+  },
+  {
+    "level": 443,
+    "name": "Celestial Seal",
+    "icon": "🦭",
+    "requiredXP": 904
+  },
+  {
+    "level": 444,
+    "name": "Celestial Tiger",
+    "icon": "🐅",
+    "requiredXP": 906
+  },
+  {
+    "level": 445,
+    "name": "Celestial Leopard",
+    "icon": "🐆",
+    "requiredXP": 908
+  },
+  {
+    "level": 446,
+    "name": "Celestial Zebra",
+    "icon": "🦓",
+    "requiredXP": 910
+  },
+  {
+    "level": 447,
+    "name": "Celestial Elephant",
+    "icon": "🐘",
+    "requiredXP": 912
+  },
+  {
+    "level": 448,
+    "name": "Celestial Rhino",
+    "icon": "🦏",
+    "requiredXP": 914
+  },
+  {
+    "level": 449,
+    "name": "Celestial Giraffe",
+    "icon": "🦒",
+    "requiredXP": 916
+  },
+  {
+    "level": 450,
+    "name": "Celestial Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 918
+  },
+  {
+    "level": 451,
+    "name": "Infinite Seed",
+    "icon": "🌱",
+    "requiredXP": 920
+  },
+  {
+    "level": 452,
+    "name": "Infinite Herb",
+    "icon": "🌿",
+    "requiredXP": 922
+  },
+  {
+    "level": 453,
+    "name": "Infinite Shamrock",
+    "icon": "☘️",
+    "requiredXP": 924
+  },
+  {
+    "level": 454,
+    "name": "Infinite Clover",
+    "icon": "🍀",
+    "requiredXP": 926
+  },
+  {
+    "level": 455,
+    "name": "Infinite Plant",
+    "icon": "🪴",
+    "requiredXP": 928
+  },
+  {
+    "level": 456,
+    "name": "Infinite Bamboo",
+    "icon": "🎋",
+    "requiredXP": 930
+  },
+  {
+    "level": 457,
+    "name": "Infinite Leaf",
+    "icon": "🍃",
+    "requiredXP": 932
+  },
+  {
+    "level": 458,
+    "name": "Infinite Autumn Leaf",
+    "icon": "🍂",
+    "requiredXP": 934
+  },
+  {
+    "level": 459,
+    "name": "Infinite Maple",
+    "icon": "🍁",
+    "requiredXP": 936
+  },
+  {
+    "level": 460,
+    "name": "Infinite Mushroom",
+    "icon": "🍄",
+    "requiredXP": 938
+  },
+  {
+    "level": 461,
+    "name": "Infinite Rice",
+    "icon": "🌾",
+    "requiredXP": 940
+  },
+  {
+    "level": 462,
+    "name": "Infinite Bouquet",
+    "icon": "💐",
+    "requiredXP": 942
+  },
+  {
+    "level": 463,
+    "name": "Infinite Tulip",
+    "icon": "🌷",
+    "requiredXP": 944
+  },
+  {
+    "level": 464,
+    "name": "Infinite Rose",
+    "icon": "🌹",
+    "requiredXP": 946
+  },
+  {
+    "level": 465,
+    "name": "Infinite Wilted Rose",
+    "icon": "🥀",
+    "requiredXP": 948
+  },
+  {
+    "level": 466,
+    "name": "Infinite Hibiscus",
+    "icon": "🌺",
+    "requiredXP": 950
+  },
+  {
+    "level": 467,
+    "name": "Infinite Cherry Blossom",
+    "icon": "🌸",
+    "requiredXP": 952
+  },
+  {
+    "level": 468,
+    "name": "Infinite Blossom",
+    "icon": "🌼",
+    "requiredXP": 954
+  },
+  {
+    "level": 469,
+    "name": "Infinite Sunflower",
+    "icon": "🌻",
+    "requiredXP": 956
+  },
+  {
+    "level": 470,
+    "name": "Infinite Lotus",
+    "icon": "🪷",
+    "requiredXP": 958
+  },
+  {
+    "level": 471,
+    "name": "Infinite Log",
+    "icon": "🪵",
+    "requiredXP": 960
+  },
+  {
+    "level": 472,
+    "name": "Infinite Stone",
+    "icon": "🪨",
+    "requiredXP": 962
+  },
+  {
+    "level": 473,
+    "name": "Infinite Shell",
+    "icon": "🐚",
+    "requiredXP": 964
+  },
+  {
+    "level": 474,
+    "name": "Infinite Snail",
+    "icon": "🐌",
+    "requiredXP": 966
+  },
+  {
+    "level": 475,
+    "name": "Infinite Butterfly",
+    "icon": "🦋",
+    "requiredXP": 968
+  },
+  {
+    "level": 476,
+    "name": "Infinite Caterpillar",
+    "icon": "🐛",
+    "requiredXP": 970
+  },
+  {
+    "level": 477,
+    "name": "Infinite Ant",
+    "icon": "🐜",
+    "requiredXP": 972
+  },
+  {
+    "level": 478,
+    "name": "Infinite Bee",
+    "icon": "🐝",
+    "requiredXP": 974
+  },
+  {
+    "level": 479,
+    "name": "Infinite Beetle",
+    "icon": "🪲",
+    "requiredXP": 976
+  },
+  {
+    "level": 480,
+    "name": "Infinite Ladybug",
+    "icon": "🐞",
+    "requiredXP": 978
+  },
+  {
+    "level": 481,
+    "name": "Infinite Turtle",
+    "icon": "🐢",
+    "requiredXP": 980
+  },
+  {
+    "level": 482,
+    "name": "Infinite Snake",
+    "icon": "🐍",
+    "requiredXP": 982
+  },
+  {
+    "level": 483,
+    "name": "Infinite Lizard",
+    "icon": "🦎",
+    "requiredXP": 984
+  },
+  {
+    "level": 484,
+    "name": "Infinite Octopus",
+    "icon": "🐙",
+    "requiredXP": 986
+  },
+  {
+    "level": 485,
+    "name": "Infinite Squid",
+    "icon": "🦑",
+    "requiredXP": 988
+  },
+  {
+    "level": 486,
+    "name": "Infinite Shrimp",
+    "icon": "🦐",
+    "requiredXP": 990
+  },
+  {
+    "level": 487,
+    "name": "Infinite Tropical Fish",
+    "icon": "🐠",
+    "requiredXP": 992
+  },
+  {
+    "level": 488,
+    "name": "Infinite Fish",
+    "icon": "🐟",
+    "requiredXP": 994
+  },
+  {
+    "level": 489,
+    "name": "Infinite Dolphin",
+    "icon": "🐬",
+    "requiredXP": 996
+  },
+  {
+    "level": 490,
+    "name": "Infinite Whale",
+    "icon": "🐳",
+    "requiredXP": 998
+  },
+  {
+    "level": 491,
+    "name": "Infinite Blue Whale",
+    "icon": "🐋",
+    "requiredXP": 1000
+  },
+  {
+    "level": 492,
+    "name": "Infinite Shark",
+    "icon": "🦈",
+    "requiredXP": 1002
+  },
+  {
+    "level": 493,
+    "name": "Infinite Seal",
+    "icon": "🦭",
+    "requiredXP": 1004
+  },
+  {
+    "level": 494,
+    "name": "Infinite Tiger",
+    "icon": "🐅",
+    "requiredXP": 1006
+  },
+  {
+    "level": 495,
+    "name": "Infinite Leopard",
+    "icon": "🐆",
+    "requiredXP": 1008
+  },
+  {
+    "level": 496,
+    "name": "Infinite Zebra",
+    "icon": "🦓",
+    "requiredXP": 1010
+  },
+  {
+    "level": 497,
+    "name": "Infinite Elephant",
+    "icon": "🐘",
+    "requiredXP": 1012
+  },
+  {
+    "level": 498,
+    "name": "Infinite Rhino",
+    "icon": "🦏",
+    "requiredXP": 1014
+  },
+  {
+    "level": 499,
+    "name": "Infinite Giraffe",
+    "icon": "🦒",
+    "requiredXP": 1016
+  },
+  {
+    "level": 500,
+    "name": "Infinite Kangaroo",
+    "icon": "🦘",
+    "requiredXP": 1018
+  },
+  {
+    "level": 501,
+    "name": "Nirvana",
+    "icon": "🌌",
+    "requiredXP": 5000
+  }
+]
