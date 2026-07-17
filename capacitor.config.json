@@ -9,5 +9,8 @@
     "CapacitorSQLite": {
       "androidDatabaseLocation": "Default"
     }
+  },
+  "android": {
+    "overScroll": false
   }
 }

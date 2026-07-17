@@ -15,7 +15,7 @@
   --color-winter: #A8C4D8;
 }
 
-body {
+html, body {
   font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--color-warm-white);
   color: var(--color-charcoal);
