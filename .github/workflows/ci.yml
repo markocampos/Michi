@@ -8,26 +8,31 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Static checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - run: npm ci
-
-      - name: Lint
-        run: npx vue-tsc --noEmit 2>&1 || true
-
+      # Fails the build on console.log (use console.warn/error/info instead)
       - name: Check for console.log in src
         run: |
           if grep -rn "console\.log" src/ --include="*.vue" --include="*.js"; then
-            echo "⚠️  Found console.log statements in source code"
+            echo "::error::console.log statements found in source code"
+            exit 1
           fi
+
+      - name: Check for merge conflict markers
+        run: |
+          if grep -rn -E "^(<<<<<<<|>>>>>>>)" src/ --include="*.vue" --include="*.js"; then
+            echo "::error::merge conflict markers found in source code"
+            exit 1
+          fi
+
+      - name: Validate JSON files
+        run: |
+          for f in package.json capacitor.config.json public/manifest.json; do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1
+          done
 
   build:
     name: Build
@@ -38,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - run: npm ci
