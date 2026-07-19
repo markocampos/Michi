@@ -10,9 +10,9 @@
     </div>
 
     <!-- Update available banner -->
-    <a
+    <router-link
       v-if="updateAvailable"
-      href="/settings"
+      to="/settings"
       class="block rounded-2xl p-4 mb-6 bg-forest/10 border border-forest/20 hover:bg-forest/15 transition-colors"
     >
       <div class="flex items-center gap-3">
@@ -25,7 +25,7 @@
         </div>
         <Icon icon="lucide:chevron-right" class="w-4 h-4 text-forest" />
       </div>
-    </a>
+    </router-link>
 
     <!-- Daily Zen Proverb -->
     <div class="relative overflow-hidden rounded-2xl p-6 mb-6 bg-gradient-to-br from-[#2C3E2D] to-[#1E2B1F] text-white shadow-lg border border-white/10">
