@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen w-full overflow-x-hidden bg-gray-100/50 flex justify-center transition-colors duration-500">
-    <a v-if="route.name !== 'onboarding' && route.name !== 'pin'" href="#main-content" class="skip-nav">Skip to main content</a>
     <div class="w-full max-w-[1440px] bg-gradient-to-br from-warm-white via-[#F5F5F0] to-[#EAEAE2] min-h-screen relative shadow-2xl pb-[calc(64px+env(safe-area-inset-bottom,0px))] md:pb-0 md:grid md:grid-cols-[80px_1fr] overflow-x-hidden">
       <!-- Settings gear (mobile only) -->
       <router-link
@@ -14,7 +13,7 @@
       <BottomNav v-if="showNav" />
       <main
         ref="swipeContainer"
-        id="main-content"
+        id="michi-content"
         class="min-h-screen overflow-x-hidden relative grid"
         :class="!showNav ? 'md:col-span-2' : ''"
         tabindex="-1"
@@ -42,13 +41,24 @@
 
 <script setup>
 import { ref, watch, onErrorCaptured, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import BottomNav from './components/BottomNav.vue';
 import { useSwipeNavigation } from './composables/useSwipeNavigation.js';
+import { App as CapacitorApp } from '@capacitor/app';
 
 const route = useRoute();
+const router = useRouter();
 const error = ref(null);
+
+CapacitorApp.addListener('backButton', () => {
+  const rootRoutes = ['home', 'practices', 'journal', 'growth', 'onboarding', 'pin'];
+  if (rootRoutes.includes(route.name)) {
+    CapacitorApp.exitApp();
+  } else {
+    router.back();
+  }
+});
 
 const showNav = computed(() => {
   return route.name !== 'onboarding' && route.name !== 'pin';

@@ -7,6 +7,21 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [v1.1.5] — July 2026
+
+### Added
+- **Activity Calendar Redesign**: Replaced the standard Desktop view with dynamic scaling views: Week view on mobile, Month on tablet, 8-month on Desktop, and 12-month on Desktop L.
+- **Micro-interaction Polish**: Added autofocus, auto-scroll to center, and seamless reset-to-new on Wabi-sabi, Kaizen, Hansei, and Mono no aware practices for a superior mobile typing experience.
+- **Native Experience**: Integrated full Capacitor native features including Splash Screen, Status Bar, Native Haptics, Keyboard handling, and In-App Browser overlays.
+
+### Fixed
+- **UI Cleanup**: Removed the hidden/dead pull-to-refresh code and the broken "skip to main content" link that caused blank pages.
+- **Web App Feel**: Disabled default mobile browser behaviors (text selection, element dragging, link popups) for a true native app feel.
+- **Hardware Back Button**: Fixed the Android back button to navigate pages instead of instantly exiting the app.
+- **Settings UI**: Fixed grid layout stretching that caused the "Report Bug" button to become oversized, and updated support links.
+
+---
+
 ## [v1.1.4] — July 2026
 
 ### Added

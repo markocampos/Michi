@@ -8,18 +8,10 @@
 
     <DailyPrompt practiceId="kaizen" />
 
-    <div v-if="!adding" class="mb-6">
-      <button
-        @click="adding = true"
-        class="w-full py-4 glass rounded-2xl shadow-sm border border-gray-100/50 text-charcoal font-medium hover:shadow-md transition-all"
-      >
-        + Add Micro-Habit
-      </button>
-    </div>
-
-    <div v-else class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50 mb-6">
+    <div class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50 mb-6">
       <label for="new-habit-input" class="sr-only">New micro-habit name</label>
       <input
+        ref="inputRef"
         id="new-habit-input"
         v-model="newHabit"
         placeholder="e.g., Drink water, Stretch, Read 1 page"
@@ -27,8 +19,7 @@
         @keyup.enter="addHabit"
       />
       <div class="flex gap-3">
-        <button @click="adding = false" class="flex-1 py-2 rounded-xl border border-gray-200 text-muted hover:bg-gray-50 transition-colors">Cancel</button>
-        <button @click="addHabit" :disabled="!newHabit.trim()" class="flex-1 py-2 rounded-xl bg-forest text-white disabled:opacity-40 hover:bg-forest-dark transition-colors">Add</button>
+        <button @click="addHabit" :disabled="!newHabit.trim()" class="w-full py-2 rounded-xl bg-forest text-white font-medium disabled:opacity-40 hover:bg-forest-dark transition-colors">Add Habit</button>
       </div>
     </div>
 
@@ -80,17 +71,30 @@
 
 <script setup>
 import DailyPrompt from '../components/DailyPrompt.vue';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useStorage } from '../composables/useStorage.js';
 import { getToday, getLastNDays, getWeekdayLabel } from '../utils/dates.js';
 import { getHabitStreak } from '../utils/streaks.js';
 
 const data = useStorage('michi_kaizen', { habits: [] });
-const adding = ref(false);
 const newHabit = ref('');
+const inputRef = ref(null);
 
 const today = getToday();
+
+function focusAndScroll() {
+  if (inputRef.value) {
+    inputRef.value.focus();
+    setTimeout(() => {
+      inputRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+  }
+}
+
+onMounted(() => {
+  focusAndScroll();
+});
 
 const last7Days = computed(() => {
   return getLastNDays(7).map(date => ({
@@ -108,7 +112,9 @@ function addHabit() {
     completedDates: [],
   });
   newHabit.value = '';
-  adding.value = false;
+  nextTick(() => {
+    focusAndScroll();
+  });
 }
 
 function removeHabit(id) {

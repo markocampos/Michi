@@ -8,17 +8,7 @@
 
     <DailyPrompt practiceId="hansei" />
 
-    <div v-if="!editing">
-      <button
-        @click="startNew"
-        class="w-full py-4 glass rounded-2xl shadow-sm border border-gray-100/50 text-charcoal font-medium hover:shadow-md transition-all mb-6 flex items-center justify-center gap-2"
-      >
-        <Icon icon="lucide:plus" class="w-5 h-5" />
-        New Reflection
-      </button>
-    </div>
-
-    <div v-else class="mb-6">
+    <div class="mb-6">
       <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50">
         <div class="flex items-center gap-2 mb-4">
           <Icon icon="lucide:clipboard-list" class="w-5 h-5 text-forest" />
@@ -33,6 +23,7 @@
             </label>
             <label for="went-well-input" class="sr-only">What went well today</label>
             <textarea
+              ref="inputRef"
               id="went-well-input"
               v-model="wentWell"
               placeholder="List your accomplishments, wins, or positive moments..."
@@ -71,15 +62,9 @@
 
         <div class="flex gap-3 mt-4">
           <button
-            @click="cancel"
-            class="flex-1 py-3 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
-          >
-            Cancel
-          </button>
-          <button
             @click="save"
             :disabled="!wentWell.trim() && !toImprove.trim() && !learned.trim()"
-            class="flex-1 py-3 rounded-xl bg-forest text-white font-medium disabled:opacity-40 hover:bg-forest-dark transition-colors"
+            class="w-full py-3 rounded-xl bg-forest text-white font-medium disabled:opacity-40 hover:bg-forest-dark transition-colors"
           >
             Save Reflection
           </button>
@@ -93,26 +78,28 @@
 
 <script setup>
 import DailyPrompt from '../components/DailyPrompt.vue';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useStorage } from '../composables/useStorage.js';
 
 const data = useStorage('michi_hansei', { reflections: [] });
-const editing = ref(false);
 const wentWell = ref('');
 const toImprove = ref('');
 const learned = ref('');
+const inputRef = ref(null);
 
-function startNew() {
-  editing.value = true;
+function focusAndScroll() {
+  if (inputRef.value) {
+    inputRef.value.focus();
+    setTimeout(() => {
+      inputRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+  }
 }
 
-function cancel() {
-  editing.value = false;
-  wentWell.value = '';
-  toImprove.value = '';
-  learned.value = '';
-}
+onMounted(() => {
+  focusAndScroll();
+});
 
 function save() {
   if (!wentWell.value.trim() && !toImprove.value.trim() && !learned.value.trim()) return;
@@ -123,10 +110,12 @@ function save() {
     toImprove: toImprove.value.trim(),
     learned: learned.value.trim(),
   });
-  editing.value = false;
   wentWell.value = '';
   toImprove.value = '';
   learned.value = '';
+  nextTick(() => {
+    focusAndScroll();
+  });
 }
 
 function formatDate(dateStr) {

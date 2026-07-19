@@ -49,6 +49,14 @@ jobs:
       - name: Generate Capacitor assets
         run: npx --yes @capacitor/assets generate --assetPath public
 
+      - name: Inject Version into Android project
+        run: |
+          VERSION_NAME=${{ steps.version.outputs.version }}
+          # Create a versionCode from github run number (guaranteed monotonic increment)
+          VERSION_CODE=$GITHUB_RUN_NUMBER
+          sed -i 's/versionName "1.0"/versionName "'$VERSION_NAME'"/g' android/app/build.gradle
+          sed -i 's/versionCode 1/versionCode '$VERSION_CODE'/g' android/app/build.gradle
+
       - name: Build release APK
         run: cd android && ./gradlew assembleRelease
 

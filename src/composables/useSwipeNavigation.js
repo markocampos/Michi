@@ -1,5 +1,6 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { triggerHaptic } from '../utils/haptics.js';
 
 /**
  * Composable for swipe-to-navigate between main tabs.
@@ -92,7 +93,7 @@ export function useSwipeNavigation({ tabCount = 4, onSwipe } = {}) {
       }
 
       if (newIndex !== currentIndex) {
-        if (navigator.vibrate) navigator.vibrate(10);
+        triggerHaptic();
         window.scrollTo(0, 0);
         router.push(tabRoutes[newIndex]);
         onSwipe?.(deltaX < 0 ? 'left' : 'right');

@@ -3,6 +3,7 @@ import './style.css';
 import App from './App.vue';
 import router from './router/index.js';
 import { initStore } from './composables/useStorage.js';
+import { Capacitor } from '@capacitor/core';
 
 // Show loading screen while store initializes
 const loadingEl = document.createElement('div');
@@ -24,6 +25,16 @@ async function bootstrap() {
   const loading = document.getElementById('app-loading');
   if (loading) loading.remove();
   createApp(App).use(router).mount('#app');
+
+  if (Capacitor.isNativePlatform()) {
+    import('@capacitor/splash-screen').then(({ SplashScreen }) => {
+      SplashScreen.hide();
+    });
+    import('@capacitor/status-bar').then(({ StatusBar, Style }) => {
+      StatusBar.setStyle({ style: Style.Light }).catch(()=>{});
+      StatusBar.setBackgroundColor({ color: '#FAFAF8' }).catch(()=>{});
+    });
+  }
 }
 
 bootstrap();

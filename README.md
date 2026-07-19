@@ -2,6 +2,12 @@
   <img src="public/michi.png" width="320" alt="Michi Logo" />
   <h1>Michi 道</h1>
   <p><em>Your Path to Mindfulness</em></p>
+
+  <p>
+    <a href="https://sociabuzz.com/markocampos/tribe" target="_blank">
+      <img src="https://img.shields.io/badge/Support%20Me-SociaBuzz-ff69b4?style=for-the-badge&logo=heart&logoColor=white" height="36" alt="Support Me at SociaBuzz" />
+    </a>
+  </p>
   
   <p>
     <a href="https://github.com/markocampos/Michi/actions/workflows/build-apk.yml">
@@ -125,18 +131,16 @@
 
 | Feature | Description |
 |---|---|
-| **PIN Lock** | Protect your journal with a 4-digit PIN code |
-| **Mood Card** | Home page shows your mood based on daily practice activity |
-| **Growth Dashboard** | Progress bars, heatmap, and breakdown for all 8 practices |
-| **Search & Filter** | Find practices and journal entries quickly |
+| **Zen Journey** | Earn XP and level up from Seed (種) to Zen Garden (庭園) |
+| **Responsive UI** | Beautiful layouts for mobile, tablet, and 1440px desktop with a frosted-glass sidebar |
+| **Growth Dashboard** | Dynamic scaling calendar heatmap (Week view on mobile, up to 12-Month view on desktop) |
+| **Daily Reflections** | Over 400 deep philosophical prompts across all 8 practices |
+| **PIN Lock** | Cryptographically hashed 4-digit PIN code for absolute journal privacy |
+| **Swipe Navigation** | Blazing fast (0.15s) horizontal swipe between tabs on mobile |
 | **Streak Tracking** | Daily streak counter with milestone celebrations (7, 30, 100 days) |
-| **Pull-to-Refresh** | Swipe down to refresh data on Home, Growth, and Journal |
-| **Swipe Navigation** | Swipe left/right between main tabs on mobile |
-| **Onboarding** | Guided first-launch experience introducing all 8 concepts |
-| **Notifications** | Daily practice reminders and streak milestone alerts |
-| **Data Export/Import** | Backup and restore your journal data as JSON |
-| **Update Checker** | Settings checks GitHub for new versions |
-| **Bug Reporting** | One-tap bug report form in Settings |
+| **Onboarding** | Guided first-launch experience introducing all 8 Japanese concepts |
+| **Data Export/Import** | Backup and restore your journal data securely as JSON |
+| **Updates & Support** | Built-in GitHub update checker and one-tap bug reporting |
 
 ---
 
@@ -257,7 +261,6 @@ npm run dev
 npm run dev             # Start Vite dev server (network accessible)
 npm run build           # Build web app for production
 npm run preview         # Preview production build locally
-npm run start:server    # Start the local Express API server (port 3000)
 npm run icons           # Generate PWA icons
 npm run icons:android   # Generate Android launcher icons
 ```
@@ -284,33 +287,11 @@ The APK will be at `android/app/build/outputs/apk/debug/app-debug.apk`
 
 ## Data & Storage
 
-Michi uses a **dual-storage strategy** to persist your data:
-
-- **Web (browser/PWA):** Data is stored in `localStorage` via a reactive global store (`useStorage` composable).
-- **Android (native):** On native platforms, data is additionally synced to a local **SQLite database** using `@capacitor-community/sqlite`, with debounced writes for performance.
+Michi persists your data locally using a reactive global store (`useStorage` composable) that is synced to a local **SQLite database** on Android using `@capacitor-community/sqlite`, with debounced writes for performance.
 
 ---
 
-## Changelog
 
-### v1.0.1 (Current)
-- PIN lock for journal privacy
-- Growth page with all 8 practices, progress bars, heatmap
-- Mood card on home page
-- Pull-to-refresh on Home, Growth, Journal
-- Swipe navigation between tabs
-- Onboarding flow for new users
-- Practice search and category filters
-- Streak milestones (7, 30, 100 days)
-- Notification reminders and streak alerts
-- Update checker and bug report link in Settings
-- Dark mode removed for cleaner experience
-
-### v1.0.0
-- Initial release with 8 Japanese philosophy practices
-- Journal with search and filters
-- Daily progress tracking and streak counter
-- Data export and import
 
 ---
 
@@ -351,5 +332,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Made with 🧘 for mindful living**
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/markocampos/Michi)
+<br />
+<br />
+<a href="https://sociabuzz.com/markocampos/tribe" target="_blank">
+  <img src="https://img.shields.io/badge/Support%20Me-SociaBuzz-ff69b4?style=for-the-badge&logo=heart&logoColor=white" height="36" alt="Support Me at SociaBuzz" />
+</a>
 
 </div>

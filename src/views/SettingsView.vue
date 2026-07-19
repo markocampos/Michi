@@ -256,10 +256,9 @@
 
       <!-- Report Bug -->
       <a
+        @click.prevent="openBrowser('https://docs.google.com/forms/d/e/1FAIpQLSepq23K7zdpna7vnVNf33DTmARZIvwApHiDxvDU7OFXk6T0fA/viewform?usp=header')"
         href="https://docs.google.com/forms/d/e/1FAIpQLSepq23K7zdpna7vnVNf33DTmARZIvwApHiDxvDU7OFXk6T0fA/viewform?usp=header"
-        target="_blank"
-        rel="noopener"
-        class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50 flex items-center gap-3 hover:shadow-md transition-shadow"
+        class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50 flex items-center gap-3 hover:shadow-md transition-shadow self-start cursor-pointer"
       >
         <div class="w-10 h-10 rounded-xl bg-torii/10 flex items-center justify-center flex-shrink-0">
           <Icon icon="lucide:bug" class="w-5 h-5 text-torii" />
@@ -296,11 +295,15 @@
           </div>
           <div class="flex justify-between items-center pb-2 border-b border-gray-100/50">
             <span class="text-muted flex items-center gap-2"><Icon icon="lucide:github" class="w-4 h-4" /> GitHub</span>
-            <a href="https://github.com/markocampos" target="_blank" rel="noopener" class="text-forest hover:underline font-medium">@markocampos</a>
+            <a @click.prevent="openBrowser('https://github.com/markocampos')" href="https://github.com/markocampos" class="text-forest hover:underline font-medium cursor-pointer">@markocampos</a>
+          </div>
+          <div class="flex justify-between items-center pb-2 border-b border-gray-100/50">
+            <span class="text-muted flex items-center gap-2"><Icon icon="simple-icons:discord" class="w-4 h-4" /> Discord</span>
+            <a @click.prevent="openBrowser('https://discord.gg/VPmyBvEBeM')" href="https://discord.gg/VPmyBvEBeM" class="text-forest hover:underline font-medium cursor-pointer">Community</a>
           </div>
           <div class="flex justify-between items-center">
-            <span class="text-muted flex items-center gap-2"><Icon icon="lucide:coffee" class="w-4 h-4" /> Support</span>
-            <a href="https://ko-fi.com/markocampos" target="_blank" rel="noopener" class="text-forest hover:underline font-medium">Ko-fi</a>
+            <span class="text-muted flex items-center gap-2"><Icon icon="lucide:heart" class="w-4 h-4" /> Support</span>
+            <a @click.prevent="openBrowser('https://sociabuzz.com/markocampos/tribe')" href="https://sociabuzz.com/markocampos/tribe" class="text-forest hover:underline font-medium cursor-pointer">SociaBuzz</a>
           </div>
         </div>
       </div>
@@ -354,6 +357,8 @@ import { STORAGE_KEYS } from '../utils/storage-keys.js';
 import { readPinHash } from '../utils/pin.js';
 import { clearAllStorage } from '../composables/useStorage.js';
 import { useNotifications } from '../composables/useNotifications.js';
+import { triggerHaptic } from '../utils/haptics.js';
+import { openBrowser } from '../utils/browser.js';
 
 import { Capacitor } from '@capacitor/core';
 import pkg from '../../package.json';
@@ -387,7 +392,7 @@ const fontSize = ref(localStorage.getItem('michi_font_size') || 'standard');
 function toggleHaptics() {
   hapticsEnabled.value = !hapticsEnabled.value;
   localStorage.setItem('michi_haptics', hapticsEnabled.value.toString());
-  if (hapticsEnabled.value && navigator.vibrate) navigator.vibrate(10);
+  if (hapticsEnabled.value) triggerHaptic();
 }
 
 function setFontSize(size) {
@@ -439,16 +444,30 @@ async function checkForUpdates() {
 
 function openUpdate() {
   if (apkDownloadUrl.value) {
-    window.open(apkDownloadUrl.value, '_blank');
+    openBrowser(apkDownloadUrl.value);
   } else {
-    window.open('https://markocampos.github.io/Michi/', '_blank');
+    openBrowser('https://markocampos.github.io/Michi/');
   }
 }
 
 const releases = [
   {
-    version: 'v1.1.4',
+    version: 'v1.1.5',
     current: true,
+    date: 'July 2026',
+    items: [
+      { type: 'feature', text: 'Activity Calendar Redesign: Dynamic scaling views from Week (mobile) to 12-month (Desktop L)' },
+      { type: 'feature', text: 'Micro-interaction Polish: Added autofocus, auto-scroll, and seamless reset-to-new for a superior mobile typing experience' },
+      { type: 'feature', text: 'Native Experience: Integrated Capacitor Splash Screen, Status Bar, Native Haptics, Keyboard, and Browser overlay plugins' },
+      { type: 'fix', text: 'UI Cleanup: Removed hidden pull-to-refresh code and the broken "skip to main content" link that caused blank pages' },
+      { type: 'fix', text: 'Web behaviors disabled: Prevented text selection and link popups so the app feels 100% native' },
+      { type: 'fix', text: 'Hardware Back Button: Android back button now safely navigates back instead of exiting the app' },
+      { type: 'fix', text: 'Settings UI: Fixed oversized buttons, added Discord community, and updated support links' },
+    ],
+  },
+  {
+    version: 'v1.1.4',
+    current: false,
     date: 'July 2026',
     items: [
       { type: 'feature', text: 'Desktop & Tablet Layout: Fully redesigned responsive grid layout that gracefully expands to 1440px wide monitors' },
@@ -510,7 +529,6 @@ const releases = [
       { type: 'feature', text: 'PIN lock — protect your journal with a 4-digit code' },
       { type: 'feature', text: 'Growth page with practice breakdown, heatmap, and progress bars' },
       { type: 'feature', text: 'Mood card on home page based on your activity' },
-      { type: 'feature', text: 'Pull-to-refresh on Home, Growth, and Journal' },
       { type: 'feature', text: 'Swipe navigation between main tabs' },
       { type: 'feature', text: 'Streak milestones (7, 30, 100 days) and daily reminders' },
       { type: 'fix', text: 'Page transition animations fixed' }

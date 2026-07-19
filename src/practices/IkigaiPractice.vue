@@ -27,6 +27,7 @@
         <p class="text-sm text-muted mb-4">{{ prompts[currentStep].subtitle }}</p>
         <label :for="`ikigai-step-${currentStep}`" class="sr-only">{{ prompts[currentStep].title }}</label>
         <textarea
+          ref="inputRef"
           :id="`ikigai-step-${currentStep}`"
           v-model="answers[currentStep]"
           :placeholder="prompts[currentStep].placeholder"
@@ -37,7 +38,7 @@
       <div class="flex gap-3">
         <button
           v-if="currentStep > 0"
-          @click="currentStep--"
+          @click="prevStep"
           aria-label="Go to previous step"
           class="flex-1 py-3 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
         >
@@ -70,7 +71,7 @@
 
 <script setup>
 import DailyPrompt from '../components/DailyPrompt.vue';
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted, nextTick } from 'vue';
 import { Icon } from '@iconify/vue';
 import { ikigaiPrompts } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
@@ -80,13 +81,40 @@ const currentStep = ref(0);
 const answers = reactive(['', '', '', '']);
 const showSummary = ref(false);
 const data = useStorage('michi_ikigai', { reflections: [] });
+const inputRef = ref(null);
+
+function focusAndScroll() {
+  if (inputRef.value) {
+    inputRef.value.focus();
+    // Allow a small delay for the mobile keyboard to appear before scrolling
+    setTimeout(() => {
+      inputRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+  }
+}
+
+onMounted(() => {
+  focusAndScroll();
+});
 
 function nextStep() {
   if (currentStep.value < prompts.length - 1) {
     currentStep.value++;
+    nextTick(() => {
+      focusAndScroll();
+    });
   } else {
     saveReflection();
     showSummary.value = true;
+  }
+}
+
+function prevStep() {
+  if (currentStep.value > 0) {
+    currentStep.value--;
+    nextTick(() => {
+      focusAndScroll();
+    });
   }
 }
 

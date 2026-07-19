@@ -1,23 +1,7 @@
 <template>
   <div
     class="px-5 pt-12 pb-8 md:px-8 md:pt-14 lg:px-12 lg:pt-16"
-    v-on="pullHandlers"
   >
-    <!-- Pull to refresh indicator -->
-    <div
-      class="flex justify-center overflow-hidden transition-all duration-300"
-      :style="{ height: isPulling ? `${Math.min(pullDistance, 40)}px` : isRefreshing ? '40px' : '0px' }"
-    >
-      <div class="flex items-center gap-2 text-forest">
-        <Icon
-          icon="lucide:refresh-cw"
-          class="w-5 h-5"
-          :class="isRefreshing ? 'animate-spin' : pullDistance >= 80 ? 'rotate-180' : ''"
-          :style="{ transform: !isRefreshing ? `rotate(${pullDistance * 3}deg)` : undefined }"
-        />
-        <span class="text-xs font-medium">{{ isRefreshing ? 'Refreshing...' : pullDistance >= 80 ? 'Release to refresh' : 'Pull to refresh' }}</span>
-      </div>
-    </div>
     <h1 class="text-2xl font-bold text-charcoal mb-2 md:text-3xl lg:text-4xl">Journal</h1>
     <p class="text-sm text-muted mb-6">Your reflections over time</p>
 
@@ -121,15 +105,7 @@ import { Icon } from '@iconify/vue';
 import { readJson } from '../composables/useStorage.js';
 import { formatDate as formatDateUtil } from '../utils/dates.js';
 import { STORAGE_KEYS } from '../utils/storage-keys.js';
-import { usePullToRefresh } from '../composables/usePullToRefresh.js';
 import JournalInsightsModal from '../components/JournalInsightsModal.vue';
-
-async function refreshData() {
-  await new Promise(r => setTimeout(r, 500));
-  window.location.reload();
-}
-
-const { isRefreshing, pullDistance, isPulling, handlers: pullHandlers } = usePullToRefresh(refreshData);
 
 const activeFilter = ref('all');
 const searchQuery = ref('');

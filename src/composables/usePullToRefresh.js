@@ -1,4 +1,5 @@
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+import { triggerHaptic } from '../utils/haptics.js';
 
 /**
  * Composable for pull-to-refresh gesture.
@@ -53,7 +54,7 @@ export function usePullToRefresh(onRefresh, options = {}) {
     if (pullDistance.value >= threshold) {
       // Trigger refresh
       isRefreshing.value = true;
-      if (navigator.vibrate) navigator.vibrate(10);
+      triggerHaptic();
 
       try {
         await onRefresh?.();

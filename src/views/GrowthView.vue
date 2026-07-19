@@ -1,18 +1,7 @@
 <template>
   <div
     class="px-5 pt-12 pb-8 md:px-8 md:pt-14 lg:px-12 lg:pt-16"
-    v-on="pullHandlers"
   >
-    <!-- Pull to refresh -->
-    <div
-      class="flex justify-center overflow-hidden transition-all duration-300"
-      :style="{ height: isPulling ? `${Math.min(pullDistance, 40)}px` : isRefreshing ? '40px' : '0px' }"
-    >
-      <div class="flex items-center gap-2 text-forest">
-        <Icon icon="lucide:refresh-cw" class="w-5 h-5" :class="isRefreshing ? 'animate-spin' : ''" />
-        <span class="text-xs font-medium">{{ isRefreshing ? 'Refreshing...' : 'Pull to refresh' }}</span>
-      </div>
-    </div>
 
     <div class="flex items-end justify-between mb-8">
       <div>
@@ -89,7 +78,7 @@
       <div class="flex items-center justify-between mb-6">
         <div>
           <h3 class="font-bold text-charcoal text-lg">Activity Calendar</h3>
-          <p class="text-xs text-muted mt-0.5">Your rhythm over the last 4 weeks</p>
+          <p class="text-xs text-muted mt-0.5">Your rhythm over this week</p>
         </div>
         <div class="text-right">
           <p class="text-sm font-bold" :class="weeklyTrend >= 0 ? 'text-forest' : 'text-torii'">
@@ -99,34 +88,151 @@
         </div>
       </div>
       
-      <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-2">
-        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sun</div>
-        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Mon</div>
-        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Tue</div>
-        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Wed</div>
-        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Thu</div>
-        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Fri</div>
-        <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sat</div>
+      <!-- Week View (Mobile only) -->
+      <div class="md:hidden">
+        <div class="grid grid-cols-7 gap-2 max-w-md mx-auto mb-2">
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sun</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Mon</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Tue</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Wed</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Thu</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Fri</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sat</div>
+        </div>
+        
+        <div class="grid grid-cols-7 gap-2 max-w-md mx-auto mb-5">
+          <div
+            v-for="day in calendarWeekDays"
+            :key="day.date"
+            class="aspect-square rounded-lg transition-all duration-300 flex items-center justify-center relative"
+            :class="
+              day.isFuture ? 'bg-transparent border border-dashed border-gray-200' :
+              day.count === 0 ? 'bg-gray-50 border border-gray-100' : 
+              day.count <= 1 ? 'bg-forest/20 border border-forest/10' : 
+              day.count <= 2 ? 'bg-forest/40 border border-forest/20' : 
+              day.count <= 3 ? 'bg-forest/70 border border-forest/30 text-white' : 
+              'bg-forest border border-forest-dark text-white shadow-sm'
+            "
+            :title="day.isFuture ? 'Future' : `${day.date}: ${day.count} practice${day.count !== 1 ? 's' : ''}`"
+          >
+            <span v-if="!day.isFuture" class="text-sm font-bold" :class="day.count > 2 ? 'text-white' : 'text-charcoal/80'">
+              {{ day.dayOfMonth }}
+            </span>
+          </div>
+        </div>
+        
+        <button @click="showMonthModal = true" class="w-full py-2.5 bg-gray-50 text-charcoal rounded-xl text-sm font-semibold border border-gray-200 hover:bg-gray-100 transition-colors">
+          View full month
+        </button>
       </div>
-      
-      <div class="grid grid-cols-7 gap-1 sm:gap-2">
-        <div
-          v-for="day in calendarDays"
-          :key="day.date"
-          class="aspect-square rounded-lg transition-all duration-300 flex items-center justify-center relative group"
-          :class="
-            day.isFuture ? 'bg-transparent border border-dashed border-gray-200' :
-            day.count === 0 ? 'bg-gray-50 border border-gray-100 hover:bg-gray-100' : 
-            day.count <= 1 ? 'bg-forest/20 border border-forest/10 hover:bg-forest/30' : 
-            day.count <= 2 ? 'bg-forest/40 border border-forest/20 hover:bg-forest/50' : 
-            day.count <= 3 ? 'bg-forest/70 border border-forest/30 hover:bg-forest/80 text-white' : 
-            'bg-forest border border-forest-dark text-white shadow-sm hover:bg-forest-dark'
-          "
-          :title="day.isFuture ? 'Future' : `${day.date}: ${day.count} practice${day.count !== 1 ? 's' : ''}`"
-        >
-          <span v-if="!day.isFuture" class="text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity" :class="day.count > 2 ? 'text-white' : 'text-charcoal/60'">
-            {{ day.dayOfMonth }}
-          </span>
+
+      <!-- Month View (Tablet only) -->
+      <div class="hidden md:block lg:hidden">
+        <div class="grid grid-cols-7 gap-2 max-w-md mx-auto mb-2">
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sun</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Mon</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Tue</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Wed</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Thu</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Fri</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sat</div>
+        </div>
+        
+        <div class="grid grid-cols-7 gap-2 max-w-md mx-auto">
+          <div
+            v-for="day in calendarMonthDays"
+            :key="day.date"
+            class="aspect-square rounded-lg transition-all duration-300 flex items-center justify-center relative cursor-default hover:-translate-y-0.5 hover:shadow-md"
+            :class="
+              day.isFuture ? 'bg-transparent border border-dashed border-gray-200' :
+              day.count === 0 ? 'bg-gray-50 border border-gray-100' : 
+              day.count <= 1 ? 'bg-forest/20 border border-forest/10' : 
+              day.count <= 2 ? 'bg-forest/40 border border-forest/20' : 
+              day.count <= 3 ? 'bg-forest/70 border border-forest/30 text-white' : 
+              'bg-forest border border-forest-dark text-white shadow-sm'
+            "
+            :title="day.isFuture ? 'Future' : `${day.date}: ${day.count} practice${day.count !== 1 ? 's' : ''}`"
+          >
+            <span v-if="!day.isFuture" class="text-sm font-bold" :class="day.count > 2 ? 'text-white' : 'text-charcoal/80'">
+              {{ day.dayOfMonth }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8-Month View (Desktop only) -->
+      <div class="hidden lg:block xl:hidden overflow-x-auto pb-4 custom-scrollbar">
+        <div class="w-max mx-auto flex gap-1.5">
+          <!-- Days of week labels (left side) -->
+          <div class="flex flex-col gap-[7px] pr-2 pt-[21px]">
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Sun</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Mon</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Tue</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Wed</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Thu</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Fri</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Sat</div>
+          </div>
+          
+          <div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 mb-2 pl-1">Last 8 Months</div>
+            <!-- Grid of 34 columns -->
+            <div class="grid grid-flow-col grid-rows-7 gap-[7px]">
+              <div
+                v-for="day in calendarEightMonthDays"
+                :key="day.date"
+                class="w-[12px] h-[12px] rounded-[2px] transition-all duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
+                :class="
+                  day.isFuture ? 'bg-transparent border border-dashed border-gray-200' :
+                  day.count === 0 ? 'bg-gray-50 border border-gray-100 hover:bg-gray-200/60' : 
+                  day.count <= 1 ? 'bg-forest/20 border border-forest/10 hover:bg-forest/30' : 
+                  day.count <= 2 ? 'bg-forest/40 border border-forest/20 hover:bg-forest/50' : 
+                  day.count <= 3 ? 'bg-forest/70 border border-forest/30 hover:bg-forest/80' : 
+                  'bg-forest border border-forest-dark hover:bg-forest-dark shadow-sm'
+                "
+                :title="day.isFuture ? 'Future' : `${day.date}: ${day.count} practice${day.count !== 1 ? 's' : ''}`"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Year View (Desktop L/XL only) -->
+      <div class="hidden xl:block overflow-x-auto pb-4 custom-scrollbar">
+        <div class="w-max mx-auto flex gap-1.5">
+          <!-- Days of week labels (left side) -->
+          <div class="flex flex-col gap-[7px] pr-2 pt-[21px]">
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Sun</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Mon</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Tue</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Wed</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Thu</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Fri</div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 h-3 flex items-center justify-end">Sat</div>
+          </div>
+          
+          <div>
+            <div class="text-[10px] font-bold tracking-wider uppercase text-muted/60 mb-2 pl-1">Last 12 Months</div>
+            <!-- Grid of 52 columns -->
+            <div class="grid grid-flow-col grid-rows-7 gap-[7px]">
+              <div
+                v-for="day in calendarYearDays"
+                :key="day.date"
+                class="w-[12px] h-[12px] rounded-[2px] transition-all duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
+                :class="
+                  day.isFuture ? 'bg-transparent border border-dashed border-gray-200' :
+                  day.count === 0 ? 'bg-gray-50 border border-gray-100 hover:bg-gray-200/60' : 
+                  day.count <= 1 ? 'bg-forest/20 border border-forest/10 hover:bg-forest/30' : 
+                  day.count <= 2 ? 'bg-forest/40 border border-forest/20 hover:bg-forest/50' : 
+                  day.count <= 3 ? 'bg-forest/70 border border-forest/30 hover:bg-forest/80' : 
+                  'bg-forest border border-forest-dark hover:bg-forest-dark shadow-sm'
+                "
+                :title="day.isFuture ? 'Future' : `${day.date}: ${day.count} practice${day.count !== 1 ? 's' : ''}`"
+              >
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -326,11 +432,66 @@
 
     <!-- XP Info Modal -->
     <XpInfoModal v-if="showXpModal" @close="showXpModal = false" />
+    <!-- Month Calendar Modal (Mobile) -->
+    <div v-if="showMonthModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-charcoal/40 backdrop-blur-sm" @click="showMonthModal = false"></div>
+      
+      <!-- Modal Content -->
+      <div class="bg-white rounded-3xl w-full max-w-md p-6 relative shadow-2xl animate-fade-in-up">
+        <button @click="showMonthModal = false" class="absolute top-4 right-4 p-2 text-muted hover:text-charcoal bg-gray-50 rounded-full transition-colors">
+          <Icon icon="lucide:x" class="w-5 h-5" />
+        </button>
+        
+        <h3 class="font-bold text-charcoal text-xl mb-1">Month View</h3>
+        <p class="text-sm text-muted mb-6">Your activity over the last 5 weeks</p>
+        
+        <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-2">
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sun</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Mon</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Tue</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Wed</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Thu</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Fri</div>
+          <div class="text-center text-[10px] font-bold tracking-wider uppercase text-muted/60">Sat</div>
+        </div>
+        
+        <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-6">
+          <div
+            v-for="day in calendarMonthDays"
+            :key="day.date"
+            class="aspect-square rounded-md transition-all duration-300 flex items-center justify-center relative"
+            :class="
+              day.isFuture ? 'bg-transparent border border-dashed border-gray-200' :
+              day.count === 0 ? 'bg-gray-50 border border-gray-100' : 
+              day.count <= 1 ? 'bg-forest/20 border border-forest/10' : 
+              day.count <= 2 ? 'bg-forest/40 border border-forest/20' : 
+              day.count <= 3 ? 'bg-forest/70 border border-forest/30 text-white' : 
+              'bg-forest border border-forest-dark text-white shadow-sm'
+            "
+          >
+            <span v-if="!day.isFuture" class="text-xs sm:text-sm font-bold" :class="day.count > 2 ? 'text-white' : 'text-charcoal/80'">
+              {{ day.dayOfMonth }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-center gap-1.5">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-muted mr-2">Less</span>
+          <div class="w-4 h-4 rounded-md bg-gray-50 border border-gray-100" />
+          <div class="w-4 h-4 rounded-md bg-forest/20 border border-forest/10" />
+          <div class="w-4 h-4 rounded-md bg-forest/40 border border-forest/20" />
+          <div class="w-4 h-4 rounded-md bg-forest/70 border border-forest/30" />
+          <div class="w-4 h-4 rounded-md bg-forest border border-forest-dark" />
+          <span class="text-[10px] font-bold uppercase tracking-wider text-muted ml-2">More</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch, onUnmounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import XpInfoModal from '../components/XpInfoModal.vue';
 import { readJson } from '../composables/useStorage.js';
@@ -338,16 +499,7 @@ import levelsData from '../utils/levels.json';
 import { calculateStreak, getHabitStreak } from '../utils/streaks.js';
 import { getLastNDays } from '../utils/dates.js';
 import { STORAGE_KEYS } from '../utils/storage-keys.js';
-import { usePullToRefresh } from '../composables/usePullToRefresh.js';
-
 const showXpModal = ref(false);
-
-async function refreshData() {
-  await new Promise(r => setTimeout(r, 500));
-  window.location.reload();
-}
-
-const { isRefreshing, pullDistance, isPulling, handlers: pullHandlers } = usePullToRefresh(refreshData);
 
 const maData = readJson(STORAGE_KEYS.ma, { sessions: [] });
 const shinrinData = readJson(STORAGE_KEYS.shinrin, { walks: [] });
@@ -423,7 +575,9 @@ const growthStage = computed(() => {
 });
 
 // --- Heatmap (Aligned to Sunday-Saturday Calendar view) ---
-const calendarDays = computed(() => {
+const showMonthModal = ref(false);
+
+function getDays(numDays) {
   const days = [];
   
   const today = new Date();
@@ -433,8 +587,7 @@ const calendarDays = computed(() => {
   const upcomingSaturday = new Date(today);
   upcomingSaturday.setDate(upcomingSaturday.getDate() + (6 - upcomingSaturday.getDay()));
 
-  // 28 days ending on upcoming Saturday (4 full weeks, Sun-Sat)
-  for (let i = 27; i >= 0; i--) {
+  for (let i = numDays - 1; i >= 0; i--) {
     const d = new Date(upcomingSaturday);
     d.setDate(d.getDate() - i);
     const dateStr = d.toISOString().split('T')[0];
@@ -457,6 +610,23 @@ const calendarDays = computed(() => {
     days.push({ date: dateStr, count, isFuture, dayOfMonth });
   }
   return days;
+}
+
+const calendarWeekDays = computed(() => getDays(7));
+const calendarMonthDays = computed(() => getDays(35));
+const calendarEightMonthDays = computed(() => getDays(238));
+const calendarYearDays = computed(() => getDays(364));
+
+// Scroll lock when modal is open
+watch(showMonthModal, (val) => {
+  if (val) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+});
+onUnmounted(() => {
+  document.body.style.overflow = '';
 });
 
 // --- Weekly Trend ---

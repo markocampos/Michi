@@ -21,6 +21,10 @@ html, body {
   color: var(--color-charcoal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 
@@ -113,24 +117,6 @@ button, a, input, select, textarea {
   border-radius: 4px;
 }
 
-/* Skip to content link */
-.skip-nav {
-  position: absolute;
-  top: -100%;
-  left: 16px;
-  z-index: 100;
-  padding: 8px 16px;
-  background: var(--color-forest);
-  color: white;
-  border-radius: 0 0 8px 8px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: top 0.2s;
-}
-
-.skip-nav:focus {
-  top: 0;
-}
 
 /* Page entrance animation */
 @keyframes fade-in-up {
@@ -197,4 +183,20 @@ button, a, input, select, textarea {
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+/* Scroll hint arrows */
+@keyframes bounce-x {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(-4px); }
+}
+@keyframes bounce-x-reverse {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(4px); }
+}
+.animate-bounce-x {
+  animation: bounce-x 1.2s ease-in-out infinite;
+}
+.animate-bounce-x-reverse {
+  animation: bounce-x-reverse 1.2s ease-in-out infinite;
 }
