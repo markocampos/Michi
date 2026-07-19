@@ -570,6 +570,11 @@ const releases = [
       { type: 'feature', text: 'Practice Summaries: Added premium completion summary cards with "Write Another" flows for all practices' },
       { type: 'feature', text: 'Premium Loading: Replaced standard spinning circles with a beautifully centered, zen-pulsing "Michi" logo for initial app loads' },
       { type: 'feature', text: 'Settings UI: Added a new Appearance section and Feedback button in settings' },
+      { type: 'fix', text: 'Data Export: Fixed backup JSON and Journal text exports on mobile devices using native file saving and sharing' },
+      { type: 'fix', text: 'Image Export: Journal image cards now correctly save to device using native sharing on mobile' },
+      { type: 'fix', text: 'Daily Zen: The proverb and practice progress now refresh dynamically without needing to restart the app' },
+      { type: 'fix', text: 'PIN Screen: Adjusted back button positioning to correctly avoid modern mobile status bars (notches/punch-holes)' },
+      { type: 'fix', text: 'FAB Default: Quick action button is now disabled by default for new installs for a cleaner UI' },
     ],
   },
   {

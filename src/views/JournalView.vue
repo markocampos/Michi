@@ -162,6 +162,9 @@ import { formatDate as formatDateUtil } from '../utils/dates.js';
 import { STORAGE_KEYS } from '../utils/storage-keys.js';
 import JournalInsightsModal from '../components/JournalInsightsModal.vue';
 import { toPng } from 'html-to-image';
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
 
 const activeFilter = ref('all');
 const searchQuery = ref('');
@@ -187,14 +190,29 @@ async function exportEntry(entry) {
         pixelRatio: 1
       });
       
-      const link = document.createElement('a');
-      link.download = `michi-${entry.type}-${entry.date}.png`;
-      link.href = dataUrl;
-      link.click();
-      
-      showToast('Card saved to your device!', 'success');
+      if (Capacitor.isNativePlatform()) {
+        const base64Data = dataUrl.split(',')[1];
+        const fileName = `michi-${entry.type}-${entry.date}-${Date.now()}.png`;
+        const result = await Filesystem.writeFile({
+          path: fileName,
+          data: base64Data,
+          directory: Directory.Cache
+        });
+        await Share.share({
+          title: 'Share Michi Journal Entry',
+          url: result.uri,
+        });
+        showToast('Card exported successfully!', 'success');
+      } else {
+        const link = document.createElement('a');
+        link.download = `michi-${entry.type}-${entry.date}.png`;
+        link.href = dataUrl;
+        link.click();
+        
+        showToast('Card saved to your device!', 'success');
+      }
     } catch (err) {
-      console.error(err);
+      console.error('Export error:', err);
       showToast('Failed to export card.', 'error');
     } finally {
       exportingEntry.value = null;

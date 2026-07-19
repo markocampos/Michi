@@ -3,7 +3,8 @@
     <!-- Back button -->
     <button
       @click="goBack"
-      class="absolute top-4 left-4 flex items-center gap-1 text-muted hover:text-charcoal transition-colors p-2"
+      class="absolute left-4 flex items-center gap-1 text-muted hover:text-charcoal transition-colors p-2"
+      style="top: calc(1rem + env(safe-area-inset-top, 0px));"
       aria-label="Go back"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

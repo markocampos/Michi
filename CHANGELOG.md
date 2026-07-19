@@ -21,6 +21,13 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Premium Loading Animations**: Replaced standard spinning circles with a beautifully centered, zen-pulsing "Michi" logo for initial app loads and lazy-loaded practices.
 - **Settings UI**: Added a new Appearance section and Feedback button in settings.
 
+### Fixed
+- **Data Export**: Fixed backup JSON and Journal text exports on mobile devices by replacing web blobs with native file saving and sharing.
+- **Image Export**: Journal image cards now correctly save to device using native sharing on mobile instead of silent web downloads.
+- **Daily Zen**: The home screen proverb and daily practice progress now refresh dynamically without needing to force-restart the app.
+- **PIN Screen**: Adjusted back button positioning to correctly avoid modern mobile status bars (notches and punch-holes).
+- **FAB Default**: Quick action floating button is now cleanly disabled by default for new installs.
+
 ---
 
 ## [v1.1.5] — July 2026

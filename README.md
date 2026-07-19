@@ -144,6 +144,16 @@
 
 ---
 
+## Screenshots
+
+<div align="center">
+  <img src="public/screenshot/mockup-export.png" width="250" alt="Dashboard Screenshot" />
+  <img src="public/screenshot/mockup-export (1).png" width="250" alt="Practice Screenshot" />
+  <img src="public/screenshot/mockup-export (2).png" width="250" alt="Journal Screenshot" />
+</div>
+
+---
+
 ## Tech Stack
 
 <div align="center">
