@@ -112,7 +112,8 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue';
+import { App as CapacitorApp } from '@capacitor/app';
 import { Icon } from '@iconify/vue';
 import ProgressRing from '../components/ProgressRing.vue';
 import QuoteCard from '../components/QuoteCard.vue';
@@ -130,7 +131,7 @@ import { getDailyProverb } from '../data/proverbs.js';
 
 const { sendStreakMilestone } = useNotifications();
 
-const dailyProverb = getDailyProverb(getToday());
+
 
 // Update checker
 const updateAvailable = ref(false);
@@ -169,21 +170,40 @@ const greeting = getGreeting();
 const kaizenData = useStorage('michi_kaizen', { habits: [] });
 const gamanData = useStorage('michi_gaman', { challenges: [] });
 
-const today = getToday();
+const today = ref(getToday());
+const dailyProverb = computed(() => getDailyProverb(today.value));
+
+onMounted(() => {
+  const checkDate = () => { today.value = getToday(); };
+  const interval = setInterval(checkDate, 60000);
+  window.addEventListener('focus', checkDate);
+  window.addEventListener('visibilitychange', checkDate);
+  
+  const appListener = CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+    if (isActive) checkDate();
+  });
+  
+  onUnmounted(() => {
+    clearInterval(interval);
+    window.removeEventListener('focus', checkDate);
+    window.removeEventListener('visibilitychange', checkDate);
+    if (appListener && appListener.remove) appListener.then(l => l.remove());
+  });
+});
 
 const completedCount = computed(() => countTodayPractices(kaizenData.value, gamanData.value));
 const dailyProgress = computed(() => completedCount.value / 8);
 
 const incompletePractices = computed(() => {
   return allPractices.filter(p => {
-    if (p.id === 'kaizen') return !kaizenData.value.habits.some(h => h.completedDates && h.completedDates.includes(today));
-    if (p.id === 'gaman') return !gamanData.value.challenges.some(c => c.completedDates && c.completedDates.includes(today));
+    if (p.id === 'kaizen') return !kaizenData.value.habits.some(h => h.completedDates && h.completedDates.includes(today.value));
+    if (p.id === 'gaman') return !gamanData.value.challenges.some(c => c.completedDates && c.completedDates.includes(today.value));
     const data = readJson(`michi_${p.id}`, null);
     if (!data) return true;
-    if (data.entries) return !data.entries.some(e => e.date === today);
-    if (data.walks) return !data.walks.some(w => w.date === today);
-    if (data.sessions) return !data.sessions.some(s => s.date === today);
-    if (data.reflections) return !data.reflections.some(r => r.date === today);
+    if (data.entries) return !data.entries.some(e => e.date === today.value);
+    if (data.walks) return !data.walks.some(w => w.date === today.value);
+    if (data.sessions) return !data.sessions.some(s => s.date === today.value);
+    if (data.reflections) return !data.reflections.some(r => r.date === today.value);
     return true;
   }).slice(0, 3);
 });

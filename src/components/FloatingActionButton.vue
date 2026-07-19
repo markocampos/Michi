@@ -46,9 +46,9 @@ const visibleActions = computed(() => isOpen.value ? actions : []);
 
 const hiddenRoutes = ['onboarding', 'pin', 'practice'];
 
-const userFabPref = ref(localStorage.getItem('michi_show_fab') !== 'false');
+const userFabPref = ref(localStorage.getItem('michi_show_fab') === 'true');
 window.addEventListener('michi_fab_setting_changed', () => {
-  userFabPref.value = localStorage.getItem('michi_show_fab') !== 'false';
+  userFabPref.value = localStorage.getItem('michi_show_fab') === 'true';
 });
 
 const showFab = computed(() => {

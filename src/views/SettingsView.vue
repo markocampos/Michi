@@ -434,6 +434,8 @@ import { openBrowser } from '../utils/browser.js';
 import { useToast } from '../composables/useToast.js';
 
 import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
 import pkg from '../../package.json';
 import DangerConfirmModal from '../components/DangerConfirmModal.vue';
 import WhatsNewModal from '../components/WhatsNewModal.vue';
@@ -457,7 +459,7 @@ const updateAvailable = ref(false);
 const isLtsVersion = ref(false);
 
 const isDarkMode = ref(localStorage.getItem('michi_dark_mode') === 'true');
-const showFabSetting = ref(localStorage.getItem('michi_show_fab') !== 'false');
+const showFabSetting = ref(localStorage.getItem('michi_show_fab') === 'true');
 
 function toggleFab() {
   showFabSetting.value = !showFabSetting.value;
@@ -720,23 +722,45 @@ function executeExport() {
   }
 }
 
-function exportData() {
+async function exportData() {
   const data = {};
   for (const key of Object.values(STORAGE_KEYS)) {
     const raw = localStorage.getItem(key);
     if (raw) data[key] = JSON.parse(raw);
   }
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `michi-backup-${new Date().toISOString().split('T')[0]}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Backup exported successfully', 'success');
+  const content = JSON.stringify(data, null, 2);
+  const fileName = `michi-backup-${new Date().toISOString().split('T')[0]}.json`;
+
+  if (Capacitor.isNativePlatform()) {
+    try {
+      const result = await Filesystem.writeFile({
+        path: fileName,
+        data: content,
+        directory: Directory.Cache,
+        encoding: Encoding.UTF8
+      });
+      await Share.share({
+        title: 'Export Michi Backup',
+        url: result.uri,
+      });
+      showToast('Backup exported successfully', 'success');
+    } catch (e) {
+      console.error('Export error:', e);
+      showToast('Error exporting backup', 'error');
+    }
+  } else {
+    const blob = new Blob([content], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Backup exported successfully', 'success');
+  }
 }
 
-function exportToText() {
+async function exportToText() {
   let content = "My Michi Journal\n";
   content += "=================\n\n";
 
@@ -772,14 +796,35 @@ function exportToText() {
     }
   }
 
-  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `michi-journal-${new Date().toISOString().split('T')[0]}.txt`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Journal exported successfully', 'success');
+  const fileName = `michi-journal-${new Date().toISOString().split('T')[0]}.txt`;
+
+  if (Capacitor.isNativePlatform()) {
+    try {
+      const result = await Filesystem.writeFile({
+        path: fileName,
+        data: content,
+        directory: Directory.Cache,
+        encoding: Encoding.UTF8
+      });
+      await Share.share({
+        title: 'Export Michi Journal',
+        url: result.uri,
+      });
+      showToast('Journal exported successfully', 'success');
+    } catch (e) {
+      console.error('Export error:', e);
+      showToast('Error exporting journal', 'error');
+    }
+  } else {
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Journal exported successfully', 'success');
+  }
 }
 
 function triggerImport() {
