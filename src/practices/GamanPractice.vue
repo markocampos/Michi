@@ -120,8 +120,11 @@ import { ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { gamanChallenges } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
 
 const data = useStorage('michi_gaman', { challenges: [] });
+const { showToast } = useToast();
 const today = new Date().toISOString().split('T')[0];
 const showAvailable = ref(false);
 
@@ -149,12 +152,16 @@ function joinChallenge(c) {
     status: 'active',
   });
   showAvailable.value = false;
+  showToast(`Committed to ${c.name}`, 'success');
+  triggerHaptic();
 }
 
 function toggleDay(c) {
   const i = c.completedDates.indexOf(today);
   if (i === -1) {
     c.completedDates.push(today);
+    showToast('Gaman practiced', 'success');
+    triggerHaptic();
     if (c.completedDates.length >= c.goalDays) {
       c.status = 'completed';
     }

@@ -11,6 +11,8 @@
         <Icon icon="lucide:settings" class="w-5 h-5" />
       </router-link>
       <BottomNav v-if="showNav" />
+      <Toast />
+      <FloatingActionButton />
       <main
         ref="swipeContainer"
         id="michi-content"
@@ -44,6 +46,8 @@ import { ref, watch, onErrorCaptured, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import BottomNav from './components/BottomNav.vue';
+import Toast from './components/Toast.vue';
+import FloatingActionButton from './components/FloatingActionButton.vue';
 import { useSwipeNavigation } from './composables/useSwipeNavigation.js';
 import { App as CapacitorApp } from '@capacitor/app';
 

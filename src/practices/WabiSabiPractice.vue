@@ -8,7 +8,7 @@
 
     <DailyPrompt practiceId="wabisabi" />
 
-    <div class="mb-6">
+    <div v-if="!showSummary" class="mb-6">
       <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50">
         <p class="text-sm text-muted italic mb-4">"Once saved, this entry cannot be edited — embrace the imperfection."</p>
         <p class="text-sm text-forest mb-3">{{ currentPrompt }}</p>
@@ -32,6 +32,24 @@
       </div>
     </div>
 
+    <div v-else class="text-center mb-6">
+      <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50 mb-6">
+        <p class="text-sm text-forest font-medium mb-4">Embracing Imperfection</p>
+        <div class="text-left mb-4">
+          <p class="text-xs text-muted mb-2">{{ lastPrompt }}</p>
+          <p class="text-charcoal whitespace-pre-wrap font-serif italic border-l-2 border-forest/30 pl-3 py-1">{{ lastEntryText }}</p>
+        </div>
+      </div>
+      <p class="text-sm text-muted italic">"Your entry has been saved exactly as written. Its beauty lies in its imperfection."</p>
+      
+      <button
+        @click="showSummary = false"
+        class="mt-6 px-6 py-2 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
+      >
+        Write Another
+      </button>
+    </div>
+
 
   </div>
 </template>
@@ -42,11 +60,17 @@ import { ref, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import { wabisabiPrompts } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
 
 const data = useStorage('michi_wabisabi', { entries: [] });
+const { showToast } = useToast();
 const newText = ref('');
 const currentPrompt = ref(wabisabiPrompts[Math.floor(Math.random() * wabisabiPrompts.length)]);
 const inputRef = ref(null);
+const showSummary = ref(false);
+const lastEntryText = ref('');
+const lastPrompt = ref('');
 
 onMounted(() => {
   if (inputRef.value) {
@@ -59,12 +83,23 @@ onMounted(() => {
 
 function save() {
   if (!newText.value.trim()) return;
+  const text = newText.value.trim();
+  const prompt = currentPrompt.value;
+
   data.value.entries.unshift({
     id: Date.now(),
     date: new Date().toISOString().split('T')[0],
-    text: newText.value.trim(),
+    text: text,
   });
+
+  lastEntryText.value = text;
+  lastPrompt.value = prompt;
+
   newText.value = '';
   currentPrompt.value = wabisabiPrompts[Math.floor(Math.random() * wabisabiPrompts.length)];
+  showToast('Entry saved forever', 'success');
+  triggerHaptic();
+  
+  showSummary.value = true;
 }
 </script>

@@ -41,7 +41,7 @@
     <div class="flex gap-4">
       <button
         v-if="!isRunning"
-        @click="start"
+        @click="handleStart"
         aria-label="Start meditation timer"
         class="w-16 h-16 rounded-full bg-forest text-white flex items-center justify-center hover:bg-forest-dark transition-colors shadow-lg hover:shadow-xl"
       >
@@ -63,22 +63,34 @@
       >
         <Icon icon="lucide:rotate-ccw" class="w-5 h-5" />
       </button>
+      <button
+        v-if="elapsed > 0 && !isRunning && !wasSaved"
+        @click="saveSession"
+        aria-label="Finish and save early"
+        class="w-16 h-16 rounded-full bg-forest/10 border border-forest/20 text-forest flex items-center justify-center hover:bg-forest/20 transition-colors"
+      >
+        <Icon icon="lucide:check" class="w-5 h-5" />
+      </button>
     </div>
 
-    <div v-if="elapsed > 0 && !isRunning" class="glass rounded-2xl p-4 shadow-sm border border-gray-100/50 mt-6 text-center">
-      <p class="text-sm text-forest">Session complete. {{ Math.max(1, Math.round(elapsed / 60)) }} minutes of presence.</p>
+    <div v-if="wasSaved" class="glass rounded-2xl p-4 shadow-sm border border-gray-100/50 mt-6 text-center">
+      <p class="text-sm text-forest">Session complete. {{ elapsed < 60 ? elapsed + ' seconds' : Math.round(elapsed / 60) + ' minutes' }} of presence.</p>
     </div>
   </div>
 </template>
 
 <script setup>
 import DailyPrompt from '../components/DailyPrompt.vue';
-import { watch } from 'vue';
+import { watch, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useTimer } from '../composables/useTimer.js';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
+import { playBowlSound, initAudio } from '../utils/audio.js';
 
 const timer = useTimer();
+const { showToast } = useToast();
 const { isRunning, elapsed, progress, formattedTime, remaining, start, reset, setDuration, targetDuration } = timer;
 const data = useStorage('michi_ma', { sessions: [] });
 
@@ -90,21 +102,29 @@ const durations = [
 ];
 
 // Watch for auto-completion (timer reaches targetDuration and stops itself)
-let wasSaved = false;
+const wasSaved = ref(false);
 watch(isRunning, (running, wasRunning) => {
-  if (!running && wasRunning && elapsed.value > 0 && !wasSaved) {
+  if (!running && wasRunning && elapsed.value >= targetDuration.value && !wasSaved.value) {
     saveSession();
   }
-  if (running) wasSaved = false;
+  if (running) wasSaved.value = false;
 });
 
+function handleStart() {
+  initAudio(); // Unlock audio context on direct user interaction
+  start();
+}
+
 function saveSession() {
-  wasSaved = true;
+  wasSaved.value = true;
+  playBowlSound();
   data.value.sessions.push({
     id: Date.now(),
     date: new Date().toISOString().split('T')[0],
     duration: elapsed.value,
   });
+  showToast('Meditation session saved', 'success');
+  triggerHaptic();
 }
 
 function stop() {

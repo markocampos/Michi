@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="mb-6">
+    <div v-if="!showSummary" class="mb-6">
       <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50">
         <p class="text-sm text-forest mb-3">{{ currentPrompt }}</p>
         <label for="gratitude-input" class="sr-only">Gratitude reflection</label>
@@ -33,6 +33,30 @@
       </div>
     </div>
 
+    <div v-else class="text-center mb-6">
+      <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50 mb-6">
+        <p class="text-sm text-forest font-medium mb-4">Your Reflection on Impermanence</p>
+        
+        <div v-if="lastEntry.gratitude" class="text-left mb-4">
+          <p class="text-xs text-muted mb-1 flex items-center gap-1"><Icon icon="lucide:heart" class="w-3 h-3 text-torii" /> Gratitude</p>
+          <p class="text-charcoal whitespace-pre-wrap">{{ lastEntry.gratitude }}</p>
+        </div>
+        
+        <div v-if="lastEntry.impermanence" class="text-left mb-4">
+          <p class="text-xs text-muted mb-1 flex items-center gap-1"><Icon icon="lucide:wind" class="w-3 h-3 text-forest" /> Impermanence</p>
+          <p class="text-charcoal whitespace-pre-wrap">{{ lastEntry.impermanence }}</p>
+        </div>
+      </div>
+      
+      <p class="text-sm text-muted italic">"Mono no aware is the gentle sadness of things passing, and the deep appreciation of their fleeting beauty."</p>
+
+      <button
+        @click="resetPractice"
+        class="mt-6 px-6 py-2 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
+      >
+        Write Another
+      </button>
+    </div>
 
   </div>
 </template>
@@ -43,13 +67,18 @@ import { ref, onMounted, nextTick } from 'vue';
 import { Icon } from '@iconify/vue';
 import { mononoawarePrompts, getSeason } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
 
 const data = useStorage('michi_mononoaware', { entries: [] });
+const { showToast } = useToast();
 const gratitude = ref('');
 const impermanence = ref('');
 const currentPrompt = ref(mononoawarePrompts[Math.floor(Math.random() * mononoawarePrompts.length)]);
 const season = getSeason();
 const inputRef = ref(null);
+const showSummary = ref(false);
+const lastEntry = ref(null);
 
 function focusAndScroll() {
   if (inputRef.value) {
@@ -66,16 +95,29 @@ onMounted(() => {
 
 function save() {
   if (!gratitude.value.trim() && !impermanence.value.trim()) return;
-  data.value.entries.unshift({
+  
+  const entryData = {
     id: Date.now(),
     date: new Date().toISOString().split('T')[0],
     gratitude: gratitude.value.trim(),
     impermanence: impermanence.value.trim(),
     season: getSeason(),
-  });
+  };
+
+  data.value.entries.unshift(entryData);
+  lastEntry.value = entryData;
+  
   gratitude.value = '';
   impermanence.value = '';
   currentPrompt.value = mononoawarePrompts[Math.floor(Math.random() * mononoawarePrompts.length)];
+  showToast('Reflection saved', 'success');
+  triggerHaptic();
+  
+  showSummary.value = true;
+}
+
+function resetPractice() {
+  showSummary.value = false;
   nextTick(() => {
     focusAndScroll();
   });

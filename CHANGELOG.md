@@ -7,6 +7,22 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [v1.1.6] — July 2026
+
+### Added
+- **True Night Reflection Mode**: Added a deep, OLED-friendly dark palette perfect for late-night Hansei reflections. Toggle it in Settings!
+- **Beautiful Export**: You can now export your favorite Wabi-sabi and Ikigai reflections directly from your Journal as stunning image cards, perfect for saving or sharing.
+- **Visual Growth (Digital Bonsai)**: The Home screen now features a dynamic Digital Bonsai that physically grows and blooms across 12 distinct stages as your streak increases (all the way to 100 days!).
+- **Ambient Audio Cues**: Added procedural Web Audio synthesizers! A soft Tibetan singing bowl now rings when completing a 'Ma' meditation, and calming forest wind/ambient noise gently fades in during 'Shinrin-yoku' walks.
+- **Daily Zen Proverbs**: A new beautiful widget on the Home view that greets you with a meaningful Japanese proverb every day.
+- **Journal Organization**: Rebuilt the Journal tab to group entries beautifully by Month and Year (e.g. "July 2026").
+- **Journal Pagination**: Implemented an infinite-scroll style "Load More" pagination system to guarantee the app never lags, even with thousands of entries.
+- **Practice Summaries**: Added premium completion summary cards with "Write Another" flows for Ikigai, Wabi-sabi, Shinrin-yoku, Hansei, and Mono no aware.
+- **Premium Loading Animations**: Replaced standard spinning circles with a beautifully centered, zen-pulsing "Michi" logo for initial app loads and lazy-loaded practices.
+- **Settings UI**: Added a new Appearance section and Feedback button in settings.
+
+---
+
 ## [v1.1.5] — July 2026
 
 ### Added

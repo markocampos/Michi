@@ -19,8 +19,9 @@
         <MonoNoAwarePractice v-else-if="id === 'mononoaware'" :key="id" />
       </template>
       <template #fallback>
-        <div class="flex items-center justify-center py-12">
-          <div class="w-8 h-8 border-2 border-forest border-t-transparent rounded-full animate-spin" />
+        <div class="flex flex-col items-center justify-center py-32">
+          <h2 class="text-2xl font-bold text-charcoal tracking-tight animate-pulse opacity-80">Michi</h2>
+          <p class="text-[10px] uppercase tracking-widest text-forest font-semibold mt-2 animate-pulse opacity-80" style="animation-delay: 200ms;">Loading Practice...</p>
         </div>
       </template>
     </Suspense>

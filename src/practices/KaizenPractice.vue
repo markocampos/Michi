@@ -74,10 +74,13 @@ import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref, computed, onMounted, nextTick } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
 import { getToday, getLastNDays, getWeekdayLabel } from '../utils/dates.js';
 import { getHabitStreak } from '../utils/streaks.js';
 
 const data = useStorage('michi_kaizen', { habits: [] });
+const { showToast } = useToast();
 const newHabit = ref('');
 const inputRef = ref(null);
 
@@ -112,6 +115,8 @@ function addHabit() {
     completedDates: [],
   });
   newHabit.value = '';
+  showToast('Habit added', 'success');
+  triggerHaptic();
   nextTick(() => {
     focusAndScroll();
   });
@@ -126,6 +131,8 @@ function toggleHabit(habit) {
   const i = habit.completedDates.indexOf(today);
   if (i === -1) {
     habit.completedDates.push(today);
+    showToast('Habit completed', 'success');
+    triggerHaptic();
   } else {
     habit.completedDates.splice(i, 1);
   }

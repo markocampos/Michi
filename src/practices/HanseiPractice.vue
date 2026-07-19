@@ -8,7 +8,7 @@
 
     <DailyPrompt practiceId="hansei" />
 
-    <div class="mb-6">
+    <div v-if="!showSummary" class="mb-6">
       <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50">
         <div class="flex items-center gap-2 mb-4">
           <Icon icon="lucide:clipboard-list" class="w-5 h-5 text-forest" />
@@ -72,6 +72,35 @@
       </div>
     </div>
 
+    <div v-else class="text-center mb-6">
+      <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50 mb-6">
+        <p class="text-sm text-forest font-medium mb-4">Your Reflection</p>
+        
+        <div v-if="lastReflection.wentWell" class="text-left mb-4">
+          <p class="text-xs text-muted mb-1 flex items-center gap-1"><Icon icon="lucide:thumbs-up" class="w-3 h-3 text-forest" /> What went well</p>
+          <p class="text-charcoal whitespace-pre-wrap">{{ lastReflection.wentWell }}</p>
+        </div>
+        
+        <div v-if="lastReflection.toImprove" class="text-left mb-4">
+          <p class="text-xs text-muted mb-1 flex items-center gap-1"><Icon icon="lucide:alert-circle" class="w-3 h-3 text-earth" /> What could be improved</p>
+          <p class="text-charcoal whitespace-pre-wrap">{{ lastReflection.toImprove }}</p>
+        </div>
+        
+        <div v-if="lastReflection.learned" class="text-left mb-4">
+          <p class="text-xs text-muted mb-1 flex items-center gap-1"><Icon icon="lucide:lightbulb" class="w-3 h-3 text-torii" /> What I learned</p>
+          <p class="text-charcoal whitespace-pre-wrap">{{ lastReflection.learned }}</p>
+        </div>
+      </div>
+      
+      <p class="text-sm text-muted italic">"Hansei is not about self-criticism, but about recognizing areas for growth with honesty and committing to improvement."</p>
+
+      <button
+        @click="resetPractice"
+        class="mt-6 px-6 py-2 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
+      >
+        Write Another
+      </button>
+    </div>
 
   </div>
 </template>
@@ -81,12 +110,17 @@ import DailyPrompt from '../components/DailyPrompt.vue';
 import { ref, computed, onMounted, nextTick } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
 
 const data = useStorage('michi_hansei', { reflections: [] });
+const { showToast } = useToast();
 const wentWell = ref('');
 const toImprove = ref('');
 const learned = ref('');
 const inputRef = ref(null);
+const showSummary = ref(false);
+const lastReflection = ref(null);
 
 function focusAndScroll() {
   if (inputRef.value) {
@@ -103,16 +137,29 @@ onMounted(() => {
 
 function save() {
   if (!wentWell.value.trim() && !toImprove.value.trim() && !learned.value.trim()) return;
-  data.value.reflections.unshift({
+  
+  const reflectionData = {
     id: Date.now(),
     date: new Date().toISOString().split('T')[0],
     wentWell: wentWell.value.trim(),
     toImprove: toImprove.value.trim(),
     learned: learned.value.trim(),
-  });
+  };
+
+  data.value.reflections.unshift(reflectionData);
+  lastReflection.value = reflectionData;
+  
   wentWell.value = '';
   toImprove.value = '';
   learned.value = '';
+  showToast('Reflection saved', 'success');
+  triggerHaptic();
+  
+  showSummary.value = true;
+}
+
+function resetPractice() {
+  showSummary.value = false;
   nextTick(() => {
     focusAndScroll();
   });

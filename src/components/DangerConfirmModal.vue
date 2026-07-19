@@ -1,101 +1,93 @@
 <template>
-  <Teleport to="body">
-    <transition name="modal-fade">
-      <div
-        class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4"
-        style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
-        @click.self="$emit('cancel')"
-      >
-        <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden animate-fade-in-up" role="alertdialog" aria-modal="true">
-          <!-- Header -->
-          <div class="px-6 pt-6 pb-4">
-            <div class="w-12 h-12 rounded-2xl bg-torii/10 flex items-center justify-center mb-4">
-              <Icon :icon="icon" class="w-6 h-6 text-torii" />
-            </div>
-            <h2 class="text-lg font-bold text-charcoal mb-1">{{ title }}</h2>
-            <p class="text-sm text-muted leading-relaxed">{{ description }}</p>
-          </div>
+  <BottomSheet :model-value="show" @close="$emit('cancel')">
+    <!-- Header -->
+    <div class="pt-2 pb-4">
+      <div class="w-12 h-12 rounded-2xl bg-torii/10 flex items-center justify-center mb-4">
+        <Icon :icon="icon" class="w-6 h-6 text-torii" />
+      </div>
+      <h2 class="text-lg font-bold text-charcoal mb-1">{{ title }}</h2>
+      <p class="text-sm text-muted leading-relaxed">{{ description }}</p>
+    </div>
 
-          <!-- PIN step (if required) -->
-          <div v-if="requirePin && step === 'pin'" class="px-6 pb-2">
-            <p class="text-xs font-medium text-charcoal mb-3">Enter your PIN to continue</p>
-            <div class="flex justify-center gap-2 mb-4 transition-transform" :class="shakeError ? 'shake' : ''">
-              <div
-                v-for="i in 4"
-                :key="i"
-                class="w-11 h-11 rounded-xl border-2 flex items-center justify-center text-base font-bold transition-all"
-                :class="i <= pinInput.length ? (shakeError ? 'border-torii bg-torii/10 text-torii' : 'border-forest bg-forest/10 text-forest') : 'border-gray-200 bg-gray-50'"
-              >
-                {{ i <= pinInput.length ? '•' : '' }}
-              </div>
-            </div>
-            <p v-if="pinError" class="text-xs text-torii text-center mb-3 min-h-[16px]">{{ pinError }}</p>
-            <div v-else class="mb-3 min-h-[16px]" />
-            
-            <div class="grid grid-cols-3 gap-2 mb-4">
-              <button
-                v-for="n in 9" :key="n"
-                @click="addPinDigit(n)"
-                :disabled="isLockedOut"
-                class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100"
-              >{{ n }}</button>
-              <div />
-              <button @click="addPinDigit(0)" :disabled="isLockedOut" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">0</button>
-              <button @click="removeDigit" :disabled="isLockedOut" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-muted active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">
-                <Icon icon="lucide:delete" class="w-4 h-4 mx-auto" />
-              </button>
-            </div>
-          </div>
-
-          <!-- Phrase confirmation step -->
-          <div v-if="step === 'phrase'" class="px-6 pb-2">
-            <div class="bg-torii/5 rounded-xl px-3 py-2 mb-3 border border-torii/15">
-              <p class="text-xs text-torii font-medium">⚠️ This action cannot be undone.</p>
-            </div>
-            <p class="text-xs text-muted mb-2">
-              Type <span class="font-mono font-bold text-charcoal">{{ confirmPhrase }}</span> to confirm
-            </p>
-            <input
-              v-model="phraseInput"
-              :placeholder="confirmPhrase"
-              type="text"
-              autocomplete="off"
-              autocorrect="off"
-              spellcheck="false"
-              class="w-full px-4 py-3 border-2 rounded-xl text-sm font-mono text-charcoal focus:outline-none transition-colors mb-4"
-              :class="phraseMatches ? 'border-forest bg-forest/5 text-forest' : 'border-gray-200 bg-gray-50 focus:border-gray-300'"
-            />
-          </div>
-
-          <!-- Actions -->
-          <div class="px-6 pb-6 flex gap-3">
-            <button
-              @click="$emit('cancel')"
-              class="flex-1 py-3 rounded-xl border border-gray-200 text-muted font-medium text-sm hover:bg-gray-50 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              v-if="step === 'phrase'"
-              @click="confirmAction"
-              :disabled="!phraseMatches"
-              class="flex-1 py-3 rounded-xl bg-torii text-white font-medium text-sm disabled:opacity-30 transition-opacity"
-            >
-              {{ confirmLabel }}
-            </button>
-          </div>
+    <!-- PIN step (if required) -->
+    <div v-if="requirePin && step === 'pin'" class="pb-2">
+      <p class="text-xs font-medium text-charcoal mb-3">Enter your PIN to continue</p>
+      <div class="flex justify-center gap-2 mb-4 transition-transform" :class="shakeError ? 'shake' : ''">
+        <div
+          v-for="i in 4"
+          :key="i"
+          class="w-11 h-11 rounded-xl border-2 flex items-center justify-center text-base font-bold transition-all"
+          :class="i <= pinInput.length ? (shakeError ? 'border-torii bg-torii/10 text-torii' : 'border-forest bg-forest/10 text-forest') : 'border-gray-200 bg-gray-50'"
+        >
+          {{ i <= pinInput.length ? '•' : '' }}
         </div>
       </div>
-    </transition>
-  </Teleport>
+      <p v-if="pinError" class="text-xs text-torii text-center mb-3 min-h-[16px]">{{ pinError }}</p>
+      <div v-else class="mb-3 min-h-[16px]" />
+      
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button
+          v-for="n in 9" :key="n"
+          @click="addPinDigit(n)"
+          :disabled="isLockedOut"
+          class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100"
+        >{{ n }}</button>
+        <div />
+        <button @click="addPinDigit(0)" :disabled="isLockedOut" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">0</button>
+        <button @click="removeDigit" :disabled="isLockedOut" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-muted active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">
+          <Icon icon="lucide:delete" class="w-4 h-4 mx-auto" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Phrase confirmation step -->
+    <div v-if="step === 'phrase'" class="pb-2">
+      <div class="bg-torii/5 rounded-xl px-3 py-2 mb-3 border border-torii/15">
+        <p class="text-xs text-torii font-medium">⚠️ This action cannot be undone.</p>
+      </div>
+      <p class="text-xs text-muted mb-2">
+        Type <span class="font-mono font-bold text-charcoal">{{ confirmPhrase }}</span> to confirm
+      </p>
+      <input
+        v-model="phraseInput"
+        :placeholder="confirmPhrase"
+        type="text"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+        class="w-full px-4 py-3 border-2 rounded-xl text-sm font-mono text-charcoal focus:outline-none transition-colors mb-4"
+        :class="phraseMatches ? 'border-forest bg-forest/5 text-forest' : 'border-gray-200 bg-gray-50 focus:border-gray-300'"
+      />
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-3 pt-2">
+      <button
+        @click="$emit('cancel')"
+        class="flex-1 py-3 rounded-xl border border-gray-200 text-muted font-medium text-sm hover:bg-gray-50 transition-colors"
+      >
+        Cancel
+      </button>
+      <button
+        v-if="step === 'phrase'"
+        @click="confirmAction"
+        :disabled="!phraseMatches"
+        class="flex-1 py-3 rounded-xl bg-torii text-white font-medium text-sm disabled:opacity-30 transition-opacity"
+      >
+        {{ confirmLabel }}
+      </button>
+    </div>
+  </BottomSheet>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, watch, onUnmounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import { verifyPin } from '../utils/pin.js';
+import BottomSheet from './BottomSheet.vue';
 
 const props = defineProps({
+  show: { type: Boolean, default: false },
   title: { type: String, required: true },
   description: { type: String, required: true },
   confirmPhrase: { type: String, default: 'DELETE' },
@@ -144,19 +136,28 @@ function updateLockoutState() {
   }
 }
 
-onMounted(() => {
-  document.body.style.overflow = 'hidden';
-  if (props.requirePin) {
-    updateLockoutState();
-    timer = setInterval(updateLockoutState, 1000);
+watch(() => props.show, (show) => {
+  if (show) {
+    step.value = props.requirePin ? 'pin' : (props.skipPhrase ? '' : 'phrase');
+    pinInput.value = '';
+    pinError.value = '';
+    phraseInput.value = '';
+    shakeError.value = false;
+    
+    if (props.requirePin) {
+      updateLockoutState();
+      timer = setInterval(updateLockoutState, 1000);
+    }
+    if (!props.requirePin && props.skipPhrase) {
+      emit('confirm');
+    }
+  } else {
+    if (timer) clearInterval(timer);
+    timer = null;
   }
-  if (!props.requirePin && props.skipPhrase) {
-    emit('confirm');
-  }
-});
+}, { immediate: true });
 
 onUnmounted(() => {
-  document.body.style.overflow = '';
   if (timer) clearInterval(timer);
 });
 
@@ -216,21 +217,6 @@ function confirmAction() {
   emit('confirm');
 }
 </script>
-
-<style scoped>
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-  opacity: 0;
-}
-.modal-fade-enter-from > div[role="alertdialog"],
-.modal-fade-leave-to > div[role="alertdialog"] {
-  transform: scale(0.95) translateY(10px);
-}
-</style>
 
 <style scoped>
 @keyframes shake {

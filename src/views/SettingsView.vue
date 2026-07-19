@@ -18,7 +18,7 @@
             </div>
             <button
               @click="togglePin"
-              class="relative w-12 h-7 rounded-full transition-colors duration-300"
+              class="relative w-12 h-7 shrink-0 rounded-full transition-colors duration-300"
               :class="pinEnabled ? 'bg-forest' : 'bg-gray-300'"
             >
               <span
@@ -40,7 +40,7 @@
 
       <!-- Disable PIN modal (Teleported to body, single-root-safe) -->
       <DangerConfirmModal
-        v-if="showDisablePinModal"
+        :show="showDisablePinModal"
         title="Disable PIN Lock?"
         description="Your journal will no longer be protected. Anyone with your phone can read your entries. Enter your current PIN to confirm."
         confirm-phrase="DISABLE"
@@ -94,6 +94,62 @@
           <p v-if="notificationsEnabled && notificationPermission === 'denied'" class="text-xs text-torii">
             Notifications are blocked. Please enable them in your browser settings.
           </p>
+        </div>
+      </div>
+
+      <!-- Appearance -->
+      <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50 relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-br from-charcoal/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+        <h2 class="text-sm font-bold tracking-wider text-muted uppercase mb-4 flex items-center gap-2">
+          <Icon icon="lucide:moon" class="w-4 h-4" /> Appearance
+        </h2>
+        
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-2">
+              <p class="font-medium text-charcoal">Night Reflection Mode</p>
+              <span class="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-widest bg-forest/20 text-forest-dark border border-forest/20">Beta</span>
+            </div>
+            <p class="text-xs text-muted">Deep, OLED-friendly dark palette</p>
+          </div>
+          <button
+            @click="toggleDarkMode"
+            :aria-label="isDarkMode ? 'Disable dark mode' : 'Enable dark mode'"
+            :aria-pressed="isDarkMode"
+            class="hidden lg:block relative w-12 h-7 shrink-0 rounded-full transition-colors duration-300"
+            :class="isDarkMode ? 'bg-charcoal' : 'bg-gray-300'"
+          >
+            <span
+              class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 flex items-center justify-center"
+              :class="isDarkMode ? 'translate-x-5' : 'translate-x-0'"
+            >
+              <Icon :icon="isDarkMode ? 'lucide:moon' : 'lucide:sun'" class="w-3.5 h-3.5" :class="isDarkMode ? 'text-charcoal' : 'text-muted'" />
+            </span>
+          </button>
+          <div class="lg:hidden text-[10px] font-bold uppercase tracking-wider text-muted bg-gray-100 border border-gray-200 px-2 py-1 rounded-md shrink-0">
+            In Development
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100/50">
+          <div>
+            <div class="flex items-center gap-2">
+              <p class="font-medium text-charcoal">Quick Action Button</p>
+            </div>
+            <p class="text-xs text-muted">Show the floating action button</p>
+          </div>
+          <button
+            @click="toggleFab"
+            :aria-label="showFabSetting ? 'Hide quick action button' : 'Show quick action button'"
+            :aria-pressed="showFabSetting"
+            class="relative w-12 h-7 shrink-0 rounded-full transition-colors duration-300"
+            :class="showFabSetting ? 'bg-forest' : 'bg-gray-300'"
+          >
+            <span
+              class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 flex items-center justify-center"
+              :class="showFabSetting ? 'translate-x-5' : 'translate-x-0'"
+            />
+          </button>
         </div>
       </div>
 
@@ -270,6 +326,22 @@
         <Icon icon="lucide:external-link" class="w-4 h-4 text-muted" />
       </a>
 
+      <!-- Feedback -->
+      <a
+        @click.prevent="openBrowser('https://docs.google.com/forms/d/e/1FAIpQLScDVtrA4qK66yHuMk7MT_89UxvvTwPFoNFeBaAaVRj7g-UDzA/viewform?usp=header')"
+        href="https://docs.google.com/forms/d/e/1FAIpQLScDVtrA4qK66yHuMk7MT_89UxvvTwPFoNFeBaAaVRj7g-UDzA/viewform?usp=header"
+        class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50 flex items-center gap-3 hover:shadow-md transition-shadow self-start cursor-pointer"
+      >
+        <div class="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center flex-shrink-0">
+          <Icon icon="lucide:message-square" class="w-5 h-5 text-forest" />
+        </div>
+        <div class="flex-1">
+          <p class="font-medium text-charcoal">Feedback</p>
+          <p class="text-xs text-muted">Have a suggestion? Let us know.</p>
+        </div>
+        <Icon icon="lucide:external-link" class="w-4 h-4 text-muted" />
+      </a>
+
       <!-- About -->
       <div class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50">
         <h2 class="font-semibold text-charcoal mb-4 flex items-center gap-2">
@@ -311,7 +383,7 @@
 
     <!-- What's New Modal -->
     <WhatsNewModal
-      v-if="showWhatsNewModal"
+      :show="showWhatsNewModal"
       :releases="releases"
       :current-version="'v' + currentVersion"
       :latest-version="latestVersion"
@@ -321,7 +393,7 @@
 
     <!-- Hardened data reset modal -->
     <DangerConfirmModal
-      v-if="showResetModal"
+      :show="showResetModal"
       title="Delete All Data?"
       description="This will permanently erase all your practices, journal entries, habits, streaks, and settings. Your data cannot be recovered."
       confirm-phrase="DELETE MY DATA"
@@ -335,7 +407,7 @@
 
     <!-- Export PIN verification modal -->
     <DangerConfirmModal
-      v-if="showExportPinModal"
+      :show="showExportPinModal"
       title="Verify Identity"
       description="Enter your PIN to export your journal data."
       icon="lucide:lock"
@@ -359,6 +431,7 @@ import { clearAllStorage } from '../composables/useStorage.js';
 import { useNotifications } from '../composables/useNotifications.js';
 import { triggerHaptic } from '../utils/haptics.js';
 import { openBrowser } from '../utils/browser.js';
+import { useToast } from '../composables/useToast.js';
 
 import { Capacitor } from '@capacitor/core';
 import pkg from '../../package.json';
@@ -370,6 +443,7 @@ const isNative = Capacitor.isNativePlatform();
 const router = useRouter();
 
 const { isEnabled: notificationsEnabled, reminderTime, permission: notificationPermission, toggleNotifications, setReminderTime } = useNotifications();
+const { showToast } = useToast();
 
 const fileInput = ref(null);
 const pinEnabled = ref(false);
@@ -381,6 +455,32 @@ const showWhatsNewModal = ref(false);
 const exportTypePending = ref('');
 const updateAvailable = ref(false);
 const isLtsVersion = ref(false);
+
+const isDarkMode = ref(localStorage.getItem('michi_dark_mode') === 'true');
+const showFabSetting = ref(localStorage.getItem('michi_show_fab') !== 'false');
+
+function toggleFab() {
+  showFabSetting.value = !showFabSetting.value;
+  localStorage.setItem('michi_show_fab', showFabSetting.value);
+  window.dispatchEvent(new Event('michi_fab_setting_changed'));
+}
+
+function toggleDarkMode() {
+  isDarkMode.value = !isDarkMode.value;
+  localStorage.setItem('michi_dark_mode', isDarkMode.value);
+  if (isDarkMode.value) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+  
+  if (Capacitor.isNativePlatform()) {
+    import('@capacitor/status-bar').then(({ StatusBar, Style }) => {
+      StatusBar.setStyle({ style: isDarkMode.value ? Style.Dark : Style.Light }).catch(()=>{});
+      StatusBar.setBackgroundColor({ color: isDarkMode.value ? '#000000' : '#FAFAF8' }).catch(()=>{});
+    });
+  }
+}
 const checkingUpdate = ref(false);
 const latestVersion = ref('');
 const apkDownloadUrl = ref('');
@@ -393,6 +493,7 @@ function toggleHaptics() {
   hapticsEnabled.value = !hapticsEnabled.value;
   localStorage.setItem('michi_haptics', hapticsEnabled.value.toString());
   if (hapticsEnabled.value) triggerHaptic();
+  showToast(hapticsEnabled.value ? 'Haptic feedback enabled' : 'Haptic feedback disabled', 'info');
 }
 
 function setFontSize(size) {
@@ -403,6 +504,7 @@ function setFontSize(size) {
   } else {
     document.documentElement.classList.remove('text-lg');
   }
+  showToast(`Font size set to ${size}`, 'info');
 }
 
 const GITHUB_REPO = 'markocampos/michi';
@@ -452,8 +554,25 @@ function openUpdate() {
 
 const releases = [
   {
-    version: 'v1.1.5',
+    version: 'v1.1.6',
     current: true,
+    date: 'July 2026',
+    items: [
+      { type: 'feature', text: 'True Night Reflection Mode: A deep, OLED-friendly dark palette perfect for late-night Hansei reflections' },
+      { type: 'feature', text: 'Beautiful Export: You can now export your favorite Wabi-sabi and Ikigai reflections as stunning image cards perfect for saving or sharing' },
+      { type: 'feature', text: 'Visual Growth: The Home screen now features a dynamic Digital Bonsai that physically grows and blooms as your streak increases' },
+      { type: 'feature', text: 'Ambient Audio: Procedural Tibetan singing bowl rings on completing Ma, and calming forest wind fades in during Shinrin-yoku' },
+      { type: 'feature', text: 'Daily Zen Proverbs: A new elegant widget on the Home view that greets you with a meaningful Japanese proverb every day' },
+      { type: 'feature', text: 'Journal Organization: Rebuilt the Journal to group entries beautifully by Month and Year (e.g. "July 2026")' },
+      { type: 'feature', text: 'Journal Pagination: Implemented an infinite-scroll style "Load More" pagination system to guarantee the app never lags with thousands of entries' },
+      { type: 'feature', text: 'Practice Summaries: Added premium completion summary cards with "Write Another" flows for all practices' },
+      { type: 'feature', text: 'Premium Loading: Replaced standard spinning circles with a beautifully centered, zen-pulsing "Michi" logo for initial app loads' },
+      { type: 'feature', text: 'Settings UI: Added a new Appearance section and Feedback button in settings' },
+    ],
+  },
+  {
+    version: 'v1.1.5',
+    current: false,
     date: 'July 2026',
     items: [
       { type: 'feature', text: 'Activity Calendar Redesign: Dynamic scaling views from Week (mobile) to 12-month (Desktop L)' },
@@ -614,6 +733,7 @@ function exportData() {
   a.download = `michi-backup-${new Date().toISOString().split('T')[0]}.json`;
   a.click();
   URL.revokeObjectURL(url);
+  showToast('Backup exported successfully', 'success');
 }
 
 function exportToText() {
@@ -659,6 +779,7 @@ function exportToText() {
   a.download = `michi-journal-${new Date().toISOString().split('T')[0]}.txt`;
   a.click();
   URL.revokeObjectURL(url);
+  showToast('Journal exported successfully', 'success');
 }
 
 function triggerImport() {
@@ -676,9 +797,10 @@ function importData(event) {
       for (const [key, value] of Object.entries(data)) {
         localStorage.setItem(key, JSON.stringify(value));
       }
-      window.location.reload();
+      showToast('Data imported successfully', 'success');
+      setTimeout(() => window.location.reload(), 1500);
     } catch {
-      alert('Invalid backup file');
+      showToast('Invalid backup file', 'warning');
     }
   };
   reader.readAsText(file);

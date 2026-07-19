@@ -63,6 +63,13 @@
         </div>
       </div>
       <p class="text-sm text-muted italic">"Your ikigai is the intersection of what you love, what you're good at, what the world needs, and what you can be paid for."</p>
+      
+      <button
+        @click="resetPractice"
+        class="mt-6 px-6 py-2 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
+      >
+        Write Another
+      </button>
     </div>
 
 
@@ -75,8 +82,11 @@ import { ref, reactive, onMounted, nextTick } from 'vue';
 import { Icon } from '@iconify/vue';
 import { ikigaiPrompts } from '../data/prompts.js';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
 
 const prompts = ikigaiPrompts;
+const { showToast } = useToast();
 const currentStep = ref(0);
 const answers = reactive(['', '', '', '']);
 const showSummary = ref(false);
@@ -127,6 +137,19 @@ function saveReflection() {
     worldNeeds: answers[2],
     paidFor: answers[3],
     insight: answers.filter(a => a).join(' | '),
+  });
+  showToast('Ikigai reflection saved', 'success');
+  triggerHaptic();
+}
+
+function resetPractice() {
+  currentStep.value = 0;
+  for (let i = 0; i < answers.length; i++) {
+    answers[i] = '';
+  }
+  showSummary.value = false;
+  nextTick(() => {
+    focusAndScroll();
   });
 }
 </script>

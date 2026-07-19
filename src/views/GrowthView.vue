@@ -514,7 +514,7 @@ const gamanData = readJson(STORAGE_KEYS.gaman, { challenges: [] });
 const totalMeditationMin = computed(() => {
   const sessions = maData.sessions || [];
   const totalSeconds = sessions.reduce((s, x) => s + (x.duration || 0), 0);
-  return totalSeconds > 0 ? Math.max(1, Math.round(totalSeconds / 60)) : 0;
+  return Math.round(totalSeconds / 60);
 });
 const totalWalks = computed(() => (shinrinData.walks || []).length);
 const totalEntries = computed(() =>
@@ -528,7 +528,8 @@ const currentStreak = computed(() => calculateStreak(kaizenData, gamanData));
 // --- Shinrin total min ---
 const shinrinTotalMin = computed(() => {
   const walks = shinrinData.walks || [];
-  return walks.reduce((sum, w) => sum + Math.max(1, Math.round((w.duration || 0) / 60)), 0);
+  const totalSeconds = walks.reduce((sum, w) => sum + (w.duration || 0), 0);
+  return Math.round(totalSeconds / 60);
 });
 
 // --- Growth XP & Stage ---

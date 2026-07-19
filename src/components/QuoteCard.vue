@@ -33,11 +33,13 @@ import { Icon } from '@iconify/vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { Share } from '@capacitor/share';
 import { triggerHaptic } from '../utils/haptics.js';
+import { useToast } from '../composables/useToast.js';
 
 const props = defineProps({
   quote: { type: Object, required: true }
 });
 
+const { showToast } = useToast();
 const copied = ref(false);
 
 async function copyQuote() {
@@ -46,6 +48,7 @@ async function copyQuote() {
     await Clipboard.write({ string: textToCopy });
     triggerHaptic();
     copied.value = true;
+    showToast('Quote copied to clipboard', 'success');
     setTimeout(() => {
       copied.value = false;
     }, 2000);

@@ -8,7 +8,7 @@
 
     <DailyPrompt practiceId="shinrin" />
 
-    <div v-if="!walkActive && !showNotes">
+    <div v-if="!walkActive && !showNotes && !showSummary">
       <button
         @click="startWalk"
         class="w-full py-6 bg-forest rounded-2xl text-white text-lg font-medium hover:bg-forest-dark transition-colors shadow-lg mb-4 flex items-center justify-center gap-2"
@@ -73,6 +73,31 @@
     </div>
 
 
+    <div v-if="showSummary" class="text-center">
+      <div class="glass rounded-2xl p-6 shadow-sm border border-gray-100/50 mb-6">
+        <p class="text-sm text-forest font-medium mb-4">Forest Walk Complete</p>
+        <p class="text-3xl font-light text-charcoal mb-4">{{ formatDuration(lastWalk.duration) }}</p>
+        
+        <div class="grid grid-cols-2 gap-3 text-left">
+          <div v-for="sense in senses" :key="sense.id" class="bg-white/50 rounded-xl p-3 border border-gray-100">
+            <div class="flex items-center gap-2 mb-1">
+              <Icon :icon="sense.icon" class="w-4 h-4 text-forest" />
+              <p class="text-xs font-medium text-charcoal">{{ sense.name }}</p>
+            </div>
+            <p class="text-sm text-charcoal">{{ lastWalk.sensoryNotes[sense.id] || '(no notes)' }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <button
+        @click="showSummary = false"
+        class="mt-2 px-6 py-2 rounded-xl border border-gray-200 text-muted font-medium hover:bg-gray-50 transition-colors"
+      >
+        Done
+      </button>
+    </div>
+
+
   </div>
 </template>
 
@@ -82,12 +107,18 @@ import { ref, reactive } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useTimer } from '../composables/useTimer.js';
 import { useStorage } from '../composables/useStorage.js';
+import { useToast } from '../composables/useToast.js';
+import { triggerHaptic } from '../utils/haptics.js';
+import { startForestAmbient, stopForestAmbient } from '../utils/audio.js';
 
 const { isRunning, elapsed, formattedTime, start, stop, reset } = useTimer();
 const data = useStorage('michi_shinrin', { walks: [] });
+const { showToast } = useToast();
 
 const walkActive = ref(false);
 const showNotes = ref(false);
+const showSummary = ref(false);
+const lastWalk = ref(null);
 const notes = reactive({ sight: '', sound: '', smell: '', touch: '' });
 
 const senses = [
@@ -99,24 +130,40 @@ const senses = [
 
 function startWalk() {
   walkActive.value = true;
+  startForestAmbient();
   start();
 }
 
 function endWalk() {
   stop();
+  stopForestAmbient();
   walkActive.value = false;
   showNotes.value = true;
 }
 
 function saveWalk() {
-  data.value.walks.unshift({
+  const walkData = {
     id: Date.now(),
     date: new Date().toISOString().split('T')[0],
     duration: elapsed.value,
     sensoryNotes: { ...notes },
-  });
+  };
+
+  data.value.walks.unshift(walkData);
+  lastWalk.value = walkData;
+
   showNotes.value = false;
+  showToast('Forest walk saved', 'success');
+  triggerHaptic();
   reset();
   Object.keys(notes).forEach(k => notes[k] = '');
+  
+  showSummary.value = true;
+}
+
+function formatDuration(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 }
 </script>

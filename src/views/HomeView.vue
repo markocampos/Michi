@@ -2,6 +2,7 @@
   <div
     class="px-5 pt-12 pb-8 md:px-8 md:pt-14 lg:px-12 lg:pt-16"
   >
+    <CelebrationEffect v-if="completedCount === 8 || milestone" :active="true" />
     <div class="mb-8 lg:mb-12">
       <p class="text-sm text-muted mb-1">{{ greeting.jp }}</p>
       <h1 class="text-2xl font-bold text-charcoal lg:text-4xl">{{ greeting.en }}</h1>
@@ -25,6 +26,22 @@
         <Icon icon="lucide:chevron-right" class="w-4 h-4 text-forest" />
       </div>
     </a>
+
+    <!-- Daily Zen Proverb -->
+    <div class="relative overflow-hidden rounded-2xl p-6 mb-6 bg-gradient-to-br from-[#2C3E2D] to-[#1E2B1F] text-white shadow-lg border border-white/10">
+      <div class="absolute -right-4 -bottom-4 opacity-5">
+        <Icon icon="lucide:quote" class="w-32 h-32 text-white" />
+      </div>
+      <div class="relative z-10">
+        <p class="text-[10px] uppercase tracking-widest text-white/60 font-semibold mb-3 flex items-center gap-1.5"><Icon icon="lucide:sun" class="w-3 h-3" /> Daily Zen</p>
+        <p class="text-lg md:text-xl font-light leading-relaxed mb-3">"{{ dailyProverb.text }}"</p>
+        <div class="flex items-center gap-2">
+          <p class="text-xs text-white/70 font-medium">{{ dailyProverb.romaji }}</p>
+          <span class="text-white/30">•</span>
+          <p class="text-xs text-white/70">{{ dailyProverb.jp }}</p>
+        </div>
+      </div>
+    </div>
 
     <!-- Mood -->
     <div class="rounded-2xl p-4 mb-6 flex items-center gap-4" :class="userMood.bgClass">
@@ -59,16 +76,7 @@
 
         <QuoteCard :quote="currentQuote" class="mb-8" />
 
-        <div v-if="streak > 0" class="bg-forest/10 rounded-2xl p-4 text-center">
-          <div class="flex items-center justify-center gap-2">
-            <span class="text-2xl font-bold text-forest">{{ streak }}</span>
-            <Icon icon="lucide:flame" class="w-6 h-6 text-forest" />
-          </div>
-          <p class="text-sm text-forest-dark">day streak</p>
-          <div v-if="milestone" class="mt-2 px-3 py-1 bg-forest/20 rounded-full inline-block">
-            <p class="text-xs font-medium text-forest">{{ milestone }}</p>
-          </div>
-        </div>
+        <BonsaiWidget :streak="streak" :milestone="milestone" class="mb-8" />
       </div>
 
       <div>
@@ -108,6 +116,8 @@ import { computed, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import ProgressRing from '../components/ProgressRing.vue';
 import QuoteCard from '../components/QuoteCard.vue';
+import CelebrationEffect from '../components/CelebrationEffect.vue';
+import BonsaiWidget from '../components/BonsaiWidget.vue';
 import { useQuote } from '../composables/useQuote.js';
 import { useStorage } from '../composables/useStorage.js';
 import { allPractices } from '../data/practices.js';
@@ -116,8 +126,11 @@ import { getToday, getLastNDays, getWeekdayLabel } from '../utils/dates.js';
 import { readJson } from '../composables/useStorage.js';
 import { useNotifications } from '../composables/useNotifications.js';
 import { APP_VERSION } from '../version.js';
+import { getDailyProverb } from '../data/proverbs.js';
 
 const { sendStreakMilestone } = useNotifications();
+
+const dailyProverb = getDailyProverb(getToday());
 
 // Update checker
 const updateAvailable = ref(false);

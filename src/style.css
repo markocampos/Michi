@@ -15,6 +15,42 @@
   --color-winter: #A8C4D8;
 }
 
+:root {
+  --color-warm-white: #FAFAF8;
+  --color-charcoal: #2D2D2D;
+  --color-forest: #5B7B5E;
+  --color-forest-dark: #3D5A3F;
+  --color-earth: #C4A882;
+  --color-earth-dark: #8B7355;
+  --color-torii: #B34233;
+  --color-muted: #6B6B6B;
+  --color-spring: #E8B4B8;
+  --color-summer: #7BAE7F;
+  --color-autumn: #D4956A;
+  --color-winter: #A8C4D8;
+  --bg-color: var(--color-warm-white);
+  --text-color: var(--color-charcoal);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+.dark {
+  --color-warm-white: #000000; /* OLED Black */
+  --color-charcoal: #F5F5F5; /* Soft white text */
+  --color-forest: #7AA07E; /* Lighter for contrast */
+  --color-forest-dark: #5B7B5E;
+  --color-earth: #D4BD9E;
+  --color-earth-dark: #A98C68;
+  --color-torii: #D9695C;
+  --color-muted: #9E9E9E;
+  --color-spring: #F2D2D5;
+  
+  --bg-color: #000000;
+  --text-color: #F5F5F5;
+  --glass-bg: rgba(20, 20, 20, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
 html, body {
   font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--color-warm-white);
@@ -93,10 +129,10 @@ html, body {
 
 /* Glassmorphism & UI improvements */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--glass-border);
 }
 
 /* Smooth active states for buttons */
