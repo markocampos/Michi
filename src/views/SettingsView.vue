@@ -18,6 +18,8 @@
             </div>
             <button
               @click="togglePin"
+              :aria-label="pinEnabled ? 'Disable PIN Lock' : 'Enable PIN Lock'"
+              :aria-pressed="pinEnabled"
               class="relative w-12 h-7 shrink-0 rounded-full transition-colors duration-300"
               :class="pinEnabled ? 'bg-forest' : 'bg-gray-300'"
             >
@@ -168,6 +170,8 @@
             </div>
             <button
               @click="toggleHaptics"
+              :aria-label="hapticsEnabled ? 'Disable haptic feedback' : 'Enable haptic feedback'"
+              :aria-pressed="hapticsEnabled"
               class="relative w-12 h-7 rounded-full transition-colors duration-300"
               :class="hapticsEnabled ? 'bg-forest' : 'bg-gray-300'"
             >
@@ -178,29 +182,7 @@
             </button>
           </div>
 
-          <!-- Font Size -->
-          <div class="flex items-center justify-between pt-2 border-t border-gray-100/50">
-            <div>
-              <p class="font-medium text-charcoal">Journal Font Size</p>
-              <p class="text-xs text-muted">Make entries easier to read</p>
-            </div>
-            <div class="flex bg-gray-100/50 rounded-xl p-1 border border-gray-200/50">
-              <button
-                @click="setFontSize('standard')"
-                class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
-                :class="fontSize === 'standard' ? 'bg-white shadow-sm text-charcoal' : 'text-muted'"
-              >
-                Standard
-              </button>
-              <button
-                @click="setFontSize('large')"
-                class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
-                :class="fontSize === 'large' ? 'bg-white shadow-sm text-charcoal' : 'text-muted'"
-              >
-                Large
-              </button>
-            </div>
-          </div>
+
           
 
         </div>
@@ -277,7 +259,7 @@
             <span class="text-sm font-medium text-forest">Update available: {{ latestVersion }}</span>
           </div>
           <p class="text-xs text-muted ml-6 mb-2">You're on v{{ currentVersion }}.</p>
-          <button @click="openUpdate" class="ml-6 px-3 py-1.5 bg-forest text-white text-xs font-semibold rounded-lg hover:bg-forest-dark transition-colors">
+          <button @click="openUpdate" aria-label="Download update" class="ml-6 px-3 py-1.5 bg-forest text-white text-xs font-semibold rounded-lg hover:bg-forest-dark transition-colors">
             Get Update
           </button>
         </div>
@@ -489,24 +471,12 @@ const apkDownloadUrl = ref('');
 const currentVersion = pkg.version;
 
 const hapticsEnabled = ref(localStorage.getItem('michi_haptics') !== 'false');
-const fontSize = ref(localStorage.getItem('michi_font_size') || 'standard');
 
 function toggleHaptics() {
   hapticsEnabled.value = !hapticsEnabled.value;
   localStorage.setItem('michi_haptics', hapticsEnabled.value.toString());
   if (hapticsEnabled.value) triggerHaptic();
   showToast(hapticsEnabled.value ? 'Haptic feedback enabled' : 'Haptic feedback disabled', 'info');
-}
-
-function setFontSize(size) {
-  fontSize.value = size;
-  localStorage.setItem('michi_font_size', size);
-  if (size === 'large') {
-    document.documentElement.classList.add('text-lg');
-  } else {
-    document.documentElement.classList.remove('text-lg');
-  }
-  showToast(`Font size set to ${size}`, 'info');
 }
 
 const GITHUB_REPO = 'markocampos/michi';
@@ -556,8 +526,26 @@ function openUpdate() {
 
 const releases = [
   {
-    version: 'v1.1.6',
+    version: 'v1.1.7',
     current: true,
+    date: 'July 2026',
+    items: [
+      { type: 'feature', text: 'Oubaitori 桜梅桃李: Added the 9th Japanese philosophy practice — a journaling flow focused on releasing comparison' },
+      { type: 'feature', text: 'Offline Voice Guide: Upgraded Ma meditation with high-quality, pre-recorded voice packs (Neutral, Deep, Serene, Warm) — fully offline and zero latency' },
+      { type: 'feature', text: 'Ma Brief Start: Meditation preloads voice cues, then plays a singing bowl and pause to settle in before the timer begins' },
+      { type: 'feature', text: 'Hold-to-Confirm Actions: Reset (2s) and Save (5s) buttons in Ma now feature a beautiful SVG ring fill animation to prevent accidental clicks' },
+      { type: 'feature', text: 'Session Protection: Added a blurred exit confirmation modal when attempting to leave an active Ma session' },
+      { type: 'feature', text: 'Smart Journal Filters: Filter bar now only shows practice types you actually have entries for' },
+      { type: 'feature', text: 'Oubaitori Growth Breakdown: Oubaitori reflections tracked in practice breakdown, heatmap, and wellbeing score' },
+      { type: 'fix', text: 'Tablet Layout: Fixed bottom spacing constraints and vertical centering issues across the Practice view' },
+      { type: 'fix', text: 'Practice Animations: Fixed the stagger animation so the 9th practice (Oubaitori) cleanly fades in with the rest of the grid' },
+      { type: 'fix', text: 'Rich Media Journaling: Wabi-sabi now supports photo attachments with polaroid-style image exports' },
+      { type: 'fix', text: 'Advanced Growth Insights: Dual-line spline chart visualizes correlation between Meditation time and Wellbeing Score' },
+    ],
+  },
+  {
+    version: 'v1.1.6',
+    current: false,
     date: 'July 2026',
     items: [
       { type: 'feature', text: 'True Night Reflection Mode: A deep, OLED-friendly dark palette perfect for late-night Hansei reflections' },

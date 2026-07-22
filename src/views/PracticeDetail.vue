@@ -1,5 +1,5 @@
 <template>
-  <div class="px-5 pt-12 pb-8 pb-safe md:px-8 md:pt-14 lg:px-12 lg:pt-16 max-w-2xl lg:max-w-3xl mx-auto select-none">
+  <div class="px-5 pt-12 pb-8 pb-safe md:px-8 md:pt-14 md:pb-16 lg:px-12 lg:pt-16 lg:pb-20 max-w-2xl lg:max-w-3xl mx-auto select-none">
     <button @click="goBack" aria-label="Go back to practices" class="flex items-center gap-1 text-muted mb-6 hover:text-charcoal transition-colors">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -17,6 +17,7 @@
         <GamanPractice v-else-if="id === 'gaman'" :key="id" />
         <HanseiPractice v-else-if="id === 'hansei'" :key="id" />
         <MonoNoAwarePractice v-else-if="id === 'mononoaware'" :key="id" />
+        <OubaitoriPractice v-else-if="id === 'oubaitori'" :key="id" />
       </template>
       <template #fallback>
         <div class="flex flex-col items-center justify-center py-32">
@@ -52,12 +53,13 @@ const ShinrinYokuPractice = defineAsyncComponent(() => import('../practices/Shin
 const GamanPractice = defineAsyncComponent(() => import('../practices/GamanPractice.vue'));
 const HanseiPractice = defineAsyncComponent(() => import('../practices/HanseiPractice.vue'));
 const MonoNoAwarePractice = defineAsyncComponent(() => import('../practices/MonoNoAwarePractice.vue'));
+const OubaitoriPractice = defineAsyncComponent(() => import('../practices/OubaitoriPractice.vue'));
 
 const route = useRoute();
 const router = useRouter();
 const id = computed(() => route.params.id);
 
-const validIds = ['ikigai', 'wabisabi', 'ma', 'kaizen', 'shinrin', 'gaman', 'hansei', 'mononoaware'];
+const validIds = ['ikigai', 'wabisabi', 'ma', 'kaizen', 'shinrin', 'gaman', 'hansei', 'mononoaware', 'oubaitori'];
 const isValidPractice = computed(() => validIds.includes(id.value));
 
 function goBack() {

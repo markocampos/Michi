@@ -25,17 +25,20 @@
       <p v-if="pinError" class="text-xs text-torii text-center mb-3 min-h-[16px]">{{ pinError }}</p>
       <div v-else class="mb-3 min-h-[16px]" />
       
-      <div class="grid grid-cols-3 gap-2 mb-4">
-        <button
-          v-for="n in 9" :key="n"
-          @click="addPinDigit(n)"
-          :disabled="isLockedOut"
-          class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100"
-        >{{ n }}</button>
-        <div />
-        <button @click="addPinDigit(0)" :disabled="isLockedOut" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">0</button>
-        <button @click="removeDigit" :disabled="isLockedOut" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-muted active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">
-          <Icon icon="lucide:delete" class="w-4 h-4 mx-auto" />
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <button @click="addPinDigit(1)" :disabled="isLockedOut" aria-label="Digit 1" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">1</button>
+        <button @click="addPinDigit(2)" :disabled="isLockedOut" aria-label="Digit 2" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">2</button>
+        <button @click="addPinDigit(3)" :disabled="isLockedOut" aria-label="Digit 3" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">3</button>
+        <button @click="addPinDigit(4)" :disabled="isLockedOut" aria-label="Digit 4" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">4</button>
+        <button @click="addPinDigit(5)" :disabled="isLockedOut" aria-label="Digit 5" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">5</button>
+        <button @click="addPinDigit(6)" :disabled="isLockedOut" aria-label="Digit 6" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">6</button>
+        <button @click="addPinDigit(7)" :disabled="isLockedOut" aria-label="Digit 7" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">7</button>
+        <button @click="addPinDigit(8)" :disabled="isLockedOut" aria-label="Digit 8" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">8</button>
+        <button @click="addPinDigit(9)" :disabled="isLockedOut" aria-label="Digit 9" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">9</button>
+        <div class="h-12"></div>
+        <button @click="addPinDigit(0)" :disabled="isLockedOut" aria-label="Digit 0" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-base font-medium text-charcoal active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">0</button>
+        <button @click="removeDigit" :disabled="isLockedOut" aria-label="Delete last digit" class="h-12 rounded-xl bg-gray-50 border border-gray-200 text-muted active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100">
+          <Icon icon="lucide:delete" class="w-5 h-5 mx-auto" />
         </button>
       </div>
     </div>

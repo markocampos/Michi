@@ -1,7 +1,7 @@
 {
   "name": "michi",
   "private": true,
-  "version": "1.1.6",
+  "version": "1.1.7",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -29,6 +29,7 @@
     "@iconify/vue": "^5.0.1",
     "html-to-image": "^1.11.13",
     "jeep-sqlite": "^2.8.0",
+    "node-edge-tts": "^1.2.10",
     "vue": "^3.5.39",
     "vue-router": "^4.6.4"
   },

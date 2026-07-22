@@ -5,7 +5,7 @@
         <Icon icon="lucide:sparkles" class="w-6 h-6 text-forest" />
         What's New
       </h2>
-      <button @click="$emit('close')" class="text-muted hover:text-charcoal transition-colors p-1 rounded-lg">
+      <button @click="$emit('close')" aria-label="Close what's new modal" class="text-muted hover:text-charcoal transition-colors p-1 rounded-lg">
         <Icon icon="lucide:x" class="w-5 h-5" />
       </button>
     </div>
@@ -19,7 +19,7 @@
         </div>
         <p class="text-xs text-forest/80">You are on {{ currentVersion }}. Get the latest features!</p>
       </div>
-      <button @click="openUpdate" class="px-4 py-2 bg-forest text-white text-xs font-semibold rounded-lg hover:bg-forest-dark transition-colors">
+      <button @click="openUpdate" aria-label="Update Michi" class="px-4 py-2 bg-forest text-white text-xs font-semibold rounded-lg hover:bg-forest-dark transition-colors">
         Update Now
       </button>
     </div>

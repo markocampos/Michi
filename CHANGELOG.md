@@ -7,9 +7,26 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [v1.1.6] — July 2026
+## [v1.1.7] — July 2026
 
 ### Added
+- **Oubaitori 桜梅桃李**: Added the 9th Japanese philosophy practice — a journaling flow focused on releasing comparison and embracing your unique timeline.
+- **Offline Voice Guide**: Upgraded Ma meditation with high-quality, pre-recorded voice packs (Neutral, Deep, Serene, Warm) that run fully offline with zero latency.
+- **Hold-to-Confirm Actions**: Reset (2s) and Save (5s) buttons in Ma now feature a beautiful SVG ring fill animation to prevent accidental clicks.
+- **Session Protection**: Added a blurred exit confirmation modal when attempting to leave an active Ma session.
+- **Ma Brief Start**: Meditation now preloads voice cues, then plays a singing bowl and a short pause to settle in before the timer begins.
+- **Oubaitori Growth Breakdown**: Oubaitori reflections are now tracked in the practice breakdown, heatmap, and wellbeing score calculations.
+- **Smart Journal Filters**: Filter bar now intelligently hides practice types you don't have entries for yet.
+
+### Fixed
+- **Tablet Layout**: Fixed bottom spacing constraints and vertical centering issues that caused the Practice view to look crushed on tablets.
+- **Practice Animations**: Fixed the stagger CSS animation so the 9th practice (Oubaitori) cleanly fades in with the rest of the grid.
+- **Rich Media Journaling**: Wabi-sabi now supports photo attachments with polaroid-style image exports.
+- **Advanced Growth Insights**: Dual-line spline chart visualizes correlation between Meditation time and Wellbeing Score.
+
+---
+
+## [v1.1.6] — July 2026
 - **True Night Reflection Mode**: Added a deep, OLED-friendly dark palette perfect for late-night Hansei reflections. Toggle it in Settings!
 - **Beautiful Export**: You can now export your favorite Wabi-sabi and Ikigai reflections directly from your Journal as stunning image cards, perfect for saving or sharing.
 - **Visual Growth (Digital Bonsai)**: The Home screen now features a dynamic Digital Bonsai that physically grows and blooms across 12 distinct stages as your streak increases (all the way to 100 days!).

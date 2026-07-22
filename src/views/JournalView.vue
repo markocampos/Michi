@@ -33,7 +33,7 @@
       </button>
     </div>
 
-    <div class="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none">
+    <div class="flex flex-wrap gap-2 mb-6 pb-2">
       <button
         v-for="f in filters"
         :key="f.value"
@@ -92,7 +92,8 @@
             <span class="text-xs font-medium text-muted bg-gray-50 px-2.5 py-1 rounded-md border border-gray-100/50">{{ formatDate(entry.date) }}</span>
           </div>
           <div class="pl-3 border-l-2 border-forest/30 my-3">
-            <p class="text-charcoal text-sm leading-relaxed text-gray-700 whitespace-pre-wrap" :class="['ikigai', 'hansei'].includes(entry.type) ? '' : 'italic'">
+            <img v-if="entry.photo" :src="entry.photo" class="w-full h-48 object-cover rounded-xl mb-3 shadow-sm border border-gray-100" />
+            <p v-if="entry.text" class="text-charcoal text-sm leading-relaxed text-gray-700 whitespace-pre-wrap" :class="['ikigai', 'hansei'].includes(entry.type) ? '' : 'italic'">
               <template v-if="!['ikigai', 'hansei'].includes(entry.type)">"{{ entry.text }}"</template>
               <template v-else>{{ entry.text }}</template>
             </p>
@@ -136,8 +137,11 @@
       </div>
       
       <div class="bg-white/80 backdrop-blur-xl p-16 rounded-[3rem] shadow-2xl border border-white/50 w-full max-w-[800px] shrink-0">
-        <Icon icon="lucide:quote" class="w-12 h-12 text-forest/30 mb-6" />
-        <p class="text-4xl leading-tight text-charcoal font-medium whitespace-pre-wrap break-words" :class="['ikigai', 'hansei'].includes(exportingEntry.type) ? '' : 'italic'">
+        <Icon v-if="!exportingEntry?.photo" icon="lucide:quote" class="w-12 h-12 text-forest/30 mb-6" />
+        <div v-if="exportingEntry?.photo" class="mb-8 rounded-3xl overflow-hidden border-[6px] border-white shadow-xl relative">
+          <img :src="exportingEntry.photo" class="w-full h-80 object-cover" />
+        </div>
+        <p v-if="exportingEntry?.text" class="text-4xl leading-tight text-charcoal font-medium whitespace-pre-wrap break-words" :class="['ikigai', 'hansei'].includes(exportingEntry.type) ? '' : 'italic'">
           <template v-if="!['ikigai', 'hansei'].includes(exportingEntry.type)">"{{ exportingEntry.text }}"</template>
           <template v-else>{{ exportingEntry.text }}</template>
         </p>
@@ -220,18 +224,25 @@ async function exportEntry(entry) {
   }, 800);
 }
 
-const filters = [
-  { value: 'all', label: 'All' },
-  { value: 'wabisabi', label: 'Wabi-sabi' },
-  { value: 'mononoaware', label: 'Mono no aware' },
-  { value: 'ikigai', label: 'Ikigai' }
-];
+const filters = computed(() => {
+  const types = new Set(allEntries.value.map(e => e.type));
+  const base = [{ value: 'all', label: 'All' }];
+  
+  if (types.has('wabisabi')) base.push({ value: 'wabisabi', label: 'Wabi-sabi' });
+  if (types.has('mononoaware')) base.push({ value: 'mononoaware', label: 'Mono no aware' });
+  if (types.has('ikigai')) base.push({ value: 'ikigai', label: 'Ikigai' });
+  if (types.has('hansei')) base.push({ value: 'hansei', label: 'Hansei' });
+  if (types.has('oubaitori')) base.push({ value: 'oubaitori', label: 'Oubaitori' });
+  
+  return base;
+});
 
 const typeClasses = {
   wabisabi: 'bg-earth/20 text-earth-dark',
   mononoaware: 'bg-torii/10 text-torii',
   ikigai: 'bg-forest/20 text-forest-dark',
   hansei: 'bg-gray-500/10 text-gray-700',
+  oubaitori: 'bg-forest/10 text-forest',
 };
 
 const typeLabels = {
@@ -239,6 +250,7 @@ const typeLabels = {
   mononoaware: 'Mono no aware',
   ikigai: 'Ikigai',
   hansei: 'Hansei',
+  oubaitori: 'Oubaitori',
 };
 
 function formatDate(dateStr) {
@@ -263,7 +275,7 @@ const allEntries = computed(() => {
 
   try {
     const wb = readJson(STORAGE_KEYS.wabisabi, { entries: [] });
-    (wb.entries || []).forEach(e => entries.push({ id: e.id, type: 'wabisabi', date: e.date, text: e.text, rawText: e.text }));
+    (wb.entries || []).forEach(e => entries.push({ id: e.id, type: 'wabisabi', date: e.date, text: e.text, rawText: e.text, photo: e.photo }));
   } catch {}
 
   try {
@@ -311,6 +323,23 @@ const allEntries = computed(() => {
       
       if (text) {
         entries.push({ id: r.id, type: 'hansei', date: r.date, text, rawText });
+      }
+    });
+  } catch {}
+
+  try {
+    const oub = readJson(STORAGE_KEYS.oubaitori, { entries: [] });
+    (oub.entries || []).forEach(e => {
+      const text = e.comparison || '';
+      const secondary = e.reframe || '';
+      if (text || secondary) {
+        entries.push({
+          id: e.id, type: 'oubaitori', date: e.date,
+          text: text,
+          secondary: secondary,
+          secondaryLabel: 'Reframe',
+          rawText: text + ' ' + secondary,
+        });
       }
     });
   } catch {}

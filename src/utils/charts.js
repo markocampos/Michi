@@ -15,6 +15,7 @@ export function getDailyPracticeCounts(data, days = 7) {
     if (data.ma?.sessions?.some(s => s.date === date)) count++;
     if (data.ikigai?.reflections?.some(r => r.date === date)) count++;
     if (data.hansei?.reflections?.some(r => r.date === date)) count++;
+    if (data.oubaitori?.entries?.some(e => e.date === date)) count++;
     return { date, count, label: getWeekdayLabel(date) };
   });
 }
@@ -45,6 +46,7 @@ export function getPracticeDistribution(data) {
     { name: 'Ikigai', jp: '生きがい', count: data.ikigai?.reflections?.length || 0, color: 'var(--color-torii)' },
     { name: 'Hansei', jp: '反省', count: data.hansei?.reflections?.length || 0, color: 'var(--color-earth-dark)' },
     { name: 'Mono no aware', jp: '物の哀れ', count: data.mononoaware?.entries?.length || 0, color: 'var(--color-spring)' },
+    { name: 'Oubaitori', jp: '桜梅桃李', count: data.oubaitori?.entries?.length || 0, color: 'var(--color-spring)' },
   ].filter(p => p.count > 0);
 }
 
@@ -73,7 +75,8 @@ export function getMonthlyComparison(data) {
     countInMonth(data.wabisabi?.entries, 'date', thisMonth, thisYear) +
     countInMonth(data.ikigai?.reflections, 'date', thisMonth, thisYear) +
     countInMonth(data.hansei?.reflections, 'date', thisMonth, thisYear) +
-    countInMonth(data.mononoaware?.entries, 'date', thisMonth, thisYear);
+    countInMonth(data.mononoaware?.entries, 'date', thisMonth, thisYear) +
+    countInMonth(data.oubaitori?.entries, 'date', thisMonth, thisYear);
 
   const lastMonthCount =
     countInMonth(data.ma?.sessions, 'date', lastMonth, lastMonthYear) +
@@ -81,7 +84,31 @@ export function getMonthlyComparison(data) {
     countInMonth(data.wabisabi?.entries, 'date', lastMonth, lastMonthYear) +
     countInMonth(data.ikigai?.reflections, 'date', lastMonth, lastMonthYear) +
     countInMonth(data.hansei?.reflections, 'date', lastMonth, lastMonthYear) +
-    countInMonth(data.mononoaware?.entries, 'date', lastMonth, lastMonthYear);
+    countInMonth(data.mononoaware?.entries, 'date', lastMonth, lastMonthYear) +
+    countInMonth(data.oubaitori?.entries, 'date', lastMonth, lastMonthYear);
 
   return { thisMonth: thisMonthCount, lastMonth: lastMonthCount };
+}
+
+/**
+ * Calculate simulated wellbeing/mood score per day
+ */
+export function getWellbeingScore(data, days = 30) {
+  const dates = getLastNDays(days);
+  return dates.map(date => {
+    let score = 50; // baseline mood
+    if ((data.ma?.sessions || []).some(s => s.date === date)) score += 15;
+    if ((data.shinrin?.walks || []).some(w => w.date === date)) score += 15;
+    if ((data.wabisabi?.entries || []).some(e => e.date === date)) score += 10;
+    if ((data.ikigai?.reflections || []).some(r => r.date === date)) score += 10;
+    if ((data.hansei?.reflections || []).some(r => r.date === date)) score += 10;
+    if ((data.mononoaware?.entries || []).some(e => e.date === date)) score += 10;
+    if ((data.oubaitori?.entries || []).some(e => e.date === date)) score += 10;
+    if ((data.kaizen?.habits || []).some(h => h.completedDates?.includes(date))) score += 5;
+    if ((data.gaman?.challenges || []).some(c => c.completedDates?.includes(date))) score += 5;
+    return {
+      date,
+      score: Math.min(score, 100),
+    };
+  });
 }

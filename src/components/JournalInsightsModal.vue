@@ -21,7 +21,7 @@
               <p class="text-xs text-muted font-medium tracking-widest uppercase">Naikan • 内省</p>
             </div>
           </div>
-          <button @click="$emit('close')" class="text-muted hover:text-charcoal transition-colors">
+          <button @click="$emit('close')" aria-label="Close insights modal" class="text-muted hover:text-charcoal transition-colors">
             <Icon icon="lucide:x" class="w-5 h-5" />
           </button>
         </div>

@@ -20,11 +20,28 @@
           placeholder="Write about an imperfection you embrace today..."
           class="w-full h-32 p-4 border border-gray-200/50 bg-white/50 rounded-xl text-charcoal resize-none focus:outline-none focus:border-forest transition-colors"
         />
+        <!-- Image Preview -->
+        <div v-if="newPhoto" class="relative mt-3">
+          <img :src="newPhoto" class="w-full h-48 object-cover rounded-xl shadow-sm border border-gray-100" />
+          <button @click="clearPhoto" aria-label="Remove attached photo" class="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors backdrop-blur-sm">
+            <Icon icon="lucide:x" class="w-4 h-4" />
+          </button>
+        </div>
+
         <div class="flex gap-3 mt-4">
+          <input type="file" accept="image/*" ref="fileInput" @change="handleFileChange" class="hidden" />
+          <button
+            @click="fileInput?.click()"
+            class="p-3 bg-white/50 border border-gray-200/50 rounded-xl hover:bg-white/80 transition-colors text-charcoal flex-shrink-0 shadow-sm"
+            title="Attach a photo"
+            aria-label="Attach a photo"
+          >
+            <Icon icon="lucide:camera" class="w-5 h-5" />
+          </button>
           <button
             @click="save"
-            :disabled="!newText.trim()"
-            class="w-full py-3 rounded-xl bg-forest text-white font-medium disabled:opacity-40 hover:bg-forest-dark transition-colors"
+            :disabled="!newText.trim() && !newPhoto"
+            class="flex-1 py-3 rounded-xl bg-forest text-white font-medium disabled:opacity-40 hover:bg-forest-dark transition-colors shadow-sm"
           >
             Save Forever
           </button>
@@ -37,7 +54,8 @@
         <p class="text-sm text-forest font-medium mb-4">Embracing Imperfection</p>
         <div class="text-left mb-4">
           <p class="text-xs text-muted mb-2">{{ lastPrompt }}</p>
-          <p class="text-charcoal whitespace-pre-wrap font-serif italic border-l-2 border-forest/30 pl-3 py-1">{{ lastEntryText }}</p>
+          <img v-if="lastEntryPhoto" :src="lastEntryPhoto" class="w-full h-48 object-cover rounded-xl mb-3 shadow-sm border border-gray-100" />
+          <p v-if="lastEntryText" class="text-charcoal whitespace-pre-wrap font-serif italic border-l-2 border-forest/30 pl-3 py-1">{{ lastEntryText }}</p>
         </div>
       </div>
       <p class="text-sm text-muted italic">"Your entry has been saved exactly as written. Its beauty lies in its imperfection."</p>
@@ -72,6 +90,25 @@ const showSummary = ref(false);
 const lastEntryText = ref('');
 const lastPrompt = ref('');
 
+const newPhoto = ref(null);
+const fileInput = ref(null);
+const lastEntryPhoto = ref(null);
+
+function handleFileChange(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    newPhoto.value = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearPhoto() {
+  newPhoto.value = null;
+  if (fileInput.value) fileInput.value.value = '';
+}
+
 onMounted(() => {
   if (inputRef.value) {
     inputRef.value.focus();
@@ -82,20 +119,24 @@ onMounted(() => {
 });
 
 function save() {
-  if (!newText.value.trim()) return;
+  if (!newText.value.trim() && !newPhoto.value) return;
   const text = newText.value.trim();
   const prompt = currentPrompt.value;
+  const photo = newPhoto.value;
 
   data.value.entries.unshift({
     id: Date.now(),
     date: new Date().toISOString().split('T')[0],
     text: text,
+    photo: photo
   });
 
   lastEntryText.value = text;
   lastPrompt.value = prompt;
+  lastEntryPhoto.value = photo;
 
   newText.value = '';
+  clearPhoto();
   currentPrompt.value = wabisabiPrompts[Math.floor(Math.random() * wabisabiPrompts.length)];
   showToast('Entry saved forever', 'success');
   triggerHaptic();

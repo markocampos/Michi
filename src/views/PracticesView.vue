@@ -85,6 +85,7 @@ const practiceCategories = {
   gaman: 'tracking',
   hansei: 'reflection',
   mononoaware: 'reflection',
+  oubaitori: 'reflection',
 };
 
 const filteredPractices = computed(() => {

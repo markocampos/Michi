@@ -478,5 +478,27 @@ export const practicePrompts = {
     "In what way are you letting your past define your future?",
     "How did you contribute to the overall atmosphere (positive or negative) of a room today?",
     "If today was a test of your character, what grade would you give yourself, and why?"
+  ],
+  "oubaitori": [
+    "What is a standard of success you hold yourself to that actually belongs to someone else?",
+    "Describe a time you felt 'behind' in life. What would it look like to trust your own timing?",
+    "Who is someone you frequently compare yourself to, and what do you actually admire about them?",
+    "What is a unique strength of yours that gets overshadowed when you look at others?",
+    "Think of a flower blooming late in the season. How does this apply to your current journey?",
+    "What part of your life feels like it's in a 'winter' phase right now, preparing to bloom later?",
+    "How does social media influence your perception of your own progress?",
+    "What is one metric of success you want to let go of today?",
+    "Write about a time you achieved something on your own timeline, despite what others expected.",
+    "What would you do differently today if you completely stopped worrying about what peers think?",
+    "How can you celebrate a friend's success without feeling a sense of lack in yourself?",
+    "What is a 'flaw' in your journey that actually makes your story more interesting?",
+    "Describe your ideal life path, assuming no one else would ever see it or judge it.",
+    "What is a pressure you feel from society regarding your age or stage in life?",
+    "How can you reframe a perceived 'delay' in your life as a period of necessary growth?",
+    "What is a unique trait you have that you wouldn't trade for anyone else's success?",
+    "How does comparing your 'behind the scenes' to someone else's 'highlight reel' affect you?",
+    "What is one way you can practice radical self-acceptance today?",
+    "Write down three things you are deeply proud of that no one else knows about.",
+    "If your life was a garden, what is currently blooming, and what is just a seed?"
   ]
 };

@@ -7,4 +7,5 @@ export const allPractices = [
   { id: 'gaman', name: 'Gaman', jp: '我慢', icon: 'lucide:mountain', desc: 'Endurance challenges' },
   { id: 'hansei', name: 'Hansei', jp: '反省', icon: 'lucide:scan-eye', desc: 'Self-reflection' },
   { id: 'mononoaware', name: 'Mono no aware', jp: '物の哀れ', icon: 'lucide:flower-2', desc: 'Impermanence' },
+  { id: 'oubaitori', name: 'Oubaitori', jp: '桜梅桃李', icon: 'lucide:flower', desc: 'Overcome comparison and embrace your unique timeline.' },
 ];

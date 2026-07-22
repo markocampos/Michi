@@ -25,7 +25,7 @@
           <Icon icon="lucide:alert-triangle" class="w-12 h-12 text-torii mx-auto mb-4" />
           <h2 class="text-lg font-semibold text-charcoal mb-2">Something went wrong</h2>
           <p class="text-sm text-muted mb-4">{{ error.message }}</p>
-          <button @click="error = null" class="px-4 py-2 bg-forest text-white rounded-xl text-sm font-medium hover:bg-forest-dark transition-colors">
+          <button @click="error = null" aria-label="Dismiss error and try again" class="px-4 py-2 bg-forest text-white rounded-xl text-sm font-medium hover:bg-forest-dark transition-colors">
             Try again
           </button>
         </div>

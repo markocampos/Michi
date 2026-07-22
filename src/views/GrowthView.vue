@@ -73,6 +73,11 @@
       </div>
     </div>
 
+    <!-- Advanced Insights (Correlation Chart) -->
+    <div class="mb-8">
+      <TrendLineChart :data="{ ma: maData, shinrin: shinrinData, wabisabi: wabisabiData, ikigai: ikigaiData, hansei: hanseiData, mononoaware: mononoawareData, kaizen: kaizenData, gaman: gamanData, oubaitori: oubaitoriData }" />
+    </div>
+
     <!-- Activity Heatmap (Calendar Style) -->
     <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100/50 mb-8">
       <div class="flex items-center justify-between mb-6">
@@ -121,7 +126,7 @@
           </div>
         </div>
         
-        <button @click="showMonthModal = true" class="w-full py-2.5 bg-gray-50 text-charcoal rounded-xl text-sm font-semibold border border-gray-200 hover:bg-gray-100 transition-colors">
+        <button @click="showMonthModal = true" aria-label="View full month calendar" class="w-full py-2.5 bg-gray-50 text-charcoal rounded-xl text-sm font-semibold border border-gray-200 hover:bg-gray-100 transition-colors">
           View full month
         </button>
       </div>
@@ -361,6 +366,24 @@
         <p class="text-[10px] text-muted mt-1">Gratitude and impermanence reflections</p>
       </div>
 
+      <!-- Oubaitori -->
+      <div v-if="oubaitoriData.entries?.length > 0" class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center">
+            <Icon icon="lucide:flower" class="w-5 h-5 text-forest" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-medium text-charcoal">Oubaitori 桜梅桃李</h4>
+            <p class="text-[10px] text-muted">Embrace your unique timeline</p>
+          </div>
+          <span class="text-lg font-bold text-forest">{{ oubaitoriData.entries.length }} entries</span>
+        </div>
+        <div class="w-full bg-gray-100 rounded-full h-2">
+          <div class="bg-forest h-2 rounded-full transition-all" :style="{ width: Math.min((oubaitoriData.entries.length / 5) * 100, 100) + '%' }" />
+        </div>
+        <p class="text-[10px] text-muted mt-1">Reflections on blooming in your own way</p>
+      </div>
+
       <!-- Kaizen -->
       <div v-if="kaizenData.habits?.length > 0" class="glass rounded-2xl p-5 shadow-sm border border-gray-100/50">
         <div class="flex items-center gap-3 mb-3">
@@ -439,7 +462,7 @@
       
       <!-- Modal Content -->
       <div class="bg-white rounded-3xl w-full max-w-md p-6 relative shadow-2xl animate-fade-in-up">
-        <button @click="showMonthModal = false" class="absolute top-4 right-4 p-2 text-muted hover:text-charcoal bg-gray-50 rounded-full transition-colors">
+        <button @click="showMonthModal = false" aria-label="Close month view calendar" class="absolute top-4 right-4 p-2 text-muted hover:text-charcoal bg-gray-50 rounded-full transition-colors">
           <Icon icon="lucide:x" class="w-5 h-5" />
         </button>
         
@@ -494,6 +517,7 @@
 import { computed, ref, watch, onUnmounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import XpInfoModal from '../components/XpInfoModal.vue';
+import TrendLineChart from '../components/TrendLineChart.vue';
 import { readJson } from '../composables/useStorage.js';
 import levelsData from '../utils/levels.json';
 import { calculateStreak, getHabitStreak } from '../utils/streaks.js';
@@ -509,6 +533,7 @@ const ikigaiData = readJson(STORAGE_KEYS.ikigai, { reflections: [] });
 const hanseiData = readJson(STORAGE_KEYS.hansei, { reflections: [] });
 const kaizenData = readJson(STORAGE_KEYS.kaizen, { habits: [] });
 const gamanData = readJson(STORAGE_KEYS.gaman, { challenges: [] });
+const oubaitoriData = readJson(STORAGE_KEYS.oubaitori, { entries: [] });
 
 // --- Stats ---
 const totalMeditationMin = computed(() => {
@@ -521,7 +546,8 @@ const totalEntries = computed(() =>
   (wabisabiData.entries || []).length +
   (mononoawareData.entries || []).length +
   (ikigaiData.reflections || []).length +
-  (hanseiData.reflections || []).length
+  (hanseiData.reflections || []).length +
+  (oubaitoriData.entries || []).length
 );
 const currentStreak = computed(() => calculateStreak(kaizenData, gamanData));
 
@@ -602,6 +628,7 @@ function getDays(numDays) {
       if ((shinrinData.walks || []).some(w => w.date === dateStr)) count++;
       if ((wabisabiData.entries || []).some(e => e.date === dateStr)) count++;
       if ((mononoawareData.entries || []).some(e => e.date === dateStr)) count++;
+      if ((oubaitoriData.entries || []).some(e => e.date === dateStr)) count++;
       if ((ikigaiData.reflections || []).some(r => r.date === dateStr)) count++;
       if ((hanseiData.reflections || []).some(r => r.date === dateStr)) count++;
       if ((kaizenData.habits || []).some(h => h.completedDates?.includes(dateStr))) count++;
@@ -645,6 +672,7 @@ const weeklyTrend = computed(() => {
     if ((shinrinData.walks || []).some(w => w.date === dateStr)) count++;
     if ((wabisabiData.entries || []).some(e => e.date === dateStr)) count++;
     if ((mononoawareData.entries || []).some(e => e.date === dateStr)) count++;
+    if ((oubaitoriData.entries || []).some(e => e.date === dateStr)) count++;
     if ((ikigaiData.reflections || []).some(r => r.date === dateStr)) count++;
     if ((hanseiData.reflections || []).some(r => r.date === dateStr)) count++;
     if ((kaizenData.habits || []).some(h => h.completedDates?.includes(dateStr))) count++;

@@ -10,6 +10,7 @@ export const STORAGE_KEYS = {
   gaman: 'michi_gaman',
   hansei: 'michi_hansei',
   mononoaware: 'michi_mononoaware',
+  oubaitori: 'michi_oubaitori',
 };
 
 /**

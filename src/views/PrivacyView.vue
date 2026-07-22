@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-warm-white text-charcoal pb-8">
     <div class="px-5 pt-12 pb-6 md:px-8 md:pt-14 lg:px-12 lg:pt-16 sticky top-0 bg-warm-white/90 backdrop-blur-md z-10 border-b border-gray-100/50 flex items-center gap-4">
-      <button @click="$router.back()" class="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors">
+      <button @click="$router.back()" aria-label="Go back" class="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors">
         <Icon icon="lucide:arrow-left" class="w-6 h-6 text-charcoal" />
       </button>
       <h1 class="text-xl font-bold text-charcoal">Privacy Policy</h1>
